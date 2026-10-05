@@ -6,7 +6,7 @@ import numpy as np
 import pybullet as p
 from PIL import Image
 
-from lets_paint import PaintEnvironment
+from environment import PaintEnvironment
 
 SPEED = 2 # Change this if you want the painting to be done faster
 

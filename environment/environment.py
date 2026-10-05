@@ -9,8 +9,8 @@ import numpy as np
 import pybullet as p
 import pybullet_data
 
-from ..robot.camera import CameraConfig, PerceptionCamera
-from ..robot.roller import PaintRoller, RollerConfig
+from robot.camera import CameraConfig, PerceptionCamera
+from robot.roller import PaintRoller, RollerConfig
 from .wall import build_room
 
 
