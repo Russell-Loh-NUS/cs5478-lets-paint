@@ -9,9 +9,7 @@ import numpy as np
 import pybullet as p
 import pybullet_data
 
-from robot.camera import CameraConfig, PerceptionCamera
-from robot.roller import PaintRoller, RollerConfig
-from .wall import build_room
+from .paint_wall import build_room
 
 
 @dataclass
@@ -31,10 +29,11 @@ class PaintEnvironment:
         4: (3.5, 90, -8, (0.0, 1.5, 1.3)), # Face the west wall
         5: (5.5, 165, -40, (2.0, 1.5, 0.5)), # Overview from above the north wall
     }
+    # Maps a wall name to its matching numbered view above, for auto-following the active wall.
+    WALL_VIEW_NUMBER = {"south": 1, "east": 2, "north": 3, "west": 4}
     ORBIT_RATE, PAN_RATE, ZOOM_RATE = 90.0, 1.5, 1.5  # Deg/s, Meter/s, Factor/s
 
-    def __init__(self, gui=False, paint=PaintConfig(), roller=RollerConfig(),
-                 camera=CameraConfig(), dt=1 / 240):
+    def __init__(self, gui=False, paint=PaintConfig(), dt=1 / 240):
         self.paint, self.dt, self.gui = paint, dt, gui
         self.client = p.connect(p.GUI if gui else p.DIRECT)
         if gui:
@@ -46,33 +45,46 @@ class PaintEnvironment:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.81)
         p.setTimeStep(dt)
-        self._work = tempfile.TemporaryDirectory(prefix="lets_paint_")
+        self._work = tempfile.TemporaryDirectory(prefix="paint_env_")
         # ENVIRONMENT INITIALIZATION
         # Floor
         floor = p.createCollisionShape(p.GEOM_BOX, halfExtents=[3, 2.5, 0.05])
         floor_v = p.createVisualShape(p.GEOM_BOX, halfExtents=[3, 2.5, 0.05],
                                       rgbaColor=[0.55, 0.42, 0.3, 1])
-        p.createMultiBody(0, floor, floor_v, basePosition=[2.0, 1.5, -0.05])
+        self.floor_id = p.createMultiBody(0, floor, floor_v, basePosition=[2.0, 1.5, -0.05])
         # Paintable Walls
         self.walls = build_room(self._work.name, px_per_m=paint.px_per_m,
                                 paint_rgb=paint.paint_rgb)
-        self.roller = PaintRoller(roller)
-        self.camera = PerceptionCamera(self.roller, camera, before_capture=self.flush_textures)
+        self.walls_by_name = {w.name: w for w in self.walls}
         self._steps = 0
 
     def step(self):
         p.stepSimulation()
-        self._paint()
         self._steps += 1
         if self.gui and self._steps % self.paint.gui_texture_every == 0:
             self.flush_textures()
         if self.gui:
             self._camera_keys()
-            time.sleep(self.dt)
+            # Sleeping every single step paces the whole run to literal real-time (240 steps/s),
+            # which made full routes take tens of minutes once the planning grid got finer (more
+            # total moves). Sleeping only a fraction of steps still looks smooth -- PyBullet
+            # renders every step regardless -- but lets bulk execution run several times faster.
+            if self._steps % 4 == 0:
+                time.sleep(self.dt)
 
     def _apply_cam(self):
         dist, yaw, pitch, target = self._cam_view
         p.resetDebugVisualizerCamera(dist, yaw, pitch, list(target))
+
+    def focus_camera_on_wall(self, name):
+        """Switch to the numbered camera view matching the given wall name (see CAMERA_VIEWS)."""
+        if not self.gui:
+            return
+        view_number = self.WALL_VIEW_NUMBER.get(name)
+        if view_number is None:
+            return
+        self._cam_view = self.CAMERA_VIEWS[view_number]
+        self._apply_cam()
 
     def _camera_keys(self): # FOR CAMERA MOVEMENT WITHIN SCENE
         keys = p.getKeyboardEvents()
@@ -110,15 +122,19 @@ class PaintEnvironment:
         for w in self.walls:
             w.push_texture()
 
-    def _paint(self):
-        a, b = self.roller.axis_segment() # Get the two ends of the roller
+    def paint_contact(self, roller_body_id, axis_a, axis_b, roller_link_index=-1):
+        """Call with a roller body's two axis endpoints (world coords) every physics step it
+        moves; paints a stroke onto whichever wall(s) the roller LINK specifically is touching
+        (not any other part of a multi-link body), based on real contact detection."""
+        painted_any = False
         for w in self.walls:
-            contacts = p.getContactPoints(self.roller.id, w.body_id)
+            contacts = p.getContactPoints(roller_body_id, w.body_id, linkIndexA=roller_link_index)
             if not contacts:
                 w.canvas.lift()
                 continue
-            # Roller still in contact, continue stroke
-            w.canvas.stroke(w.world_to_uv(a), w.world_to_uv(b), self.paint.patch_width)
+            w.canvas.stroke(w.world_to_uv(axis_a), w.world_to_uv(axis_b), self.paint.patch_width)
+            painted_any = True
+        return painted_any
 
     def painted_area(self):
         """Ground-truth painted area in m^2: ({wall name: area}, total)."""

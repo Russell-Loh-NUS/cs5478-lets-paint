@@ -17,3 +17,4 @@ def coverage_error(wall_map):
     unpainted = total - wall_map.painted_count()
     violations = wall_map.painted_obstacle_count()
     return 100.0 * (unpainted + violations) / total
+
