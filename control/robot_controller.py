@@ -8,7 +8,7 @@ class RobotController:
     MAX_DIP_ATTEMPTS = 5
 
     def __init__(self, robot, motion_planner, wall_detector, wall_map, path_tracker,
-                joint_tolerance=0.01, max_steps_per_waypoint=200):
+                 joint_tolerance=0.01, max_steps_per_waypoint=200):
         self.robot = robot
         self.motion_planner = motion_planner
         self.wall_detector = wall_detector
@@ -18,14 +18,30 @@ class RobotController:
         self.max_steps_per_waypoint = max_steps_per_waypoint
 
     def _execute_trajectory(self, trajectory):
-        for waypoint in trajectory:
+        last = len(trajectory) - 1
+        for i, waypoint in enumerate(trajectory):
             self.robot.set_joint_targets(waypoint)
+            # Intermediate waypoints are just interpolation guides -- only the final one needs
+            # the tight tolerance; holding every single one to it wastes steps settling exactly
+            # onto points the robot is about to leave again anyway.
+            tolerance = self.joint_tolerance if i == last else self.joint_tolerance * 5
             # Step until the controllers actually reach this waypoint (or give up after a cap).
+            best_error, stale_steps = float("inf"), 0
             for _ in range(self.max_steps_per_waypoint):
                 p.stepSimulation()
                 current = self.robot.get_joint_states()
-                if all(abs(c - w) <= self.joint_tolerance for c, w in zip(current, waypoint)):
+                error = max(abs(c - w) for c, w in zip(current, waypoint))
+                if error <= tolerance:
                     break
+                # Some poses leave a genuine steady-state residual (e.g. dynamic coupling the
+                # yaw joint can't fully null out) that no amount of extra waiting resolves --
+                # once the error stops improving, stop burning the rest of the step budget.
+                if error < best_error - 1e-4:
+                    best_error, stale_steps = error, 0
+                else:
+                    stale_steps += 1
+                    if stale_steps >= 20:
+                        break
 
     def move_to(self, target_position, orientation_mode="vertical"):
         start_position = self.robot.get_roller_position()
@@ -36,8 +52,9 @@ class RobotController:
 
     def dip_in_paint(self, paint_can):
         self.move_to(paint_can.get_dip_position(), orientation_mode="vertical")
-        roller_position = self.robot.get_roller_position()
-        if paint_can.try_dip(roller_position):
+        # Both axis endpoints, not a single point -- the whole roller must be inside the can.
+        roller_a, roller_b = self.robot.get_roller_axis_segment()
+        if paint_can.try_dip(roller_a, roller_b):
             self.robot.set_roller_color([0.0, 0.0, 1.0, 1.0])
             self.path_tracker.reset_dip_counter()
             print("[RobotController] Roller dipped in paint.")

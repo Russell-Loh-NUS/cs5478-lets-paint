@@ -13,3 +13,4 @@ class CoverageMap:
 
     def is_complete(self):
         return self.wall_map.all_painted()
+
