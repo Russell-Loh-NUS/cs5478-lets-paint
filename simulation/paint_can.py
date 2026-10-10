@@ -1,10 +1,9 @@
-"""The paint can sitting near the middle of the room: a hollow cylinder (ring wall + bottom,
-open top), not a solid block -- the roller has to actually go down inside it to dip."""
+"""A fixed, collidable paint can with a hollow interior and an open top."""
 import math
 
 import pybullet as p
 
-WALL_SEGMENTS = 16  # box "staves" approximating the ring wall (no native hollow-cylinder shape)
+WALL_SEGMENTS = 16
 
 
 class PaintCan:
@@ -12,56 +11,69 @@ class PaintCan:
                  wall_thickness=0.015):
         self.position = list(position)
         self.inner_radius = inner_radius
+        self.outer_radius = inner_radius + wall_thickness
         self.depth = depth
+        self.wall_thickness = wall_thickness
         self.dipped = False
+        if inner_radius <= 0 or not 0 < wall_thickness < depth:
+            raise ValueError("Invalid can dimensions")
 
-        outer_radius = inner_radius + wall_thickness
+        # Radially oriented boxes form a solid ring, NOT a solid cylinder.
+        # Each inner face is exactly inner_radius from the can centre.
+        mid_radius = inner_radius + wall_thickness / 2
         angles = [2 * math.pi * i / WALL_SEGMENTS for i in range(WALL_SEGMENTS)]
-        chord = 2 * outer_radius * math.sin(math.pi / WALL_SEGMENTS) * 1.05
+        tangent_half_width = self.outer_radius * math.tan(math.pi / WALL_SEGMENTS)
+        half_extents = [[wall_thickness / 2, tangent_half_width, depth / 2]
+                        for _ in angles]
+        positions = [[mid_radius * math.cos(a), mid_radius * math.sin(a), depth / 2]
+                     for a in angles]
+        orientations = [p.getQuaternionFromEuler([0, 0, a]) for a in angles]
         color = [0.05, 0.05, 0.6, 1.0]
+        collision = p.createCollisionShapeArray(
+            [p.GEOM_BOX] * WALL_SEGMENTS, halfExtents=half_extents,
+            collisionFramePositions=positions, collisionFrameOrientations=orientations)
+        visual = p.createVisualShapeArray(
+            [p.GEOM_BOX] * WALL_SEGMENTS, halfExtents=half_extents,
+            visualFramePositions=positions, visualFrameOrientations=orientations,
+            rgbaColors=[color] * WALL_SEGMENTS)
+        self.body_id = p.createMultiBody(
+            baseMass=0, baseCollisionShapeIndex=collision,
+            baseVisualShapeIndex=visual, basePosition=self.position)
 
-        # Ring wall (N thin radial staves, boxes only -- mixing box + cylinder shapes in one
-        # compound array crashes this pybullet build) left open at the top: genuinely hollow,
-        # not just a differently colored solid cylinder, so the roller can be lowered inside.
-        half_extents = [[wall_thickness / 2, chord / 2, depth / 2] for _ in range(WALL_SEGMENTS)]
-        wall_positions = [[outer_radius * math.cos(a), outer_radius * math.sin(a), depth / 2]
-                          for a in angles]
-        wall_orientations = [p.getQuaternionFromEuler([0, 0, a]) for a in angles]
-
-        # Visual-only prop: dipping is detected geometrically (like wall contact), so the
-        # can must not physically block the arm from reaching down into it.
-        wall_vis = p.createVisualShapeArray([p.GEOM_BOX] * WALL_SEGMENTS, halfExtents=half_extents,
-                                             rgbaColors=[color] * WALL_SEGMENTS,
-                                             visualFramePositions=wall_positions,
-                                             visualFrameOrientations=wall_orientations)
-        self.body_id = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=-1,
-                                          baseVisualShapeIndex=wall_vis,
-                                          basePosition=[position[0], position[1], position[2]])
-
-        # Solid floor as its own body (a lone cylinder shape is fine; it's only mixing shape
-        # types in one compound array that crashes).
-        bottom_vis = p.createVisualShape(p.GEOM_CYLINDER, radius=inner_radius, length=wall_thickness,
-                                          rgbaColor=color)
-        self.bottom_id = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=-1,
-                                            baseVisualShapeIndex=bottom_vis,
-                                            basePosition=[position[0], position[1],
-                                                          position[2] + wall_thickness / 2.0])
+        bottom_collision = p.createCollisionShape(
+            p.GEOM_CYLINDER, radius=self.outer_radius, height=wall_thickness)
+        bottom_visual = p.createVisualShape(
+            p.GEOM_CYLINDER, radius=self.outer_radius, length=wall_thickness, rgbaColor=color)
+        self.bottom_id = p.createMultiBody(
+            baseMass=0, baseCollisionShapeIndex=bottom_collision,
+            baseVisualShapeIndex=bottom_visual,
+            basePosition=[position[0], position[1], position[2] + wall_thickness / 2])
+        self.collision_body_ids = (self.body_id, self.bottom_id)
 
     def get_dip_position(self):
-        """Center of the hollow interior (not near the rim) -- maximizes margin on both sides
-        for the roller's full length to land inside once lowered."""
-        return [self.position[0], self.position[1], self.position[2] + self.depth / 2.0]
+        """Centre of the usable space ABOVE the solid bottom."""
+        return [self.position[0], self.position[1],
+                self.position[2] + (self.wall_thickness + self.depth) / 2]
 
-    def try_dip(self, roller_a, roller_b):
-        """Successful only if the ENTIRE roller -- both axis endpoints, not just one point --
-        is inside the hollow interior: within the inner radius and below the rim/above the
-        bottom. The two endpoints bound a straight segment through a convex region, so checking
-        both suffices to guarantee the whole roller is inside."""
-        bottom_z = self.position[2]
-        rim_z = bottom_z + self.depth
+    def get_approach_position(self, roller_length=0.18, roller_radius=0.06, clearance=0.05):
+        """Whole roller clears the rim, including small orientation deviations."""
+        extent = math.hypot(roller_length / 2, roller_radius)
+        return [self.position[0], self.position[1], self.position[2] + self.depth + extent + clearance]
+
+    def try_dip(self, roller_a, roller_b, roller_radius=0.06):
+        """Check the full barrel, not just its centreline, against the usable interior."""
+        length = math.dist(roller_a, roller_b)
+        if length <= 1e-12 or roller_radius <= 0:
+            return False
+        axis_z = min(1.0, abs(roller_a[2] - roller_b[2]) / length)
+        radial_z = roller_radius * math.sqrt(max(0.0, 1 - axis_z * axis_z))
+        bottom = self.position[2] + self.wall_thickness
+        rim = self.position[2] + self.depth
+        margin = 0.002
         for x, y, z in (roller_a, roller_b):
             radial = math.hypot(x - self.position[0], y - self.position[1])
-            if radial > self.inner_radius or not (bottom_z <= z <= rim_z):
+            if (radial + roller_radius > self.inner_radius - margin or
+                    z - radial_z < bottom + margin or z + radial_z > rim - margin):
                 return False
         self.dipped = True
         return True

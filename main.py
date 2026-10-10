@@ -33,10 +33,9 @@ WALL_ORDER = ["south", "east", "north", "west"]
 # small enough to actually finish, instead of the much finer grid the other strategies use.
 ASTAR_CELL_WIDTH = 1.0
 ASTAR_CELL_HEIGHT = 0.5
-# Keep the base's center at least this far from every wall so its 0.42x0.42 footprint actually
-# clears the wall surface instead of being commanded to overlap it -- without this, position
-# control stalls forever against real collision, burning the full per-waypoint step budget.
-BASE_CLEARANCE = 0.27
+# Chassis is 0.55 x 0.64 m; its half-diagonal is about 0.422 m. This also
+# leaves a small margin when the base yaw rotates the chassis diagonally toward a wall.
+BASE_CLEARANCE = 0.60
 
 
 def _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
@@ -86,7 +85,11 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
     coverage_map = CoverageMap(wall_map)
     # wall_map doubles as the "wall" argument too: it exposes rows/cols/touch_point, exactly
     # what CoveragePlanner needs, on top of the continuous canvas underneath.
-    coverage_planner = CoveragePlanner(coverage_map, wall_map)
+    # The roller radius is 0.06 m. Approach with only 1 mm of nominal penetration so the
+    # barrel can register wall contact without driving 10 mm into the wall.
+    coverage_planner = CoveragePlanner(
+        coverage_map, wall_map, approach_offset=Robot.ROLLER_RADIUS - 0.001
+    )
     controller = CoordRobotController(robot, motion_planner, wall_map, path_tracker, env)
 
     print(f"\n=== Painting wall '{name}' ===")
@@ -128,18 +131,31 @@ def _room_bounds(env):
     return (min(xs), max(xs)), (min(ys), max(ys))
 
 
-def main():
+def main(gui=True):
     run_started_at = time.perf_counter()
     # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
     # default (4mm) assumes a much smaller, more realistic roller and would never fill a
     # whole grid cell.
-    env = PaintEnvironment(gui=True, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS))
+    env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS))
+    try:
+        _run(env, run_started_at)
+    except KeyboardInterrupt:
+        print("Simulation stopped by user.")
+    finally:
+        try:
+            env.close()
+        except p.error as exc:
+            print(f"[cleanup] PyBullet disconnect failed: {exc}")
+
+
+def _run(env, run_started_at):
 
     x_range, y_range = _room_bounds(env)
     wall_height = max(w.height for w in env.walls)
     start_xy = ((x_range[0] + x_range[1]) / 2.0, (y_range[0] + y_range[1]) / 2.0)
 
-    paint_can = PaintCan(position=(start_xy[0], start_xy[1], 0.0))
+    # Keep the refill can beside the compact chassis so the arm approaches it from the side.
+    paint_can = PaintCan(position=(start_xy[0] - 0.8, start_xy[1], 0.0))
     # The base travels in an inset range (clear of the walls); the arm spans the remaining gap
     # out to the real wall surface, which touch_point() targets directly.
     base_x_range = (x_range[0] + BASE_CLEARANCE, x_range[1] - BASE_CLEARANCE)
@@ -170,8 +186,9 @@ def main():
             if not p.isConnected():
                 break
     except p.error as exc:
-        # Most commonly the GUI window was closed mid-run, dropping the physics connection.
-        print(f"Simulation connection lost ({exc}); stopping early with partial progress.")
+        # A failed state query does not by itself prove that the client disconnected.
+        print(f"PyBullet call failed: {exc}; connected={p.isConnected()}")
+        raise  # preserve the exact failing operation and full traceback
 
     total_cells = sum(wm.total_cells() for wm in wall_maps.values())
     total_painted = sum(wm.painted_count() for wm in wall_maps.values())
@@ -195,15 +212,18 @@ def main():
         try:
             CoordRobotController(robot, motion_planner, None, path_tracker, env).return_to_center()
         except p.error as exc:
-            print(f"Simulation connection lost while returning home ({exc}).")
-            return
+            print(f"PyBullet return-home call failed: {exc}; connected={p.isConnected()}")
+            raise
 
-    try:
-        while True:
-            env.step()
-    except KeyboardInterrupt:
-        env.close()
+    if not env.gui:
+        return  # headless full-run diagnostics must finish instead of waiting for a window
+    while True:
+        env.step()
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description="Run the wall-painting simulation")
+    parser.add_argument("--headless", action="store_true", help="Run full coverage without the GUI")
+    args = parser.parse_args()
+    main(gui=not args.headless)
