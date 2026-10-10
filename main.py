@@ -24,10 +24,7 @@ from evaluation.path_length import PathLengthTracker
 
 MAX_PAINT_ATTEMPTS = 3
 MAX_REPLANS = 3
-# Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep" (see
-# planning/coverage_planner.py) to compare coverage strategies. "sweep" paints directly along
-# the roller's true footprint rather than the coarser 0.3m planning grid the others use, so it's
-# the only one that doesn't structurally leave gaps between touches (single-pass: ~79% vs ~47%).
+# Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep", "grid_smooth", "prm", "optimized_prm", "bcd_astar"
 COVERAGE_STRATEGY = "bcd_astar"
 WALL_ORDER = ["south", "east", "north", "west"]
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
@@ -59,8 +56,10 @@ class Tee:
 def configure_file_logging():
     log_dir = Path(__file__).resolve().parent / "logs"
     log_dir.mkdir(exist_ok=True)
-    log_path = log_dir / "program.log"
-    log_file = log_path.open("a", encoding="utf-8")
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    log_path = log_dir / f"program-{timestamp}.log"
+    log_file = log_path.open("w", encoding="utf-8")
+    print(f"[main] Logging to {log_path}")
     return log_file
 
 
@@ -125,7 +124,7 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
 
     total_cells = wall_map.total_cells()
     attempt = 0
-    while not coverage_map.is_complete() and attempt < MAX_REPLANS:
+    while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
         attempt += 1
         print(f"[{name}] Planning the full paint route (attempt {attempt}/{MAX_REPLANS}, "
               f"{COVERAGE_STRATEGY}, dip-aware)...")
@@ -138,14 +137,21 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         if not _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
             break
 
-        if not coverage_map.is_complete():
+        if not coverage_map.is_complete(threshold=0.8):
             print(f"[{name}] Coverage at {coverage_percentage(wall_map):.1f}% after attempt {attempt}; "
-                  "replanning the remaining unpainted cells...")
+                  "replanning the remaining under-painted cells (<80%)...")
 
-    if not coverage_map.is_complete() and p.isConnected() and attempt >= MAX_REPLANS:
+    if not coverage_map.is_complete(threshold=0.8) and p.isConnected() and attempt >= MAX_REPLANS:
         print(f"[{name}] Still incomplete after {MAX_REPLANS} replanning attempts; giving up.")
 
-    print(f"[{name}] Coverage: {coverage_percentage(wall_map):.1f}%  Error: {coverage_error(wall_map):.1f}%")
+    coverage = coverage_percentage(wall_map)
+    print(f"[{name}] Coverage: {coverage:.1f}%  Error: {coverage_error(wall_map):.1f}%")
+    if coverage < 100.0:
+        uncovered, total = wall_map.uncovered_cells(limit=50)
+        print(f"[{name}] Uncovered cells ({total} total): {uncovered[:10]}" + (" ..." if total > 10 else ""))
+        if uncovered:
+            for row, col, frac in uncovered[:20]:
+                print(f"  - [{name}] cell ({row}, {col}) covered only {frac:.2%}")
 
 
 def _room_bounds(env):
@@ -234,6 +240,13 @@ def _run(env, run_started_at):
     print("\n=== Room painting summary ===")
     print("All walls complete!" if all_complete else "Room painting stopped before full coverage.")
     print(f"Overall coverage: {overall_coverage:.1f}% ({total_painted}/{total_cells} cells)")
+    for name, wm in wall_maps.items():
+        coverage = coverage_percentage(wm)
+        if coverage < 100.0:
+            print(f"[{name}] incomplete wall: coverage={coverage:.1f}%")
+            uncovered, total = wm.uncovered_cells(limit=20, threshold=0.8)
+            if uncovered:
+                print(f"[{name}] cells below 80% coverage: {[(r, c, f'{frac:.2%}') for r, c, frac in uncovered]}")
     per_wall_area, total_area = env.painted_area()
     print(f"Ground-truth painted area (from canvas): {total_area:.3f} m^2 {per_wall_area}")
     print(f"Total path length travelled: {path_tracker.get_total_length():.2f} m")

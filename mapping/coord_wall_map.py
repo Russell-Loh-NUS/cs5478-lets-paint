@@ -55,13 +55,19 @@ class CoordWallMap:
         return row_lo, row_hi, col_lo, col_hi
 
     def _compute_obstacles(self, obstacle_threshold):
+        """Only classify a cell as an obstacle if it is entirely non-paintable.
+
+        A strip that merely borders a window/door should remain valid wall, not an obstacle.
+        Partial overlap with an opening is still paintable wall; only cells that are fully
+        inside the opening should be excluded from coverage.
+        """
         obstacles = set()
         canvas = self.wall.canvas
         for row in range(self.rows):
             for col in range(self.cols):
                 r0, r1, c0, c1 = self._cell_pixel_slice(row, col)
                 region = canvas.paintable[r0:r1, c0:c1]
-                if region.size == 0 or region.mean() < obstacle_threshold:
+                if region.size == 0 or not region.any():
                     obstacles.add((row, col))
         return obstacles
 
@@ -92,6 +98,21 @@ class CoordWallMap:
         return sum(1 for r in range(self.rows) for c in range(self.cols)
                    if not self.is_obstacle(r, c) and self.is_painted(r, c))
 
+    def requires_repaint(self, row, col, threshold=0.8):
+        if self.is_obstacle(row, col):
+            return False
+        return self.cell_painted_fraction(row, col) < threshold
+
+    def repaint_cells(self, threshold=0.8, limit=None):
+        cells = []
+        for r in range(self.rows):
+            for c in range(self.cols):
+                if self.requires_repaint(r, c, threshold):
+                    cells.append((r, c, self.cell_painted_fraction(r, c)))
+        if limit is not None:
+            cells = cells[:limit]
+        return cells
+
     def painted_obstacle_count(self):
         # Obstacles are excluded from the canvas's own "painted" mask, so they can never
         # register as painted -- there is nothing to count as a violation.
@@ -102,6 +123,17 @@ class CoordWallMap:
 
     def all_painted(self):
         return self.painted_count() == self.total_cells()
+
+    def uncovered_cells(self, limit=20, threshold=0.8):
+        cells = []
+        for r in range(self.rows):
+            for c in range(self.cols):
+                if self.is_obstacle(r, c):
+                    continue
+                frac = self.cell_painted_fraction(r, c)
+                if frac < threshold:
+                    cells.append((r, c, frac))
+        return cells[:limit], len(cells)
 
     def world_to_grid(self, position):
         u, v = self.wall.world_to_uv(position)

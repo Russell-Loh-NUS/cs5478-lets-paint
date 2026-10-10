@@ -94,7 +94,7 @@ class CoveragePlanner:
         if strategy == "bcd_astar":
             return self._build_route_bcd_astar(start_position, paint_can, redip_distance)
 
-        remaining = self.coverage_map.unpainted_cells()
+        remaining = self.coverage_map.unpainted_cells(threshold=0.8)
         cell_positions = {(row, col): self.wall.touch_point(row, col, offset=self.approach_offset)
                            for row, col in remaining}
 

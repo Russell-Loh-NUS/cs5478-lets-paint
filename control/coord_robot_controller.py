@@ -56,7 +56,13 @@ class CoordRobotController(RobotController):
         before = self.robot.get_roller_position()
         safe_joints = self.robot.get_joint_states()
         self.coord_env.step()
-        self.path_tracker.update(before, self.robot.get_roller_position())
+        after = self.robot.get_roller_position()
+        if self._painting:
+            # Only count motion while the roller is actively painting against the wall.
+            # Transit, retract, and approach moves should not burn the paint-distance budget.
+            self.path_tracker.update_paint_distance(before, after)
+        else:
+            self.path_tracker.update(before, after)
         try:
             collision = self.motion_planner.current_collision(self._allowed_contact_body, executing=True)
         except CollisionQueryError as exc:
@@ -304,9 +310,11 @@ class CoordRobotController(RobotController):
                       f"actual={[round(v, 3) for v in actual]} position_error={error:.3f}m "
                       f"verticality={verticality:.4f} wall_contact={bool(contacts)}")
             self._last_paint_position = actual if reached else None
-            success = reached and self.wall_map.is_painted(target.row, target.col)
+            cell_fraction = self.wall_map.cell_painted_fraction(target.row, target.col)
+            success = reached and cell_fraction >= 0.80
             if not success:
-                print(f"[CoordRobotController] Cell {cell} not reached/painted; move failed.")
+                print(f"[CoordRobotController] Cell {cell} not reached/painted enough; "
+                      f"fraction={cell_fraction:.2%}, target_threshold=80%.")
             return success
         finally:
             self._painting = False

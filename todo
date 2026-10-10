@@ -1,13 +1,4 @@
-1. paint can is also obstacle 
-2. more obstacles 
-3. size of grids/wall
-4. make faster/more intelligent 
-5. the paint roller looks v v weird cannot turn...
-
-6. camera sensors how to make the camera picture into the simulation  --- kiv 
-
-1. integrate code 
-2. more obstacle: 90 degree protrusion... 
-3. rounded wall 
-4. more colors 
-5. not grid, calculate area 
+1. window pane (top) not well planned 
+2. try different confi
+3. the wheel turn turn not v nice like that, abit redundant
+3. RL 
