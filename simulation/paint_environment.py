@@ -18,6 +18,7 @@ class PaintConfig:
     px_per_m: int = 250 # overlay canvas resolution
     gui_texture_every: int = 120 # steps between texture refreshes (2 Hz)
     paint_rgb: tuple = (40, 90, 200) # paint color
+    end_tolerance: float = 0.01 # m, each roller end may be this far beyond one radius from the wall
 
 
 class PaintEnvironment:
@@ -122,19 +123,30 @@ class PaintEnvironment:
         for w in self.walls:
             w.push_texture()
 
-    def paint_contact(self, roller_body_id, axis_a, axis_b, roller_link_index=-1):
+    def paint_contact(self, roller_body_id, axis_a, axis_b, roller_link_index=-1,
+                      roller_radius=0.06):
         """Call with a roller body's two axis endpoints (world coords) every physics step it
         moves; paints a stroke onto whichever wall(s) the roller LINK specifically is touching
-        (not any other part of a multi-link body), based on real contact detection."""
+        (not any other part of a multi-link body), based on real contact detection.
+
+        The roller only paints when BOTH of its ends are touching the wall (see
+        _both_ends_touching), so a tilted roller touching with one end does not paint."""
         painted_any = False
         for w in self.walls:
             contacts = p.getContactPoints(roller_body_id, w.body_id, linkIndexA=roller_link_index)
-            if not contacts:
+            if not contacts or not self._both_ends_touching(w, axis_a, axis_b, roller_radius):
                 w.canvas.lift()
                 continue
             w.canvas.stroke(w.world_to_uv(axis_a), w.world_to_uv(axis_b), self.paint.patch_width)
             painted_any = True
         return painted_any
+
+    def _both_ends_touching(self, wall, axis_a, axis_b, radius):
+        """True if each end of the roller's axis is within one radius (plus `end_tolerance`) of
+        the wall plane. Contact points can't be used to tell the ends apart: a roller lying flat
+        often reports only a single one, so this is checked geometrically."""
+        reach = radius + self.paint.end_tolerance
+        return wall.signed_distance(axis_a) <= reach and wall.signed_distance(axis_b) <= reach
 
     def painted_area(self):
         """Ground-truth painted area in m^2: ({wall name: area}, total)."""
