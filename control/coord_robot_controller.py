@@ -35,7 +35,8 @@ class CoordRobotController(RobotController):
                 # keep working live while the route executes.
                 self.coord_env.step()
                 axis_a, axis_b = self.robot.get_roller_axis_segment()
-                self.coord_env.paint_contact(self.robot.id, axis_a, axis_b, self.robot.roller_link_index)
+                self.coord_env.paint_contact(self.robot.id, axis_a, axis_b, self.robot.roller_link_index,
+                                             self.robot.ROLLER_RADIUS)
                 current = self.robot.get_joint_states()
                 error = max(abs(c - w) for c, w in zip(current, waypoint))
                 if error <= tolerance:
