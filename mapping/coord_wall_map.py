@@ -10,7 +10,7 @@ import random
 
 
 class CoordWallMap:
-    def __init__(self, wall, cell_width, cell_height, paint_threshold=0.6, obstacle_threshold=0.5,
+    def __init__(self, wall, cell_width, cell_height, paint_threshold=0.9, obstacle_threshold=0.5,
                  touch_spacing=None, line_spacing=None, roller_radius=0.06,
                  roller_length=0.18, floor_clearance=0.02, edge_clearance=0.01):
         self.wall = wall
@@ -68,15 +68,20 @@ class CoordWallMap:
     def is_obstacle(self, row, col):
         return (row, col) in self._obstacles
 
-    def is_painted(self, row, col):
+    def cell_painted_fraction(self, row, col):
         if self.is_obstacle(row, col):
-            return False
+            return 0.0
         r0, r1, c0, c1 = self._cell_pixel_slice(row, col)
         region = self.wall.canvas.painted[r0:r1, c0:c1]
         if region.size == 0:
-            return False
+            return 0.0
         paintable = self.wall.canvas.paintable[r0:r1, c0:c1]
-        return bool(paintable.any() and region[paintable].mean() >= self.paint_threshold)
+        if not paintable.any():
+            return 0.0
+        return float(region[paintable].mean())
+
+    def is_painted(self, row, col):
+        return self.cell_painted_fraction(row, col) >= self.paint_threshold
 
     def mark_painted(self, row, col):
         """No-op: painting happens physically via roller contact (CoordRobotController), not

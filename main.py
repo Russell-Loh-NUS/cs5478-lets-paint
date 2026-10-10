@@ -4,7 +4,9 @@ the old grid-based room. All 5 coverage strategies and the motion planner are re
 only the wall/mapping/execution layers are adapted (see mapping/coord_wall_map.py and
 control/coord_robot_controller.py).
 """
+import sys
 import time
+from pathlib import Path
 
 import pybullet as p
 
@@ -36,6 +38,30 @@ ASTAR_CELL_HEIGHT = 0.5
 # Chassis is 0.55 x 0.64 m; its half-diagonal is about 0.422 m. This also
 # leaves a small margin when the base yaw rotates the chassis diagonally toward a wall.
 BASE_CLEARANCE = 0.60
+
+
+class Tee:
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data):
+        for stream in self.streams:
+            if data:
+                stream.write(data)
+        for stream in self.streams:
+            stream.flush()
+
+    def flush(self):
+        for stream in self.streams:
+            stream.flush()
+
+
+def configure_file_logging():
+    log_dir = Path(__file__).resolve().parent / "logs"
+    log_dir.mkdir(exist_ok=True)
+    log_path = log_dir / "program.log"
+    log_file = log_path.open("a", encoding="utf-8")
+    return log_file
 
 
 def _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
@@ -132,20 +158,30 @@ def _room_bounds(env):
 
 
 def main(gui=True):
+    log_file = configure_file_logging()
+    original_stdout = sys.stdout
+    original_stderr = sys.stderr
+    sys.stdout = Tee(sys.stdout, log_file)
+    sys.stderr = Tee(sys.stderr, log_file)
     run_started_at = time.perf_counter()
-    # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
-    # default (4mm) assumes a much smaller, more realistic roller and would never fill a
-    # whole grid cell.
-    env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS))
     try:
-        _run(env, run_started_at)
-    except KeyboardInterrupt:
-        print("Simulation stopped by user.")
-    finally:
+        # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
+        # default (4mm) assumes a much smaller, more realistic roller and would never fill a
+        # whole grid cell.
+        env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS))
         try:
-            env.close()
-        except p.error as exc:
-            print(f"[cleanup] PyBullet disconnect failed: {exc}")
+            _run(env, run_started_at)
+        except KeyboardInterrupt:
+            print("Simulation stopped by user.")
+        finally:
+            try:
+                env.close()
+            except p.error as exc:
+                print(f"[cleanup] PyBullet disconnect failed: {exc}")
+    finally:
+        sys.stdout = original_stdout
+        sys.stderr = original_stderr
+        log_file.close()
 
 
 def _run(env, run_started_at):
