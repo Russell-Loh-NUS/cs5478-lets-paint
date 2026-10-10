@@ -11,14 +11,23 @@ import random
 
 class CoordWallMap:
     def __init__(self, wall, cell_width, cell_height, paint_threshold=0.6, obstacle_threshold=0.5,
-                 touch_spacing=None, line_spacing=None):
+                 touch_spacing=None, line_spacing=None, roller_radius=0.06,
+                 roller_length=0.18, floor_clearance=0.02, edge_clearance=0.01):
         self.wall = wall
         self.body_id = wall.body_id
         self.cell_width = cell_width
         self.cell_height = cell_height
         self.paint_threshold = paint_threshold
-        self.cols = max(1, int(round(wall.length / cell_width)))
-        self.rows = max(1, int(round(wall.height / cell_height)))
+        self.cols = max(1, int(math.ceil(wall.length / cell_width)))
+        self.rows = max(1, int(math.ceil(wall.height / cell_height)))
+        # Keep the physical roller above the floor and clear of perpendicular walls.
+        # These are tool dimensions, independent of an optional coarse planning grid.
+        self.min_u = roller_radius + edge_clearance
+        self.max_u = wall.length - self.min_u
+        self.min_v = roller_length / 2 + floor_clearance
+        self.max_v = wall.height - roller_length / 2 - edge_clearance
+        if self.min_u > self.max_u or self.min_v > self.max_v:
+            raise ValueError("Wall is too small for the roller and requested clearances")
         # Sample/line spacing for the continuous "sweep" strategy -- defaults to the grid cell
         # size, but callers can pass the roller's true (unfloored) footprint for tighter,
         # genuinely continuous coverage independent of the (possibly coarser) planning grid.
@@ -66,7 +75,8 @@ class CoordWallMap:
         region = self.wall.canvas.painted[r0:r1, c0:c1]
         if region.size == 0:
             return False
-        return region.mean() >= self.paint_threshold
+        paintable = self.wall.canvas.paintable[r0:r1, c0:c1]
+        return bool(paintable.any() and region[paintable].mean() >= self.paint_threshold)
 
     def mark_painted(self, row, col):
         """No-op: painting happens physically via roller contact (CoordRobotController), not
@@ -99,8 +109,13 @@ class CoordWallMap:
     def touch_point(self, row, col, offset=0.05):
         """World position just in front of the wall face, for the roller to approach."""
         u0, u1, v0, v1 = self._cell_uv_bounds(row, col)
-        world = self.wall.uv_to_world((u0 + u1) / 2.0, (v0 + v1) / 2.0)
+        u, v = self._safe_uv((u0 + u1) / 2.0, (v0 + v1) / 2.0)
+        world = self.wall.uv_to_world(u, v)
         return (world + self.wall.normal * offset).tolist()
+
+    def _safe_uv(self, u, v):
+        return (max(self.min_u, min(self.max_u, u)),
+                max(self.min_v, min(self.max_v, v)))
 
     def cell_center(self, row, col):
         u0, u1, v0, v1 = self._cell_uv_bounds(row, col)
@@ -129,7 +144,10 @@ class CoordWallMap:
             if line_index % 2 == 1:
                 u_values.reverse()
             for u in u_values:
-                on_wall = self.wall.uv_to_world(u, v)
+                safe_u, safe_v = self._safe_uv(u, v)
+                if self._in_opening(safe_u, safe_v):
+                    continue
+                on_wall = self.wall.uv_to_world(safe_u, safe_v)
                 row, col = self.world_to_grid(on_wall)
                 if self.is_painted(row, col):
                     continue
@@ -154,8 +172,8 @@ class CoordWallMap:
         attempts = 0
         while len(samples) < count and attempts < count * 20:
             attempts += 1
-            u = rng.uniform(0.0, self.wall.length)
-            v = rng.uniform(0.0, self.wall.height)
+            u = rng.uniform(self.min_u, self.max_u)
+            v = rng.uniform(self.min_v, self.max_v)
             if self._in_opening(u, v):
                 continue
             on_wall = self.wall.uv_to_world(u, v)
