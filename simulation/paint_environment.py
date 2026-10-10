@@ -181,5 +181,8 @@ class PaintEnvironment:
         return per_wall, sum(per_wall.values())
 
     def close(self):
-        p.disconnect(self.client)
-        self._work.cleanup()
+        try:
+            if p.isConnected(self.client):
+                p.disconnect(self.client)
+        finally:
+            self._work.cleanup()
