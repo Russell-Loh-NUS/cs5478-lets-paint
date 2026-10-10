@@ -10,6 +10,7 @@ import pybullet as p
 import pybullet_data
 
 from .paint_wall import build_room
+from .room_config import RoomConfig, RoomSampler
 
 
 @dataclass
@@ -18,46 +19,72 @@ class PaintConfig:
     px_per_m: int = 250 # overlay canvas resolution
     gui_texture_every: int = 120 # steps between texture refreshes (2 Hz)
     paint_rgb: tuple = (40, 90, 200) # paint color
+    render_paint: bool = True # if false keep only the paint mask (no overlay/textures)
     end_tolerance: float = 0.01 # m, each roller end may be this far beyond one radius from the wall
 
 
 class PaintEnvironment:
-    # Camera view
-    CAMERA_VIEWS = { # View number corresponds to number on keyboard - each value is (distance, yaw, pitch, target)
-        1: (2.8, 180, -8, (2.0, 0.0, 1.3)), # Face the south wall
-        2: (3.5, 270, -8, (4.0, 1.5, 1.3)), # Face the east wall - door
-        3: (2.8, 0, -8, (2.0, 3.0, 1.3)), # Face the north wall - window
-        4: (3.5, 90, -8, (0.0, 1.5, 1.3)), # Face the west wall
-        5: (5.5, 165, -40, (2.0, 1.5, 0.5)), # Overview from above the north wall
-    }
     # Maps a wall name to its matching numbered view above, for auto-following the active wall.
     WALL_VIEW_NUMBER = {"south": 1, "east": 2, "north": 3, "west": 4}
     ORBIT_RATE, PAN_RATE, ZOOM_RATE = 90.0, 1.5, 1.5  # Deg/s, Meter/s, Factor/s
 
-    def __init__(self, gui=False, paint=PaintConfig(), dt=1 / 240):
-        self.paint, self.dt, self.gui = paint, dt, gui
+    def __init__(self, gui=False, paint=PaintConfig(), dt=1 / 240, room=None, seed=None,
+                 sampler=RoomSampler()):
+        # If room is given, we use it. Otherwise a random one drawn using sampler based on the seed
+        # else, use default
+        self.paint, self.dt, self.gui, self.sampler = paint, dt, gui, sampler
         self.client = p.connect(p.GUI if gui else p.DIRECT)
         if gui:
             p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
-            self._cam_view = self.CAMERA_VIEWS[5]
-            self._apply_cam()
             self._cam_keys_active = False
             print("Use your arrow keys to look around, number keys 1-5 for different views")
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.81)
         p.setTimeStep(dt)
         self._work = tempfile.TemporaryDirectory(prefix="paint_env_")
-        # ENVIRONMENT INITIALIZATION
-        # Floor
-        floor = p.createCollisionShape(p.GEOM_BOX, halfExtents=[3, 2.5, 0.05])
-        floor_v = p.createVisualShape(p.GEOM_BOX, halfExtents=[3, 2.5, 0.05],
-                                      rgbaColor=[0.55, 0.42, 0.3, 1])
-        self.floor_id = p.createMultiBody(0, floor, floor_v, basePosition=[2.0, 1.5, -0.05])
-        # Paintable Walls
-        self.walls = build_room(self._work.name, px_per_m=paint.px_per_m,
-                                paint_rgb=paint.paint_rgb)
-        self.walls_by_name = {w.name: w for w in self.walls}
+        self.floor_id = None
+        self.walls = []
+        self._build_room(room, seed)
+
+    def _build_room(self, room, seed):
+        # Recreate the floor, walls and camera presets for a room layout
+        if room is None:
+            room = self.sampler.sample(seed) if seed is not None else RoomConfig.default()
+        self.room, self.seed = room, seed
+        w, d, h = room.width, room.depth, room.height
+        margin = 1.0  # floor extends this far past the walls
+        half = [w / 2 + margin, d / 2 + margin, 0.05]
+        self.floor_id = p.createMultiBody(
+            0, p.createCollisionShape(p.GEOM_BOX, halfExtents=half),
+            p.createVisualShape(p.GEOM_BOX, halfExtents=half, rgbaColor=[0.55, 0.42, 0.3, 1]),
+            basePosition=[w / 2, d / 2, -0.05])
+        self.walls = build_room(self._work.name, room, px_per_m=self.paint.px_per_m,
+                                paint_rgb=self.paint.paint_rgb,
+                                render_paint=self.paint.render_paint)
+        self.walls_by_name = {wall.name: wall for wall in self.walls}
         self._steps = 0
+        # Camera presets as (distance, yaw, pitch, target); the key is the number key that picks it.
+        self.camera_views = {
+            1: (d - 0.2, 180, -8, (w / 2, 0.0, h / 2)), # face the south wall
+            2: (w - 0.5, 270, -8, (w, d / 2, h / 2)), # face the east wall
+            3: (d - 0.2, 0, -8, (w / 2, d, h / 2)), # face the north wall
+            4: (w - 0.5, 90, -8, (0.0, d / 2, h / 2)), # face the west wall
+            5: (max(w, d) + 1.5, 165, -40, (w / 2, d / 2, 0.5)), # overview from above the north wall
+        }
+        if self.gui:
+            self._cam_view = self.camera_views[5]
+            self._apply_cam()
+
+    def reset(self, seed=None, room=None):
+        # Replace the room with a new layout (a given `room`, else one sampled with `seed`,
+        # else the default) and clear all paint. Bodies outside the room (robot, paint can) are
+        # left alone, so the caller must put them back where they belong. Returns the RoomConfig.
+        for wall in self.walls:
+            wall.remove()
+        if self.floor_id is not None:
+            p.removeBody(self.floor_id)
+        self._build_room(room, seed)
+        return self.room
 
     def step(self):
         p.stepSimulation()
@@ -78,21 +105,21 @@ class PaintEnvironment:
         p.resetDebugVisualizerCamera(dist, yaw, pitch, list(target))
 
     def focus_camera_on_wall(self, name):
-        """Switch to the numbered camera view matching the given wall name (see CAMERA_VIEWS)."""
+        """Switch to the numbered camera view matching the given wall name (see camera_views)."""
         if not self.gui:
             return
         view_number = self.WALL_VIEW_NUMBER.get(name)
         if view_number is None:
             return
-        self._cam_view = self.CAMERA_VIEWS[view_number]
+        self._cam_view = self.camera_views[view_number]
         self._apply_cam()
 
     def _camera_keys(self): # FOR CAMERA MOVEMENT WITHIN SCENE
         keys = p.getKeyboardEvents()
         down = lambda k: keys.get(k, 0) & p.KEY_IS_DOWN
-        for n in self.CAMERA_VIEWS:
+        for n in self.camera_views:
             if keys.get(ord(str(n)), 0) & p.KEY_WAS_TRIGGERED:
-                self._cam_view = self.CAMERA_VIEWS[n]
+                self._cam_view = self.camera_views[n]
                 self._apply_cam()
                 self._cam_keys_active = False
                 return

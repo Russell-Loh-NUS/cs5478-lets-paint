@@ -74,7 +74,7 @@ class Wall:
             rects.append((self.length, self.length + e1, 0.0, self.height))
         return rects
 
-    def spawn(self, work_dir, px_per_m, base_rgb, paint_rgb, wall_rgba):
+    def spawn(self, work_dir, px_per_m, base_rgb, paint_rgb, wall_rgba, render_paint=True):
         self.canvas = PaintCanvas(self.length, self.height, px_per_m, base_rgb, paint_rgb,
                                   self.openings)
 
@@ -92,15 +92,25 @@ class Wall:
         self.body_id = p.createMultiBody(0, col, vis, basePosition=self.origin.tolist(),
                                          baseOrientation=orn)
 
+        self._work_dir = work_dir
+        if not render_paint:  # mask only (e.g. RL training): no overlay mesh or textures
+            return
+
         # Create overlay
         obj = os.path.join(work_dir, f"{self.name}_overlay.obj")
         self._write_overlay_obj(obj, [r for r in pieces if r[0] >= 0 and r[1] <= self.length])
         ovis = p.createVisualShape(p.GEOM_MESH, fileName=obj, rgbaColor=[1, 1, 1, 1])
         self.overlay_id = p.createMultiBody(0, -1, ovis, basePosition=self.origin.tolist(),
                                             baseOrientation=orn)
-        self._work_dir = work_dir
         self.canvas.dirty = True
         self.push_texture()
+
+    def remove(self):
+        # Delete this wall's bodies from the simulation
+        for body in (self.body_id, self.overlay_id):
+            if body >= 0:
+                p.removeBody(body)
+        self.body_id = self.overlay_id = -1
 
     def _write_overlay_obj(self, path, rects): # We have an overlay for each wall face to simulate the 'paint'
         L, H, y = self.length, self.height, OVERLAY_OFFSET
@@ -120,7 +130,7 @@ class Wall:
 
     def push_texture(self): # This is needed so that textures can be refreshed from the robot's camera.
         c = self.canvas
-        if not c.dirty:
+        if self.overlay_id < 0 or not c.dirty:
             return
         from PIL import Image
         # Assign a new name each time we update the texture to prevent caching
@@ -133,19 +143,23 @@ class Wall:
         p.changeVisualShape(self.overlay_id, -1, textureUniqueId=self.texture_id)
         c.dirty = False
 
-def build_room(work_dir, width=4.0, depth=3.0, height=2.6, thickness=0.1, px_per_m=250,
-               base_rgb=(235, 232, 222), paint_rgb=(40, 90, 200), wall_rgba=(0.92, 0.91, 0.87, 1)):
+def build_room(work_dir, room=None, px_per_m=250, base_rgb=(235, 232, 222),
+               paint_rgb=(40, 90, 200), wall_rgba=(0.92, 0.91, 0.87, 1), render_paint=True):
+    # Spawn the four walls of room
+    from .room_config import RoomConfig
+    room = room or RoomConfig.default()
+    room.validate()
     x, y = np.array([1.0, 0, 0]), np.array([0, 1.0, 0])
-    t = thickness
-    specs = [  # (name, origin, u_dir, normal, length, openings, ext)
-        ("south", (0, 0, 0), x, y, width, (Opening(2.7, 0.9, 0.9, 1.0),), (t, t)),
-        ("east", (width, 0, 0), y, -x, depth, (Opening(0.4, 0.0, 0.9, 2.05),), (0, 0)),
-        ("north", (width, depth, 0), -x, -y, width, (Opening(1.4, 0.9, 1.2, 1.0),), (t, t)),
-        ("west", (0, depth, 0), -y, x, depth, (), (0, 0)),
+    t, width, depth = room.thickness, room.width, room.depth
+    specs = [  # (name, origin, u_dir, normal, length, ext)
+        ("south", (0, 0, 0), x, y, width, (t, t)),
+        ("east", (width, 0, 0), y, -x, depth, (0, 0)),
+        ("north", (width, depth, 0), -x, -y, width, (t, t)),
+        ("west", (0, depth, 0), -y, x, depth, (0, 0)),
     ]
     walls = []
-    for name, origin, u, n, length, openings, ext in specs:
-        w = Wall(name, origin, u, n, length, height, t, openings, ext)
-        w.spawn(work_dir, px_per_m, base_rgb, paint_rgb, wall_rgba)
+    for name, origin, u, n, length, ext in specs:
+        w = Wall(name, origin, u, n, length, room.height, t, tuple(room.openings.get(name, ())), ext)
+        w.spawn(work_dir, px_per_m, base_rgb, paint_rgb, wall_rgba, render_paint)
         walls.append(w)
     return walls
