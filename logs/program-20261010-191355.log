@@ -1053,3 +1053,150 @@ Progress: 91.4% (434/475 cells), path length so far: 60.74 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0101).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0167).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0077).
+Progress: 93.3% (443/475 cells), path length so far: 60.74 m
+[CoordRobotController] Tool pose reached (position error 0.0016 m; residual joint error 0.0187).
+Progress: 95.4% (453/475 cells), path length so far: 60.74 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0139).
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (14,33) after 3 failed attempts.
+[south] Coverage at 96.4% after attempt 1; replanning the remaining under-painted cells (<80%)...
+[south] Planning the full paint route (attempt 2/3, bcd_astar, dip-aware)...
+[south] Route planned: 19 steps (2 redips included).
+[CoveragePlanner] Planned route (19 steps):
+     1. PAINT cell (row=0, col=0) -> (0.07, 0.06, 0.11), orientation=vertical
+     2. PAINT cell (row=0, col=33) -> (3.93, 0.06, 0.11), orientation=vertical
+     3. PAINT cell (row=1, col=33) -> (3.93, 0.06, 0.27), orientation=vertical
+     4. PAINT cell (row=2, col=33) -> (3.93, 0.06, 0.45), orientation=vertical
+     5. PAINT cell (row=3, col=33) -> (3.93, 0.06, 0.63), orientation=vertical
+     6. PAINT cell (row=4, col=33) -> (3.93, 0.06, 0.81), orientation=vertical
+     7. PAINT cell (row=5, col=33) -> (3.93, 0.06, 0.99), orientation=vertical
+     8. PAINT cell (row=6, col=33) -> (3.93, 0.06, 1.17), orientation=vertical
+     9. PAINT cell (row=7, col=33) -> (3.93, 0.06, 1.35), orientation=vertical
+    10. PAINT cell (row=8, col=33) -> (3.93, 0.06, 1.53), orientation=vertical
+    11. PAINT cell (row=9, col=33) -> (3.93, 0.06, 1.71), orientation=vertical
+    12. DIP at paint can
+    13. PAINT cell (row=10, col=33) -> (3.93, 0.06, 1.89), orientation=vertical
+    14. PAINT cell (row=11, col=33) -> (3.93, 0.06, 2.07), orientation=vertical
+    15. PAINT cell (row=12, col=33) -> (3.93, 0.06, 2.25), orientation=vertical
+    16. PAINT cell (row=13, col=33) -> (3.93, 0.06, 2.43), orientation=vertical
+    17. PAINT cell (row=14, col=0) -> (0.07, 0.06, 2.50), orientation=vertical
+    18. DIP at paint can
+    19. PAINT cell (row=14, col=33) -> (3.93, 0.06, 2.50), orientation=vertical
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0074).
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0075).
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[main_lets_paint] Skipping cell (0,33) after 3 failed attempts.
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0157).
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0157).
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (1,33) after 3 failed attempts.
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0087).
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0087).
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (2,33) after 3 failed attempts.
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0168).
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0169).
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (3,33) after 3 failed attempts.
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0116).
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0099).
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (4,33) after 3 failed attempts.
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0114).
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0114).
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (5,33) after 3 failed attempts.
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0154).
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0157).
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (6,33) after 3 failed attempts.
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0150).
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0151).
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (7,33) after 3 failed attempts.
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0167).
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0181).
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (8,33) after 3 failed attempts.
+Progress: 96.4% (458/475 cells), path length so far: 71.79 m
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0056).
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0068).
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (9,33) after 3 failed attempts.
+[RobotController] Roller dipped in paint.
+[CoordRobotController] Cell (10, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0063).
+[CoordRobotController] Cell (10, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0068).
+[CoordRobotController] Cell (10, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (10,33) after 3 failed attempts.
+[CoordRobotController] Cell (11, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0074).
+[CoordRobotController] Cell (11, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0073).
+[CoordRobotController] Cell (11, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (11,33) after 3 failed attempts.
+[CoordRobotController] Cell (12, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0150).
+[CoordRobotController] Cell (12, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0187).
+[CoordRobotController] Cell (12, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (12,33) after 3 failed attempts.
+[CoordRobotController] Cell (13, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0158).
+[CoordRobotController] Cell (13, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0160).
+[CoordRobotController] Cell (13, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (13,33) after 3 failed attempts.
+[RobotController] Roller dipped in paint.
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0084).
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0097).
+[CoordRobotController] Cell (14, 33) not reached/painted enough; fraction=63.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (14,33) after 3 failed attempts.
+[south] Coverage at 96.4% after attempt 2; replanning the remaining under-painted cells (<80%)...
+[south] Planning the full paint route (attempt 3/3, bcd_astar, dip-aware)...
+[south] Route planned: 19 steps (2 redips included).
+[CoveragePlanner] Planned route (19 steps):
+     1. PAINT cell (row=0, col=0) -> (0.07, 0.06, 0.11), orientation=vertical
+     2. PAINT cell (row=0, col=33) -> (3.93, 0.06, 0.11), orientation=vertical
+     3. PAINT cell (row=1, col=33) -> (3.93, 0.06, 0.27), orientation=vertical
+     4. PAINT cell (row=2, col=33) -> (3.93, 0.06, 0.45), orientation=vertical
+     5. PAINT cell (row=3, col=33) -> (3.93, 0.06, 0.63), orientation=vertical
+     6. PAINT cell (row=4, col=33) -> (3.93, 0.06, 0.81), orientation=vertical
+     7. PAINT cell (row=5, col=33) -> (3.93, 0.06, 0.99), orientation=vertical
+     8. PAINT cell (row=6, col=33) -> (3.93, 0.06, 1.17), orientation=vertical
+     9. PAINT cell (row=7, col=33) -> (3.93, 0.06, 1.35), orientation=vertical
+    10. PAINT cell (row=8, col=33) -> (3.93, 0.06, 1.53), orientation=vertical
+    11. PAINT cell (row=9, col=33) -> (3.93, 0.06, 1.71), orientation=vertical
+    12. DIP at paint can
+    13. PAINT cell (row=10, col=33) -> (3.93, 0.06, 1.89), orientation=vertical
+    14. PAINT cell (row=11, col=33) -> (3.93, 0.06, 2.07), orientation=vertical
+    15. PAINT cell (row=12, col=33) -> (3.93, 0.06, 2.25), orientation=vertical
+    16. PAINT cell (row=13, col=33) -> (3.93, 0.06, 2.43), orientation=vertical
+    17. PAINT cell (row=14, col=0) -> (0.07, 0.06, 2.50), orientation=vertical
+    18. DIP at paint can
+    19. PAINT cell (row=14, col=33) -> (3.93, 0.06, 2.50), orientation=vertical
