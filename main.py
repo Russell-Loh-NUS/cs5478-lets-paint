@@ -26,6 +26,8 @@ MAX_PAINT_ATTEMPTS = 3
 MAX_REPLANS = 3
 # Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep", "grid_smooth", "prm", "optimized_prm", "bcd_astar"
 COVERAGE_STRATEGY = "bcd_astar"
+# Set to False to disable repaint/replanning after the first pass.
+REPLANNING_ENABLED = True
 WALL_ORDER = ["south", "east", "north", "west"]
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
@@ -124,25 +126,34 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
 
     total_cells = wall_map.total_cells()
     attempt = 0
-    while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
-        attempt += 1
-        print(f"[{name}] Planning the full paint route (attempt {attempt}/{MAX_REPLANS}, "
-              f"{COVERAGE_STRATEGY}, dip-aware)...")
-        route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+    if REPLANNING_ENABLED:
+        while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
+            attempt += 1
+            print(f"[{name}] Planning the full paint route (attempt {attempt}/{MAX_REPLANS}, "
+                  f"{COVERAGE_STRATEGY}, dip-aware)...")
+            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
                                                    RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
+            print(f"[{name}] Route planned: {len(route)} steps "
+                  f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
+            coverage_planner.print_route(route)
+
+            if not _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
+                break
+
+            if not coverage_map.is_complete(threshold=0.8):
+                print(f"[{name}] Coverage at {coverage_percentage(wall_map):.1f}% after attempt {attempt}; "
+                      "replanning the remaining under-painted cells (<80%)...")
+
+        if not coverage_map.is_complete(threshold=0.8) and p.isConnected() and attempt >= MAX_REPLANS:
+            print(f"[{name}] Still incomplete after {MAX_REPLANS} replanning attempts; giving up.")
+    else:
+        print(f"[{name}] Replanning disabled; running a single paint pass only.")
+        route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                               RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
         print(f"[{name}] Route planned: {len(route)} steps "
               f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
         coverage_planner.print_route(route)
-
-        if not _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
-            break
-
-        if not coverage_map.is_complete(threshold=0.8):
-            print(f"[{name}] Coverage at {coverage_percentage(wall_map):.1f}% after attempt {attempt}; "
-                  "replanning the remaining under-painted cells (<80%)...")
-
-    if not coverage_map.is_complete(threshold=0.8) and p.isConnected() and attempt >= MAX_REPLANS:
-        print(f"[{name}] Still incomplete after {MAX_REPLANS} replanning attempts; giving up.")
+        _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells)
 
     coverage = coverage_percentage(wall_map)
     print(f"[{name}] Coverage: {coverage:.1f}%  Error: {coverage_error(wall_map):.1f}%")
@@ -274,5 +285,9 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Run the wall-painting simulation")
     parser.add_argument("--headless", action="store_true", help="Run full coverage without the GUI")
+    parser.add_argument("--disable-replanning", action="store_true",
+                        help="Disable repaint/replanning after the first pass")
     args = parser.parse_args()
+    if args.disable_replanning:
+        REPLANNING_ENABLED = False
     main(gui=not args.headless)
