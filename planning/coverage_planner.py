@@ -69,7 +69,7 @@ class DipStep:
 
 class CoveragePlanner:
     STRATEGIES = ("nearest_neighbor", "lawnmower", "optimized", "astar", "sweep", "grid_smooth",
-                  "prm", "optimized_prm", "bcd_astar")
+                  "prm", "optimized_prm", "bcd_astar", "rl")
     # How many nearest neighbors each PRM sample connects to in the roadmap graph.
     PRM_K_NEIGHBORS = 6
 
@@ -78,7 +78,7 @@ class CoveragePlanner:
         self.wall = wall
         self.approach_offset = approach_offset
 
-    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="nearest_neighbor"):
+    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="nearest_neighbor", rl_model_path: Optional[str] = None, rl_max_steps: int = 200):
         """Read the whole unpainted set and return a dip-aware route, using the given strategy."""
         if strategy not in self.STRATEGIES:
             raise ValueError(f"Unknown coverage strategy '{strategy}', expected one of {self.STRATEGIES}")
@@ -93,6 +93,9 @@ class CoveragePlanner:
             return self._build_route_optimized_prm(start_position, paint_can, redip_distance)
         if strategy == "bcd_astar":
             return self._build_route_bcd_astar(start_position, paint_can, redip_distance)
+
+        if strategy == "rl":
+            return self._build_route_rl(start_position, paint_can, redip_distance, rl_model_path=rl_model_path, rl_max_steps=rl_max_steps)
 
         remaining = self.coverage_map.unpainted_cells(threshold=0.8)
         cell_positions = {(row, col): self.wall.touch_point(row, col, offset=self.approach_offset)
@@ -400,6 +403,94 @@ class CoveragePlanner:
         points = self.wall.continuous_targets()
         smoothed = self._chaikin_smooth(points)
         return self._build_route_fixed_points(smoothed, start_position, paint_can, redip_distance)
+
+    def _build_route_rl(self, start_position, paint_can, redip_distance):
+        """Placeholder for RL-driven coverage planning.
+
+        The RL planner is intentionally a runtime-driven strategy: an external RL loop
+        using `planning.rl_env.RLCoverageEnv` should be used to choose actions. This
+        placeholder returns an empty route so the classic planner flow can handle
+        calls gracefully; the RL integration lives in `planning/rl_env.py`.
+        """
+        # RL-driven planning: use a trained SB3 policy that returns a continuous
+        # action [x, y, dip_score] where x,y are world-coordinates for the next
+        # target point and dip_score in [0,1] indicates whether to dip (>0.5).
+        # The planner will decode the action into the nearest wall grid cell and
+        # build a dip-aware route until the coverage target is reached or
+        # `rl_max_steps` is exhausted.
+        from stable_baselines3 import PPO
+        import numpy as _np
+
+        def build_obs(covered_set):
+            # Approximate observation expected by the RL policy: coverage fraction
+            # (simulated by covered_set / total_cells), paint_remaining (use redip_distance
+            # as a conservative proxy), and paintable_area (in m^2).
+            total_cells = self.coverage_map.total_cells()
+            covered = len(covered_set)
+            coverage_fraction = float(covered) / float(total_cells) if total_cells > 0 else 0.0
+            # paint_remaining not tracked here; use redip_distance as a proxy for remaining
+            paint_remaining = float(redip_distance)
+            # paintable area approximate: number of cells (not physical area)
+            paintable_area = float(total_cells)
+            return {
+                "coverage": _np.array([coverage_fraction], dtype=_np.float32),
+                "paint_remaining": _np.array([paint_remaining], dtype=_np.float32),
+                "paintable_area": _np.array([paintable_area], dtype=_np.float32),
+            }
+
+        if rl_model_path is None:
+            raise ValueError("rl_model_path must be provided for 'rl' strategy")
+
+        model = PPO.load(rl_model_path, env=None)
+
+        route = []
+        painted = set()
+        total_cells = self.coverage_map.total_cells()
+        max_steps = rl_max_steps
+        obs = build_obs(painted)
+
+        for step in range(max_steps):
+            action, _ = model.predict(obs, deterministic=True)
+            a = _np.asarray(action).flatten()
+            if a.size < 3:
+                # unexpected action shape; stop
+                break
+            x, y, dip_score = float(a[0]), float(a[1]), float(a[2])
+            dip = bool(dip_score > 0.5)
+
+            # Map world (x,y) to nearest grid cell on this wall
+            try:
+                row, col = self.wall.world_to_grid((x, y, 0.0))
+            except Exception:
+                # fallback: choose nearest uncovered cell by euclidean distance
+                remaining = self.coverage_map.unpainted_cells(threshold=0.8)
+                if not remaining:
+                    break
+                best = None
+                best_d = None
+                for r, c in remaining:
+                    pos = self.wall.touch_point(r, c, offset=self.approach_offset)
+                    d = math.dist((x, y), (pos[0], pos[1]))
+                    if best_d is None or d < best_d:
+                        best, best_d = (r, c), d
+                row, col = best
+
+            if (row, col) in painted:
+                # already planned; stop to avoid loops
+                break
+
+            position = self.wall.touch_point(row, col, offset=self.approach_offset)
+            route.append(CoverageTarget(row, col, position, orientation="vertical"))
+            painted.add((row, col))
+            if dip:
+                route.append(DipStep())
+
+            # recompute coverage fraction (simulated)
+            if float(len(painted)) / float(total_cells) >= 0.95:
+                break
+            obs = build_obs(painted)
+
+        return route
 
     def _chaikin_smooth(self, points, iterations=1, ratio=0.25):
         """Chaikin's corner-cutting: each edge is replaced by two points nearer its endpoints,

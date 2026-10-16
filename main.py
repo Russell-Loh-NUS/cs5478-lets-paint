@@ -27,7 +27,7 @@ MAX_REPLANS = 3
 # Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep", "grid_smooth", "prm", "optimized_prm", "bcd_astar"
 COVERAGE_STRATEGY = "bcd_astar"
 # Set to False to disable repaint/replanning after the first pass.
-REPLANNING_ENABLED = True
+REPLANNING_ENABLED = False
 WALL_ORDER = ["south", "east", "north", "west"]
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
