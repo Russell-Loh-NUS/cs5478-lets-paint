@@ -53,6 +53,7 @@ compared (total path length, redip count, etc.) on equal footing.
 """
 import heapq
 import math
+from typing import Optional
 
 
 class CoverageTarget:
@@ -404,7 +405,7 @@ class CoveragePlanner:
         smoothed = self._chaikin_smooth(points)
         return self._build_route_fixed_points(smoothed, start_position, paint_can, redip_distance)
 
-    def _build_route_rl(self, start_position, paint_can, redip_distance):
+    def _build_route_rl(self, start_position, paint_can, redip_distance, rl_model_path: Optional[str] = None, rl_max_steps: int = 200):
         """Placeholder for RL-driven coverage planning.
 
         The RL planner is intentionally a runtime-driven strategy: an external RL loop
@@ -418,14 +419,25 @@ class CoveragePlanner:
         # The planner will decode the action into the nearest wall grid cell and
         # build a dip-aware route until the coverage target is reached or
         # `rl_max_steps` is exhausted.
-        from stable_baselines3 import PPO
+        import os
+        # Safety: ensure OpenMP duplicate-lib is allowed and limit threads to avoid
+        # runtime conflicts on macOS (common with multiple OpenMP-linked libs).
+        os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+        os.environ.setdefault("OMP_NUM_THREADS", "1")
+        os.environ.setdefault("MKL_NUM_THREADS", "1")
+        try:
+            from stable_baselines3 import PPO
+        except Exception as e:
+            print(f"[CoveragePlanner] Warning: failed to import stable_baselines3: {e}")
+            return []
         import numpy as _np
 
         def build_obs(covered_set):
             # Approximate observation expected by the RL policy: coverage fraction
             # (simulated by covered_set / total_cells), paint_remaining (use redip_distance
             # as a conservative proxy), and paintable_area (in m^2).
-            total_cells = self.coverage_map.total_cells()
+            # CoverageMap doesn't expose total_cells; use the wall map adapter instead.
+            total_cells = self.wall.total_cells()
             covered = len(covered_set)
             coverage_fraction = float(covered) / float(total_cells) if total_cells > 0 else 0.0
             # paint_remaining not tracked here; use redip_distance as a proxy for remaining
@@ -441,16 +453,27 @@ class CoveragePlanner:
         if rl_model_path is None:
             raise ValueError("rl_model_path must be provided for 'rl' strategy")
 
-        model = PPO.load(rl_model_path, env=None)
-
+        # Force CPU device to avoid CUDA library issues on machines without GPU
+        try:
+            model = PPO.load(rl_model_path, env=None, device="cpu")
+        except Exception as e:
+            print(f"[CoveragePlanner] Warning: failed to load RL model '{rl_model_path}': {e}")
+            return []
+        print(f"[CoveragePlanner][RL] Loaded model from: {rl_model_path}")
+        actions_taken = []
         route = []
         painted = set()
-        total_cells = self.coverage_map.total_cells()
+        total_cells = self.wall.total_cells()
         max_steps = rl_max_steps
         obs = build_obs(painted)
 
         for step in range(max_steps):
-            action, _ = model.predict(obs, deterministic=True)
+            try:
+                action, _ = model.predict(obs, deterministic=True)
+            except Exception as e:
+                print(f"[CoveragePlanner] Warning: RL model prediction failed at step {step}: {e}")
+                break
+            actions_taken.append(action)
             a = _np.asarray(action).flatten()
             if a.size < 3:
                 # unexpected action shape; stop
@@ -463,7 +486,7 @@ class CoveragePlanner:
                 row, col = self.wall.world_to_grid((x, y, 0.0))
             except Exception:
                 # fallback: choose nearest uncovered cell by euclidean distance
-                remaining = self.coverage_map.unpainted_cells(threshold=0.8)
+                remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
                 if not remaining:
                     break
                 best = None
@@ -476,8 +499,21 @@ class CoveragePlanner:
                 row, col = best
 
             if (row, col) in painted:
-                # already planned; stop to avoid loops
-                break
+                # already planned; don't stop outright (policy may repeat the same action).
+                # Instead, map to the nearest remaining uncovered cell as a sensible fallback
+                remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
+                if not remaining:
+                    break
+                # choose nearest uncovered cell to the predicted (x,y)
+                best = None
+                best_d = None
+                for r, c in remaining:
+                    pos = self.wall.touch_point(r, c, offset=self.approach_offset)
+                    d = math.dist((x, y), (pos[0], pos[1]))
+                    if best_d is None or d < best_d:
+                        best, best_d = (r, c), d
+                row, col = best
+                print(f"[CoveragePlanner][RL] Predicted already-planned cell; falling back to nearest uncovered {row, col}")
 
             position = self.wall.touch_point(row, col, offset=self.approach_offset)
             route.append(CoverageTarget(row, col, position, orientation="vertical"))
@@ -490,6 +526,19 @@ class CoveragePlanner:
                 break
             obs = build_obs(painted)
 
+        # Log the raw actions and their mapped cells for auditability
+        try:
+            print(f"[CoveragePlanner][RL] Actions taken ({len(actions_taken)}):")
+            for i, a in enumerate(actions_taken, start=1):
+                arr = _np.asarray(a).flatten()
+                if arr.size >= 3:
+                    print(f"  {i:3d}. action=[{arr[0]:.3f}, {arr[1]:.3f}, {arr[2]:.3f}]")
+                else:
+                    print(f"  {i:3d}. action={arr}")
+        except Exception:
+            pass
+
+        print(f"[CoveragePlanner][RL] Mapped route: {len(route)} steps, {sum(1 for s in route if isinstance(s, DipStep))} redips")
         return route
 
     def _chaikin_smooth(self, points, iterations=1, ratio=0.25):

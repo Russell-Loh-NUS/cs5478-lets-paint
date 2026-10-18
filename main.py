@@ -25,10 +25,12 @@ from evaluation.path_length import PathLengthTracker
 MAX_PAINT_ATTEMPTS = 3
 MAX_REPLANS = 3
 # Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep", "grid_smooth", "prm", "optimized_prm", "bcd_astar"
-COVERAGE_STRATEGY = "bcd_astar"
+COVERAGE_STRATEGY = "rl"
 # Set to False to disable repaint/replanning after the first pass.
 REPLANNING_ENABLED = False
 WALL_ORDER = ["south", "east", "north", "west"]
+# Optional CLI override for RL model path
+RL_MODEL_PATH: str | None = None
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
 # small enough to actually finish, instead of the much finer grid the other strategies use.
@@ -126,13 +128,25 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
 
     total_cells = wall_map.total_cells()
     attempt = 0
+    # default RL model path (used when COVERAGE_STRATEGY == 'rl')
+    rl_model_default = Path(__file__).resolve().parent / "models" / "ppo_coverage_final.zip"
+    # allow CLI override
+    model_path = RL_MODEL_PATH if RL_MODEL_PATH is not None else (str(rl_model_default) if rl_model_default.exists() else None)
     if REPLANNING_ENABLED:
         while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
             attempt += 1
             print(f"[{name}] Planning the full paint route (attempt {attempt}/{MAX_REPLANS}, "
                   f"{COVERAGE_STRATEGY}, dip-aware)...")
-            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
+            # If using RL strategy, pass the trained model path into the planner
+            if COVERAGE_STRATEGY == 'rl':
+                if model_path is None:
+                    print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
+                route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                       RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
+                                                       rl_model_path=model_path)
+            else:
+                route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                       RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
             print(f"[{name}] Route planned: {len(route)} steps "
                   f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
             coverage_planner.print_route(route)
@@ -148,8 +162,15 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
             print(f"[{name}] Still incomplete after {MAX_REPLANS} replanning attempts; giving up.")
     else:
         print(f"[{name}] Replanning disabled; running a single paint pass only.")
-        route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                               RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
+        if COVERAGE_STRATEGY == 'rl':
+            if model_path is None:
+                print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
+            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
+                                                   rl_model_path=model_path)
+        else:
+            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
         print(f"[{name}] Route planned: {len(route)} steps "
               f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
         coverage_planner.print_route(route)
@@ -287,7 +308,14 @@ if __name__ == "__main__":
     parser.add_argument("--headless", action="store_true", help="Run full coverage without the GUI")
     parser.add_argument("--disable-replanning", action="store_true",
                         help="Disable repaint/replanning after the first pass")
+    parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, lawnmower)")
+    parser.add_argument("--rl-model", type=str, help="Path to RL model to use when strategy=rl")
     args = parser.parse_args()
     if args.disable_replanning:
         REPLANNING_ENABLED = False
+    if args.strategy:
+        COVERAGE_STRATEGY = args.strategy
+    # If provided, let the rl model path override the default used by the planner.
+    if args.rl_model:
+        RL_MODEL_PATH = args.rl_model
     main(gui=not args.headless)
