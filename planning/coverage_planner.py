@@ -79,7 +79,7 @@ class CoveragePlanner:
         self.wall = wall
         self.approach_offset = approach_offset
 
-    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="nearest_neighbor", rl_model_path: Optional[str] = None, rl_max_steps: int = 200):
+    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="nearest_neighbor", rl_model_path: Optional[str] = None, rl_max_steps: int = 2000):
         """Read the whole unpainted set and return a dip-aware route, using the given strategy."""
         if strategy not in self.STRATEGIES:
             raise ValueError(f"Unknown coverage strategy '{strategy}', expected one of {self.STRATEGIES}")

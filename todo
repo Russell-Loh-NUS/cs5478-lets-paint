@@ -1,9 +1,16 @@
+Normal 
 1. Replanning - Cell (2, 33) and such cannot be painted.. 
-added a replanning false for now
+added a replanning false for now but should try to fix
 2. window pane (top) not well planned 
 3. door painting from right to left theres a gap
-3. try different config
+3. only bcd_star work right now. maybe should give the normal normal Bcd to show soooome intelligence. compare no intleligent, some intelligence, RL. 
 4. the wheel turn turn not v nice like that, abit redundant
 
 
-5. RL 
+RL
+1. why only can move upwards???  it should up down up down. check the path length reward isit -ve or not. is path length defined as robot wheels? It should include the robot arm movement as well. is duration taken into account for the reward it should be. Eh the door wall didnt have an issue for the wall above the door.
+2. Why the roller is vertical, it should be horizontal
+3. the door is not being avoided properly, the left frame. but i think cus its trying to cover that one smol strip but failing to do so
+4. it stops halfway for each wall
+10. dipping is a constant 10m for RL also, should it be optimised
+
