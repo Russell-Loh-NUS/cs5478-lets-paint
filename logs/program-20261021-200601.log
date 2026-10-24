@@ -1,0 +1,711 @@
+Use your arrow keys to look around, number keys 1-5 for different views
+
+=== Painting wall 'south' ===
+[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
+[RobotController] Roller dipped in paint.
+[south] Replanning disabled; running a single paint pass only.
+[south] Route planned: 482 steps (7 redips included).
+[CoveragePlanner] Planned route (482 steps):
+     1. PAINT cell (row=0, col=0) -> (0.07, 0.06, 0.11), orientation=vertical
+     2. PAINT cell (row=0, col=1) -> (0.18, 0.06, 0.11), orientation=vertical
+     3. PAINT cell (row=0, col=2) -> (0.30, 0.06, 0.11), orientation=vertical
+     4. PAINT cell (row=0, col=3) -> (0.42, 0.06, 0.11), orientation=vertical
+     5. PAINT cell (row=0, col=4) -> (0.54, 0.06, 0.11), orientation=vertical
+     6. PAINT cell (row=0, col=5) -> (0.66, 0.06, 0.11), orientation=vertical
+     7. PAINT cell (row=0, col=6) -> (0.78, 0.06, 0.11), orientation=vertical
+     8. PAINT cell (row=0, col=7) -> (0.90, 0.06, 0.11), orientation=vertical
+     9. PAINT cell (row=0, col=8) -> (1.02, 0.06, 0.11), orientation=vertical
+    10. PAINT cell (row=0, col=9) -> (1.14, 0.06, 0.11), orientation=vertical
+    11. PAINT cell (row=0, col=10) -> (1.26, 0.06, 0.11), orientation=vertical
+    12. PAINT cell (row=0, col=11) -> (1.38, 0.06, 0.11), orientation=vertical
+    13. PAINT cell (row=0, col=12) -> (1.50, 0.06, 0.11), orientation=vertical
+    14. PAINT cell (row=0, col=13) -> (1.62, 0.06, 0.11), orientation=vertical
+    15. PAINT cell (row=0, col=14) -> (1.74, 0.06, 0.11), orientation=vertical
+    16. PAINT cell (row=0, col=15) -> (1.86, 0.06, 0.11), orientation=vertical
+    17. PAINT cell (row=0, col=16) -> (1.98, 0.06, 0.11), orientation=vertical
+    18. PAINT cell (row=0, col=17) -> (2.10, 0.06, 0.11), orientation=vertical
+    19. PAINT cell (row=0, col=18) -> (2.22, 0.06, 0.11), orientation=vertical
+    20. PAINT cell (row=0, col=19) -> (2.34, 0.06, 0.11), orientation=vertical
+    21. PAINT cell (row=0, col=20) -> (2.46, 0.06, 0.11), orientation=vertical
+    22. PAINT cell (row=0, col=21) -> (2.58, 0.06, 0.11), orientation=vertical
+    23. PAINT cell (row=0, col=22) -> (2.70, 0.06, 0.11), orientation=vertical
+    24. PAINT cell (row=0, col=23) -> (2.82, 0.06, 0.11), orientation=vertical
+    25. PAINT cell (row=0, col=24) -> (2.94, 0.06, 0.11), orientation=vertical
+    26. PAINT cell (row=0, col=25) -> (3.06, 0.06, 0.11), orientation=vertical
+    27. PAINT cell (row=0, col=26) -> (3.18, 0.06, 0.11), orientation=vertical
+    28. PAINT cell (row=0, col=27) -> (3.30, 0.06, 0.11), orientation=vertical
+    29. PAINT cell (row=0, col=28) -> (3.42, 0.06, 0.11), orientation=vertical
+    30. PAINT cell (row=0, col=29) -> (3.54, 0.06, 0.11), orientation=vertical
+    31. PAINT cell (row=0, col=30) -> (3.66, 0.06, 0.11), orientation=vertical
+    32. PAINT cell (row=0, col=31) -> (3.78, 0.06, 0.11), orientation=vertical
+    33. PAINT cell (row=0, col=32) -> (3.90, 0.06, 0.11), orientation=vertical
+    34. PAINT cell (row=0, col=33) -> (3.93, 0.06, 0.11), orientation=vertical
+    35. PAINT cell (row=1, col=33) -> (3.93, 0.06, 0.27), orientation=vertical
+    36. PAINT cell (row=1, col=32) -> (3.90, 0.06, 0.27), orientation=vertical
+    37. PAINT cell (row=1, col=31) -> (3.78, 0.06, 0.27), orientation=vertical
+    38. PAINT cell (row=1, col=30) -> (3.66, 0.06, 0.27), orientation=vertical
+    39. PAINT cell (row=1, col=29) -> (3.54, 0.06, 0.27), orientation=vertical
+    40. PAINT cell (row=1, col=28) -> (3.42, 0.06, 0.27), orientation=vertical
+    41. PAINT cell (row=1, col=27) -> (3.30, 0.06, 0.27), orientation=vertical
+    42. PAINT cell (row=1, col=26) -> (3.18, 0.06, 0.27), orientation=vertical
+    43. PAINT cell (row=1, col=25) -> (3.06, 0.06, 0.27), orientation=vertical
+    44. PAINT cell (row=1, col=24) -> (2.94, 0.06, 0.27), orientation=vertical
+    45. PAINT cell (row=1, col=23) -> (2.82, 0.06, 0.27), orientation=vertical
+    46. PAINT cell (row=1, col=22) -> (2.70, 0.06, 0.27), orientation=vertical
+    47. PAINT cell (row=1, col=21) -> (2.58, 0.06, 0.27), orientation=vertical
+    48. PAINT cell (row=1, col=20) -> (2.46, 0.06, 0.27), orientation=vertical
+    49. PAINT cell (row=1, col=19) -> (2.34, 0.06, 0.27), orientation=vertical
+    50. PAINT cell (row=1, col=18) -> (2.22, 0.06, 0.27), orientation=vertical
+    51. PAINT cell (row=1, col=17) -> (2.10, 0.06, 0.27), orientation=vertical
+    52. PAINT cell (row=1, col=16) -> (1.98, 0.06, 0.27), orientation=vertical
+    53. PAINT cell (row=1, col=15) -> (1.86, 0.06, 0.27), orientation=vertical
+    54. PAINT cell (row=1, col=14) -> (1.74, 0.06, 0.27), orientation=vertical
+    55. PAINT cell (row=1, col=13) -> (1.62, 0.06, 0.27), orientation=vertical
+    56. PAINT cell (row=1, col=12) -> (1.50, 0.06, 0.27), orientation=vertical
+    57. PAINT cell (row=1, col=11) -> (1.38, 0.06, 0.27), orientation=vertical
+    58. PAINT cell (row=1, col=10) -> (1.26, 0.06, 0.27), orientation=vertical
+    59. PAINT cell (row=1, col=9) -> (1.14, 0.06, 0.27), orientation=vertical
+    60. PAINT cell (row=1, col=8) -> (1.02, 0.06, 0.27), orientation=vertical
+    61. PAINT cell (row=1, col=7) -> (0.90, 0.06, 0.27), orientation=vertical
+    62. PAINT cell (row=1, col=6) -> (0.78, 0.06, 0.27), orientation=vertical
+    63. PAINT cell (row=1, col=5) -> (0.66, 0.06, 0.27), orientation=vertical
+    64. PAINT cell (row=1, col=4) -> (0.54, 0.06, 0.27), orientation=vertical
+    65. PAINT cell (row=1, col=3) -> (0.42, 0.06, 0.27), orientation=vertical
+    66. PAINT cell (row=1, col=2) -> (0.30, 0.06, 0.27), orientation=vertical
+    67. PAINT cell (row=1, col=1) -> (0.18, 0.06, 0.27), orientation=vertical
+    68. PAINT cell (row=1, col=0) -> (0.07, 0.06, 0.27), orientation=vertical
+    69. PAINT cell (row=2, col=0) -> (0.07, 0.06, 0.45), orientation=vertical
+    70. DIP at paint can
+    71. PAINT cell (row=2, col=1) -> (0.18, 0.06, 0.45), orientation=vertical
+    72. PAINT cell (row=2, col=2) -> (0.30, 0.06, 0.45), orientation=vertical
+    73. PAINT cell (row=2, col=3) -> (0.42, 0.06, 0.45), orientation=vertical
+    74. PAINT cell (row=2, col=4) -> (0.54, 0.06, 0.45), orientation=vertical
+    75. PAINT cell (row=2, col=5) -> (0.66, 0.06, 0.45), orientation=vertical
+    76. PAINT cell (row=2, col=6) -> (0.78, 0.06, 0.45), orientation=vertical
+    77. PAINT cell (row=2, col=7) -> (0.90, 0.06, 0.45), orientation=vertical
+    78. PAINT cell (row=2, col=8) -> (1.02, 0.06, 0.45), orientation=vertical
+    79. PAINT cell (row=2, col=9) -> (1.14, 0.06, 0.45), orientation=vertical
+    80. PAINT cell (row=2, col=10) -> (1.26, 0.06, 0.45), orientation=vertical
+    81. PAINT cell (row=2, col=11) -> (1.38, 0.06, 0.45), orientation=vertical
+    82. PAINT cell (row=2, col=12) -> (1.50, 0.06, 0.45), orientation=vertical
+    83. PAINT cell (row=2, col=13) -> (1.62, 0.06, 0.45), orientation=vertical
+    84. PAINT cell (row=2, col=14) -> (1.74, 0.06, 0.45), orientation=vertical
+    85. PAINT cell (row=2, col=15) -> (1.86, 0.06, 0.45), orientation=vertical
+    86. PAINT cell (row=2, col=16) -> (1.98, 0.06, 0.45), orientation=vertical
+    87. PAINT cell (row=2, col=17) -> (2.10, 0.06, 0.45), orientation=vertical
+    88. PAINT cell (row=2, col=18) -> (2.22, 0.06, 0.45), orientation=vertical
+    89. PAINT cell (row=2, col=19) -> (2.34, 0.06, 0.45), orientation=vertical
+    90. PAINT cell (row=2, col=20) -> (2.46, 0.06, 0.45), orientation=vertical
+    91. PAINT cell (row=2, col=21) -> (2.58, 0.06, 0.45), orientation=vertical
+    92. PAINT cell (row=2, col=22) -> (2.70, 0.06, 0.45), orientation=vertical
+    93. PAINT cell (row=2, col=23) -> (2.82, 0.06, 0.45), orientation=vertical
+    94. PAINT cell (row=2, col=24) -> (2.94, 0.06, 0.45), orientation=vertical
+    95. PAINT cell (row=2, col=25) -> (3.06, 0.06, 0.45), orientation=vertical
+    96. PAINT cell (row=2, col=26) -> (3.18, 0.06, 0.45), orientation=vertical
+    97. PAINT cell (row=2, col=27) -> (3.30, 0.06, 0.45), orientation=vertical
+    98. PAINT cell (row=2, col=28) -> (3.42, 0.06, 0.45), orientation=vertical
+    99. PAINT cell (row=2, col=29) -> (3.54, 0.06, 0.45), orientation=vertical
+   100. PAINT cell (row=2, col=30) -> (3.66, 0.06, 0.45), orientation=vertical
+   101. PAINT cell (row=2, col=31) -> (3.78, 0.06, 0.45), orientation=vertical
+   102. PAINT cell (row=2, col=32) -> (3.90, 0.06, 0.45), orientation=vertical
+   103. PAINT cell (row=2, col=33) -> (3.93, 0.06, 0.45), orientation=vertical
+   104. PAINT cell (row=3, col=33) -> (3.93, 0.06, 0.63), orientation=vertical
+   105. PAINT cell (row=3, col=32) -> (3.90, 0.06, 0.63), orientation=vertical
+   106. PAINT cell (row=3, col=31) -> (3.78, 0.06, 0.63), orientation=vertical
+   107. PAINT cell (row=3, col=30) -> (3.66, 0.06, 0.63), orientation=vertical
+   108. PAINT cell (row=3, col=29) -> (3.54, 0.06, 0.63), orientation=vertical
+   109. PAINT cell (row=3, col=28) -> (3.42, 0.06, 0.63), orientation=vertical
+   110. PAINT cell (row=3, col=27) -> (3.30, 0.06, 0.63), orientation=vertical
+   111. PAINT cell (row=3, col=26) -> (3.18, 0.06, 0.63), orientation=vertical
+   112. PAINT cell (row=3, col=25) -> (3.06, 0.06, 0.63), orientation=vertical
+   113. PAINT cell (row=3, col=24) -> (2.94, 0.06, 0.63), orientation=vertical
+   114. PAINT cell (row=3, col=23) -> (2.82, 0.06, 0.63), orientation=vertical
+   115. PAINT cell (row=3, col=22) -> (2.70, 0.06, 0.63), orientation=vertical
+   116. PAINT cell (row=3, col=21) -> (2.58, 0.06, 0.63), orientation=vertical
+   117. PAINT cell (row=3, col=20) -> (2.46, 0.06, 0.63), orientation=vertical
+   118. PAINT cell (row=3, col=19) -> (2.34, 0.06, 0.63), orientation=vertical
+   119. PAINT cell (row=3, col=18) -> (2.22, 0.06, 0.63), orientation=vertical
+   120. PAINT cell (row=3, col=17) -> (2.10, 0.06, 0.63), orientation=vertical
+   121. PAINT cell (row=3, col=16) -> (1.98, 0.06, 0.63), orientation=vertical
+   122. PAINT cell (row=3, col=15) -> (1.86, 0.06, 0.63), orientation=vertical
+   123. PAINT cell (row=3, col=14) -> (1.74, 0.06, 0.63), orientation=vertical
+   124. PAINT cell (row=3, col=13) -> (1.62, 0.06, 0.63), orientation=vertical
+   125. PAINT cell (row=3, col=12) -> (1.50, 0.06, 0.63), orientation=vertical
+   126. PAINT cell (row=3, col=11) -> (1.38, 0.06, 0.63), orientation=vertical
+   127. PAINT cell (row=3, col=10) -> (1.26, 0.06, 0.63), orientation=vertical
+   128. PAINT cell (row=3, col=9) -> (1.14, 0.06, 0.63), orientation=vertical
+   129. PAINT cell (row=3, col=8) -> (1.02, 0.06, 0.63), orientation=vertical
+   130. PAINT cell (row=3, col=7) -> (0.90, 0.06, 0.63), orientation=vertical
+   131. PAINT cell (row=3, col=6) -> (0.78, 0.06, 0.63), orientation=vertical
+   132. PAINT cell (row=3, col=5) -> (0.66, 0.06, 0.63), orientation=vertical
+   133. PAINT cell (row=3, col=4) -> (0.54, 0.06, 0.63), orientation=vertical
+   134. PAINT cell (row=3, col=3) -> (0.42, 0.06, 0.63), orientation=vertical
+   135. PAINT cell (row=3, col=2) -> (0.30, 0.06, 0.63), orientation=vertical
+   136. PAINT cell (row=3, col=1) -> (0.18, 0.06, 0.63), orientation=vertical
+   137. PAINT cell (row=3, col=0) -> (0.07, 0.06, 0.63), orientation=vertical
+   138. PAINT cell (row=4, col=0) -> (0.07, 0.06, 0.81), orientation=vertical
+   139. PAINT cell (row=4, col=1) -> (0.18, 0.06, 0.81), orientation=vertical
+   140. PAINT cell (row=4, col=2) -> (0.30, 0.06, 0.81), orientation=vertical
+   141. DIP at paint can
+   142. PAINT cell (row=4, col=3) -> (0.42, 0.06, 0.81), orientation=vertical
+   143. PAINT cell (row=4, col=4) -> (0.54, 0.06, 0.81), orientation=vertical
+   144. PAINT cell (row=4, col=5) -> (0.66, 0.06, 0.81), orientation=vertical
+   145. PAINT cell (row=4, col=6) -> (0.78, 0.06, 0.81), orientation=vertical
+   146. PAINT cell (row=4, col=7) -> (0.90, 0.06, 0.81), orientation=vertical
+   147. PAINT cell (row=4, col=8) -> (1.02, 0.06, 0.81), orientation=vertical
+   148. PAINT cell (row=4, col=9) -> (1.14, 0.06, 0.81), orientation=vertical
+   149. PAINT cell (row=4, col=10) -> (1.26, 0.06, 0.81), orientation=vertical
+   150. PAINT cell (row=4, col=11) -> (1.38, 0.06, 0.81), orientation=vertical
+   151. PAINT cell (row=4, col=12) -> (1.50, 0.06, 0.81), orientation=vertical
+   152. PAINT cell (row=4, col=13) -> (1.62, 0.06, 0.81), orientation=vertical
+   153. PAINT cell (row=4, col=14) -> (1.74, 0.06, 0.81), orientation=vertical
+   154. PAINT cell (row=4, col=15) -> (1.86, 0.06, 0.81), orientation=vertical
+   155. PAINT cell (row=4, col=16) -> (1.98, 0.06, 0.81), orientation=vertical
+   156. PAINT cell (row=4, col=17) -> (2.10, 0.06, 0.81), orientation=vertical
+   157. PAINT cell (row=4, col=18) -> (2.22, 0.06, 0.81), orientation=vertical
+   158. PAINT cell (row=4, col=19) -> (2.34, 0.06, 0.81), orientation=vertical
+   159. PAINT cell (row=4, col=20) -> (2.46, 0.06, 0.81), orientation=vertical
+   160. PAINT cell (row=4, col=21) -> (2.58, 0.06, 0.81), orientation=vertical
+   161. PAINT cell (row=4, col=22) -> (2.70, 0.06, 0.81), orientation=vertical
+   162. PAINT cell (row=4, col=23) -> (2.82, 0.06, 0.81), orientation=vertical
+   163. PAINT cell (row=4, col=24) -> (2.94, 0.06, 0.81), orientation=vertical
+   164. PAINT cell (row=4, col=25) -> (3.06, 0.06, 0.81), orientation=vertical
+   165. PAINT cell (row=4, col=26) -> (3.18, 0.06, 0.81), orientation=vertical
+   166. PAINT cell (row=4, col=27) -> (3.30, 0.06, 0.81), orientation=vertical
+   167. PAINT cell (row=4, col=28) -> (3.42, 0.06, 0.81), orientation=vertical
+   168. PAINT cell (row=4, col=29) -> (3.54, 0.06, 0.81), orientation=vertical
+   169. PAINT cell (row=4, col=30) -> (3.66, 0.06, 0.81), orientation=vertical
+   170. PAINT cell (row=4, col=31) -> (3.78, 0.06, 0.81), orientation=vertical
+   171. PAINT cell (row=4, col=32) -> (3.90, 0.06, 0.81), orientation=vertical
+   172. PAINT cell (row=4, col=33) -> (3.93, 0.06, 0.81), orientation=vertical
+   173. PAINT cell (row=5, col=33) -> (3.93, 0.06, 0.99), orientation=vertical
+   174. PAINT cell (row=5, col=32) -> (3.90, 0.06, 0.99), orientation=vertical
+   175. PAINT cell (row=5, col=31) -> (3.78, 0.06, 0.99), orientation=vertical
+   176. PAINT cell (row=5, col=30) -> (3.66, 0.06, 0.99), orientation=vertical
+   177. PAINT cell (row=5, col=22) -> (2.70, 0.06, 0.99), orientation=vertical
+   178. PAINT cell (row=5, col=21) -> (2.58, 0.06, 0.99), orientation=vertical
+   179. PAINT cell (row=5, col=20) -> (2.46, 0.06, 0.99), orientation=vertical
+   180. PAINT cell (row=5, col=19) -> (2.34, 0.06, 0.99), orientation=vertical
+   181. PAINT cell (row=5, col=18) -> (2.22, 0.06, 0.99), orientation=vertical
+   182. PAINT cell (row=5, col=17) -> (2.10, 0.06, 0.99), orientation=vertical
+   183. PAINT cell (row=5, col=16) -> (1.98, 0.06, 0.99), orientation=vertical
+   184. PAINT cell (row=5, col=15) -> (1.86, 0.06, 0.99), orientation=vertical
+   185. PAINT cell (row=5, col=14) -> (1.74, 0.06, 0.99), orientation=vertical
+   186. PAINT cell (row=5, col=13) -> (1.62, 0.06, 0.99), orientation=vertical
+   187. PAINT cell (row=5, col=12) -> (1.50, 0.06, 0.99), orientation=vertical
+   188. PAINT cell (row=5, col=11) -> (1.38, 0.06, 0.99), orientation=vertical
+   189. PAINT cell (row=5, col=10) -> (1.26, 0.06, 0.99), orientation=vertical
+   190. PAINT cell (row=5, col=9) -> (1.14, 0.06, 0.99), orientation=vertical
+   191. PAINT cell (row=5, col=8) -> (1.02, 0.06, 0.99), orientation=vertical
+   192. PAINT cell (row=5, col=7) -> (0.90, 0.06, 0.99), orientation=vertical
+   193. PAINT cell (row=5, col=6) -> (0.78, 0.06, 0.99), orientation=vertical
+   194. PAINT cell (row=5, col=5) -> (0.66, 0.06, 0.99), orientation=vertical
+   195. PAINT cell (row=5, col=4) -> (0.54, 0.06, 0.99), orientation=vertical
+   196. PAINT cell (row=5, col=3) -> (0.42, 0.06, 0.99), orientation=vertical
+   197. PAINT cell (row=5, col=2) -> (0.30, 0.06, 0.99), orientation=vertical
+   198. PAINT cell (row=5, col=1) -> (0.18, 0.06, 0.99), orientation=vertical
+   199. PAINT cell (row=5, col=0) -> (0.07, 0.06, 0.99), orientation=vertical
+   200. PAINT cell (row=6, col=0) -> (0.07, 0.06, 1.17), orientation=vertical
+   201. PAINT cell (row=6, col=1) -> (0.18, 0.06, 1.17), orientation=vertical
+   202. PAINT cell (row=6, col=2) -> (0.30, 0.06, 1.17), orientation=vertical
+   203. PAINT cell (row=6, col=3) -> (0.42, 0.06, 1.17), orientation=vertical
+   204. PAINT cell (row=6, col=4) -> (0.54, 0.06, 1.17), orientation=vertical
+   205. DIP at paint can
+   206. PAINT cell (row=6, col=5) -> (0.66, 0.06, 1.17), orientation=vertical
+   207. PAINT cell (row=6, col=6) -> (0.78, 0.06, 1.17), orientation=vertical
+   208. PAINT cell (row=6, col=7) -> (0.90, 0.06, 1.17), orientation=vertical
+   209. PAINT cell (row=6, col=8) -> (1.02, 0.06, 1.17), orientation=vertical
+   210. PAINT cell (row=6, col=9) -> (1.14, 0.06, 1.17), orientation=vertical
+   211. PAINT cell (row=6, col=10) -> (1.26, 0.06, 1.17), orientation=vertical
+   212. PAINT cell (row=6, col=11) -> (1.38, 0.06, 1.17), orientation=vertical
+   213. PAINT cell (row=6, col=12) -> (1.50, 0.06, 1.17), orientation=vertical
+   214. PAINT cell (row=6, col=13) -> (1.62, 0.06, 1.17), orientation=vertical
+   215. PAINT cell (row=6, col=14) -> (1.74, 0.06, 1.17), orientation=vertical
+   216. PAINT cell (row=6, col=15) -> (1.86, 0.06, 1.17), orientation=vertical
+   217. PAINT cell (row=6, col=16) -> (1.98, 0.06, 1.17), orientation=vertical
+   218. PAINT cell (row=6, col=17) -> (2.10, 0.06, 1.17), orientation=vertical
+   219. PAINT cell (row=6, col=18) -> (2.22, 0.06, 1.17), orientation=vertical
+   220. PAINT cell (row=6, col=19) -> (2.34, 0.06, 1.17), orientation=vertical
+   221. PAINT cell (row=6, col=20) -> (2.46, 0.06, 1.17), orientation=vertical
+   222. PAINT cell (row=6, col=21) -> (2.58, 0.06, 1.17), orientation=vertical
+   223. PAINT cell (row=6, col=22) -> (2.70, 0.06, 1.17), orientation=vertical
+   224. PAINT cell (row=6, col=30) -> (3.66, 0.06, 1.17), orientation=vertical
+   225. PAINT cell (row=6, col=31) -> (3.78, 0.06, 1.17), orientation=vertical
+   226. PAINT cell (row=6, col=32) -> (3.90, 0.06, 1.17), orientation=vertical
+   227. PAINT cell (row=6, col=33) -> (3.93, 0.06, 1.17), orientation=vertical
+   228. PAINT cell (row=7, col=33) -> (3.93, 0.06, 1.35), orientation=vertical
+   229. PAINT cell (row=7, col=32) -> (3.90, 0.06, 1.35), orientation=vertical
+   230. PAINT cell (row=7, col=31) -> (3.78, 0.06, 1.35), orientation=vertical
+   231. PAINT cell (row=7, col=30) -> (3.66, 0.06, 1.35), orientation=vertical
+   232. PAINT cell (row=7, col=22) -> (2.70, 0.06, 1.35), orientation=vertical
+   233. PAINT cell (row=7, col=21) -> (2.58, 0.06, 1.35), orientation=vertical
+   234. PAINT cell (row=7, col=20) -> (2.46, 0.06, 1.35), orientation=vertical
+   235. PAINT cell (row=7, col=19) -> (2.34, 0.06, 1.35), orientation=vertical
+   236. PAINT cell (row=7, col=18) -> (2.22, 0.06, 1.35), orientation=vertical
+   237. PAINT cell (row=7, col=17) -> (2.10, 0.06, 1.35), orientation=vertical
+   238. PAINT cell (row=7, col=16) -> (1.98, 0.06, 1.35), orientation=vertical
+   239. PAINT cell (row=7, col=15) -> (1.86, 0.06, 1.35), orientation=vertical
+   240. PAINT cell (row=7, col=14) -> (1.74, 0.06, 1.35), orientation=vertical
+   241. PAINT cell (row=7, col=13) -> (1.62, 0.06, 1.35), orientation=vertical
+   242. PAINT cell (row=7, col=12) -> (1.50, 0.06, 1.35), orientation=vertical
+   243. PAINT cell (row=7, col=11) -> (1.38, 0.06, 1.35), orientation=vertical
+   244. PAINT cell (row=7, col=10) -> (1.26, 0.06, 1.35), orientation=vertical
+   245. PAINT cell (row=7, col=9) -> (1.14, 0.06, 1.35), orientation=vertical
+   246. PAINT cell (row=7, col=8) -> (1.02, 0.06, 1.35), orientation=vertical
+   247. PAINT cell (row=7, col=7) -> (0.90, 0.06, 1.35), orientation=vertical
+   248. PAINT cell (row=7, col=6) -> (0.78, 0.06, 1.35), orientation=vertical
+   249. PAINT cell (row=7, col=5) -> (0.66, 0.06, 1.35), orientation=vertical
+   250. PAINT cell (row=7, col=4) -> (0.54, 0.06, 1.35), orientation=vertical
+   251. PAINT cell (row=7, col=3) -> (0.42, 0.06, 1.35), orientation=vertical
+   252. PAINT cell (row=7, col=2) -> (0.30, 0.06, 1.35), orientation=vertical
+   253. PAINT cell (row=7, col=1) -> (0.18, 0.06, 1.35), orientation=vertical
+   254. PAINT cell (row=7, col=0) -> (0.07, 0.06, 1.35), orientation=vertical
+   255. PAINT cell (row=8, col=0) -> (0.07, 0.06, 1.53), orientation=vertical
+   256. PAINT cell (row=8, col=1) -> (0.18, 0.06, 1.53), orientation=vertical
+   257. PAINT cell (row=8, col=2) -> (0.30, 0.06, 1.53), orientation=vertical
+   258. PAINT cell (row=8, col=3) -> (0.42, 0.06, 1.53), orientation=vertical
+   259. PAINT cell (row=8, col=4) -> (0.54, 0.06, 1.53), orientation=vertical
+   260. PAINT cell (row=8, col=5) -> (0.66, 0.06, 1.53), orientation=vertical
+   261. DIP at paint can
+   262. PAINT cell (row=8, col=6) -> (0.78, 0.06, 1.53), orientation=vertical
+   263. PAINT cell (row=8, col=7) -> (0.90, 0.06, 1.53), orientation=vertical
+   264. PAINT cell (row=8, col=8) -> (1.02, 0.06, 1.53), orientation=vertical
+   265. PAINT cell (row=8, col=9) -> (1.14, 0.06, 1.53), orientation=vertical
+   266. PAINT cell (row=8, col=10) -> (1.26, 0.06, 1.53), orientation=vertical
+   267. PAINT cell (row=8, col=11) -> (1.38, 0.06, 1.53), orientation=vertical
+   268. PAINT cell (row=8, col=12) -> (1.50, 0.06, 1.53), orientation=vertical
+   269. PAINT cell (row=8, col=13) -> (1.62, 0.06, 1.53), orientation=vertical
+   270. PAINT cell (row=8, col=14) -> (1.74, 0.06, 1.53), orientation=vertical
+   271. PAINT cell (row=8, col=15) -> (1.86, 0.06, 1.53), orientation=vertical
+   272. PAINT cell (row=8, col=16) -> (1.98, 0.06, 1.53), orientation=vertical
+   273. PAINT cell (row=8, col=17) -> (2.10, 0.06, 1.53), orientation=vertical
+   274. PAINT cell (row=8, col=18) -> (2.22, 0.06, 1.53), orientation=vertical
+   275. PAINT cell (row=8, col=19) -> (2.34, 0.06, 1.53), orientation=vertical
+   276. PAINT cell (row=8, col=20) -> (2.46, 0.06, 1.53), orientation=vertical
+   277. PAINT cell (row=8, col=21) -> (2.58, 0.06, 1.53), orientation=vertical
+   278. PAINT cell (row=8, col=22) -> (2.70, 0.06, 1.53), orientation=vertical
+   279. PAINT cell (row=8, col=30) -> (3.66, 0.06, 1.53), orientation=vertical
+   280. PAINT cell (row=8, col=31) -> (3.78, 0.06, 1.53), orientation=vertical
+   281. PAINT cell (row=8, col=32) -> (3.90, 0.06, 1.53), orientation=vertical
+   282. PAINT cell (row=8, col=33) -> (3.93, 0.06, 1.53), orientation=vertical
+   283. PAINT cell (row=9, col=33) -> (3.93, 0.06, 1.71), orientation=vertical
+   284. PAINT cell (row=9, col=32) -> (3.90, 0.06, 1.71), orientation=vertical
+   285. PAINT cell (row=9, col=31) -> (3.78, 0.06, 1.71), orientation=vertical
+   286. PAINT cell (row=9, col=30) -> (3.66, 0.06, 1.71), orientation=vertical
+   287. PAINT cell (row=9, col=22) -> (2.70, 0.06, 1.71), orientation=vertical
+   288. PAINT cell (row=9, col=21) -> (2.58, 0.06, 1.71), orientation=vertical
+   289. PAINT cell (row=9, col=20) -> (2.46, 0.06, 1.71), orientation=vertical
+   290. PAINT cell (row=9, col=19) -> (2.34, 0.06, 1.71), orientation=vertical
+   291. PAINT cell (row=9, col=18) -> (2.22, 0.06, 1.71), orientation=vertical
+   292. PAINT cell (row=9, col=17) -> (2.10, 0.06, 1.71), orientation=vertical
+   293. PAINT cell (row=9, col=16) -> (1.98, 0.06, 1.71), orientation=vertical
+   294. PAINT cell (row=9, col=15) -> (1.86, 0.06, 1.71), orientation=vertical
+   295. PAINT cell (row=9, col=14) -> (1.74, 0.06, 1.71), orientation=vertical
+   296. PAINT cell (row=9, col=13) -> (1.62, 0.06, 1.71), orientation=vertical
+   297. PAINT cell (row=9, col=12) -> (1.50, 0.06, 1.71), orientation=vertical
+   298. PAINT cell (row=9, col=11) -> (1.38, 0.06, 1.71), orientation=vertical
+   299. PAINT cell (row=9, col=10) -> (1.26, 0.06, 1.71), orientation=vertical
+   300. PAINT cell (row=9, col=9) -> (1.14, 0.06, 1.71), orientation=vertical
+   301. PAINT cell (row=9, col=8) -> (1.02, 0.06, 1.71), orientation=vertical
+   302. PAINT cell (row=9, col=7) -> (0.90, 0.06, 1.71), orientation=vertical
+   303. PAINT cell (row=9, col=6) -> (0.78, 0.06, 1.71), orientation=vertical
+   304. PAINT cell (row=9, col=5) -> (0.66, 0.06, 1.71), orientation=vertical
+   305. PAINT cell (row=9, col=4) -> (0.54, 0.06, 1.71), orientation=vertical
+   306. PAINT cell (row=9, col=3) -> (0.42, 0.06, 1.71), orientation=vertical
+   307. PAINT cell (row=9, col=2) -> (0.30, 0.06, 1.71), orientation=vertical
+   308. PAINT cell (row=9, col=1) -> (0.18, 0.06, 1.71), orientation=vertical
+   309. PAINT cell (row=9, col=0) -> (0.07, 0.06, 1.71), orientation=vertical
+   310. PAINT cell (row=10, col=0) -> (0.07, 0.06, 1.89), orientation=vertical
+   311. PAINT cell (row=10, col=1) -> (0.18, 0.06, 1.89), orientation=vertical
+   312. PAINT cell (row=10, col=2) -> (0.30, 0.06, 1.89), orientation=vertical
+   313. PAINT cell (row=10, col=3) -> (0.42, 0.06, 1.89), orientation=vertical
+   314. PAINT cell (row=10, col=4) -> (0.54, 0.06, 1.89), orientation=vertical
+   315. DIP at paint can
+   316. PAINT cell (row=10, col=5) -> (0.66, 0.06, 1.89), orientation=vertical
+   317. PAINT cell (row=10, col=6) -> (0.78, 0.06, 1.89), orientation=vertical
+   318. PAINT cell (row=10, col=7) -> (0.90, 0.06, 1.89), orientation=vertical
+   319. PAINT cell (row=10, col=8) -> (1.02, 0.06, 1.89), orientation=vertical
+   320. PAINT cell (row=10, col=9) -> (1.14, 0.06, 1.89), orientation=vertical
+   321. PAINT cell (row=10, col=10) -> (1.26, 0.06, 1.89), orientation=vertical
+   322. PAINT cell (row=10, col=11) -> (1.38, 0.06, 1.89), orientation=vertical
+   323. PAINT cell (row=10, col=12) -> (1.50, 0.06, 1.89), orientation=vertical
+   324. PAINT cell (row=10, col=13) -> (1.62, 0.06, 1.89), orientation=vertical
+   325. PAINT cell (row=10, col=14) -> (1.74, 0.06, 1.89), orientation=vertical
+   326. PAINT cell (row=10, col=15) -> (1.86, 0.06, 1.89), orientation=vertical
+   327. PAINT cell (row=10, col=16) -> (1.98, 0.06, 1.89), orientation=vertical
+   328. PAINT cell (row=10, col=17) -> (2.10, 0.06, 1.89), orientation=vertical
+   329. PAINT cell (row=10, col=18) -> (2.22, 0.06, 1.89), orientation=vertical
+   330. PAINT cell (row=10, col=19) -> (2.34, 0.06, 1.89), orientation=vertical
+   331. PAINT cell (row=10, col=20) -> (2.46, 0.06, 1.89), orientation=vertical
+   332. PAINT cell (row=10, col=21) -> (2.58, 0.06, 1.89), orientation=vertical
+   333. PAINT cell (row=10, col=22) -> (2.70, 0.06, 1.89), orientation=vertical
+   334. PAINT cell (row=10, col=23) -> (2.82, 0.06, 1.89), orientation=vertical
+   335. PAINT cell (row=10, col=24) -> (2.94, 0.06, 1.89), orientation=vertical
+   336. PAINT cell (row=10, col=25) -> (3.06, 0.06, 1.89), orientation=vertical
+   337. PAINT cell (row=10, col=26) -> (3.18, 0.06, 1.89), orientation=vertical
+   338. PAINT cell (row=10, col=27) -> (3.30, 0.06, 1.89), orientation=vertical
+   339. PAINT cell (row=10, col=28) -> (3.42, 0.06, 1.89), orientation=vertical
+   340. PAINT cell (row=10, col=29) -> (3.54, 0.06, 1.89), orientation=vertical
+   341. PAINT cell (row=10, col=30) -> (3.66, 0.06, 1.89), orientation=vertical
+   342. PAINT cell (row=10, col=31) -> (3.78, 0.06, 1.89), orientation=vertical
+   343. PAINT cell (row=10, col=32) -> (3.90, 0.06, 1.89), orientation=vertical
+   344. PAINT cell (row=10, col=33) -> (3.93, 0.06, 1.89), orientation=vertical
+   345. PAINT cell (row=11, col=33) -> (3.93, 0.06, 2.07), orientation=vertical
+   346. PAINT cell (row=11, col=32) -> (3.90, 0.06, 2.07), orientation=vertical
+   347. PAINT cell (row=11, col=31) -> (3.78, 0.06, 2.07), orientation=vertical
+   348. PAINT cell (row=11, col=30) -> (3.66, 0.06, 2.07), orientation=vertical
+   349. PAINT cell (row=11, col=29) -> (3.54, 0.06, 2.07), orientation=vertical
+   350. PAINT cell (row=11, col=28) -> (3.42, 0.06, 2.07), orientation=vertical
+   351. PAINT cell (row=11, col=27) -> (3.30, 0.06, 2.07), orientation=vertical
+   352. PAINT cell (row=11, col=26) -> (3.18, 0.06, 2.07), orientation=vertical
+   353. PAINT cell (row=11, col=25) -> (3.06, 0.06, 2.07), orientation=vertical
+   354. PAINT cell (row=11, col=24) -> (2.94, 0.06, 2.07), orientation=vertical
+   355. PAINT cell (row=11, col=23) -> (2.82, 0.06, 2.07), orientation=vertical
+   356. PAINT cell (row=11, col=22) -> (2.70, 0.06, 2.07), orientation=vertical
+   357. PAINT cell (row=11, col=21) -> (2.58, 0.06, 2.07), orientation=vertical
+   358. PAINT cell (row=11, col=20) -> (2.46, 0.06, 2.07), orientation=vertical
+   359. PAINT cell (row=11, col=19) -> (2.34, 0.06, 2.07), orientation=vertical
+   360. PAINT cell (row=11, col=18) -> (2.22, 0.06, 2.07), orientation=vertical
+   361. PAINT cell (row=11, col=17) -> (2.10, 0.06, 2.07), orientation=vertical
+   362. PAINT cell (row=11, col=16) -> (1.98, 0.06, 2.07), orientation=vertical
+   363. PAINT cell (row=11, col=15) -> (1.86, 0.06, 2.07), orientation=vertical
+   364. PAINT cell (row=11, col=14) -> (1.74, 0.06, 2.07), orientation=vertical
+   365. PAINT cell (row=11, col=13) -> (1.62, 0.06, 2.07), orientation=vertical
+   366. PAINT cell (row=11, col=12) -> (1.50, 0.06, 2.07), orientation=vertical
+   367. PAINT cell (row=11, col=11) -> (1.38, 0.06, 2.07), orientation=vertical
+   368. PAINT cell (row=11, col=10) -> (1.26, 0.06, 2.07), orientation=vertical
+   369. PAINT cell (row=11, col=9) -> (1.14, 0.06, 2.07), orientation=vertical
+   370. PAINT cell (row=11, col=8) -> (1.02, 0.06, 2.07), orientation=vertical
+   371. PAINT cell (row=11, col=7) -> (0.90, 0.06, 2.07), orientation=vertical
+   372. PAINT cell (row=11, col=6) -> (0.78, 0.06, 2.07), orientation=vertical
+   373. PAINT cell (row=11, col=5) -> (0.66, 0.06, 2.07), orientation=vertical
+   374. PAINT cell (row=11, col=4) -> (0.54, 0.06, 2.07), orientation=vertical
+   375. PAINT cell (row=11, col=3) -> (0.42, 0.06, 2.07), orientation=vertical
+   376. PAINT cell (row=11, col=2) -> (0.30, 0.06, 2.07), orientation=vertical
+   377. PAINT cell (row=11, col=1) -> (0.18, 0.06, 2.07), orientation=vertical
+   378. PAINT cell (row=11, col=0) -> (0.07, 0.06, 2.07), orientation=vertical
+   379. PAINT cell (row=12, col=0) -> (0.07, 0.06, 2.25), orientation=vertical
+   380. PAINT cell (row=12, col=1) -> (0.18, 0.06, 2.25), orientation=vertical
+   381. DIP at paint can
+   382. PAINT cell (row=12, col=2) -> (0.30, 0.06, 2.25), orientation=vertical
+   383. PAINT cell (row=12, col=3) -> (0.42, 0.06, 2.25), orientation=vertical
+   384. PAINT cell (row=12, col=4) -> (0.54, 0.06, 2.25), orientation=vertical
+   385. PAINT cell (row=12, col=5) -> (0.66, 0.06, 2.25), orientation=vertical
+   386. PAINT cell (row=12, col=6) -> (0.78, 0.06, 2.25), orientation=vertical
+   387. PAINT cell (row=12, col=7) -> (0.90, 0.06, 2.25), orientation=vertical
+   388. PAINT cell (row=12, col=8) -> (1.02, 0.06, 2.25), orientation=vertical
+   389. PAINT cell (row=12, col=9) -> (1.14, 0.06, 2.25), orientation=vertical
+   390. PAINT cell (row=12, col=10) -> (1.26, 0.06, 2.25), orientation=vertical
+   391. PAINT cell (row=12, col=11) -> (1.38, 0.06, 2.25), orientation=vertical
+   392. PAINT cell (row=12, col=12) -> (1.50, 0.06, 2.25), orientation=vertical
+   393. PAINT cell (row=12, col=13) -> (1.62, 0.06, 2.25), orientation=vertical
+   394. PAINT cell (row=12, col=14) -> (1.74, 0.06, 2.25), orientation=vertical
+   395. PAINT cell (row=12, col=15) -> (1.86, 0.06, 2.25), orientation=vertical
+   396. PAINT cell (row=12, col=16) -> (1.98, 0.06, 2.25), orientation=vertical
+   397. PAINT cell (row=12, col=17) -> (2.10, 0.06, 2.25), orientation=vertical
+   398. PAINT cell (row=12, col=18) -> (2.22, 0.06, 2.25), orientation=vertical
+   399. PAINT cell (row=12, col=19) -> (2.34, 0.06, 2.25), orientation=vertical
+   400. PAINT cell (row=12, col=20) -> (2.46, 0.06, 2.25), orientation=vertical
+   401. PAINT cell (row=12, col=21) -> (2.58, 0.06, 2.25), orientation=vertical
+   402. PAINT cell (row=12, col=22) -> (2.70, 0.06, 2.25), orientation=vertical
+   403. PAINT cell (row=12, col=23) -> (2.82, 0.06, 2.25), orientation=vertical
+   404. PAINT cell (row=12, col=24) -> (2.94, 0.06, 2.25), orientation=vertical
+   405. PAINT cell (row=12, col=25) -> (3.06, 0.06, 2.25), orientation=vertical
+   406. PAINT cell (row=12, col=26) -> (3.18, 0.06, 2.25), orientation=vertical
+   407. PAINT cell (row=12, col=27) -> (3.30, 0.06, 2.25), orientation=vertical
+   408. PAINT cell (row=12, col=28) -> (3.42, 0.06, 2.25), orientation=vertical
+   409. PAINT cell (row=12, col=29) -> (3.54, 0.06, 2.25), orientation=vertical
+   410. PAINT cell (row=12, col=30) -> (3.66, 0.06, 2.25), orientation=vertical
+   411. PAINT cell (row=12, col=31) -> (3.78, 0.06, 2.25), orientation=vertical
+   412. PAINT cell (row=12, col=32) -> (3.90, 0.06, 2.25), orientation=vertical
+   413. PAINT cell (row=12, col=33) -> (3.93, 0.06, 2.25), orientation=vertical
+   414. PAINT cell (row=13, col=33) -> (3.93, 0.06, 2.43), orientation=vertical
+   415. PAINT cell (row=13, col=32) -> (3.90, 0.06, 2.43), orientation=vertical
+   416. PAINT cell (row=13, col=31) -> (3.78, 0.06, 2.43), orientation=vertical
+   417. PAINT cell (row=13, col=30) -> (3.66, 0.06, 2.43), orientation=vertical
+   418. PAINT cell (row=13, col=29) -> (3.54, 0.06, 2.43), orientation=vertical
+   419. PAINT cell (row=13, col=28) -> (3.42, 0.06, 2.43), orientation=vertical
+   420. PAINT cell (row=13, col=27) -> (3.30, 0.06, 2.43), orientation=vertical
+   421. PAINT cell (row=13, col=26) -> (3.18, 0.06, 2.43), orientation=vertical
+   422. PAINT cell (row=13, col=25) -> (3.06, 0.06, 2.43), orientation=vertical
+   423. PAINT cell (row=13, col=24) -> (2.94, 0.06, 2.43), orientation=vertical
+   424. PAINT cell (row=13, col=23) -> (2.82, 0.06, 2.43), orientation=vertical
+   425. PAINT cell (row=13, col=22) -> (2.70, 0.06, 2.43), orientation=vertical
+   426. PAINT cell (row=13, col=21) -> (2.58, 0.06, 2.43), orientation=vertical
+   427. PAINT cell (row=13, col=20) -> (2.46, 0.06, 2.43), orientation=vertical
+   428. PAINT cell (row=13, col=19) -> (2.34, 0.06, 2.43), orientation=vertical
+   429. PAINT cell (row=13, col=18) -> (2.22, 0.06, 2.43), orientation=vertical
+   430. PAINT cell (row=13, col=17) -> (2.10, 0.06, 2.43), orientation=vertical
+   431. PAINT cell (row=13, col=16) -> (1.98, 0.06, 2.43), orientation=vertical
+   432. PAINT cell (row=13, col=15) -> (1.86, 0.06, 2.43), orientation=vertical
+   433. PAINT cell (row=13, col=14) -> (1.74, 0.06, 2.43), orientation=vertical
+   434. PAINT cell (row=13, col=13) -> (1.62, 0.06, 2.43), orientation=vertical
+   435. PAINT cell (row=13, col=12) -> (1.50, 0.06, 2.43), orientation=vertical
+   436. PAINT cell (row=13, col=11) -> (1.38, 0.06, 2.43), orientation=vertical
+   437. PAINT cell (row=13, col=10) -> (1.26, 0.06, 2.43), orientation=vertical
+   438. PAINT cell (row=13, col=9) -> (1.14, 0.06, 2.43), orientation=vertical
+   439. PAINT cell (row=13, col=8) -> (1.02, 0.06, 2.43), orientation=vertical
+   440. PAINT cell (row=13, col=7) -> (0.90, 0.06, 2.43), orientation=vertical
+   441. PAINT cell (row=13, col=6) -> (0.78, 0.06, 2.43), orientation=vertical
+   442. PAINT cell (row=13, col=5) -> (0.66, 0.06, 2.43), orientation=vertical
+   443. PAINT cell (row=13, col=4) -> (0.54, 0.06, 2.43), orientation=vertical
+   444. DIP at paint can
+   445. PAINT cell (row=13, col=3) -> (0.42, 0.06, 2.43), orientation=vertical
+   446. PAINT cell (row=13, col=2) -> (0.30, 0.06, 2.43), orientation=vertical
+   447. PAINT cell (row=13, col=1) -> (0.18, 0.06, 2.43), orientation=vertical
+   448. PAINT cell (row=13, col=0) -> (0.07, 0.06, 2.43), orientation=vertical
+   449. PAINT cell (row=14, col=0) -> (0.07, 0.06, 2.50), orientation=vertical
+   450. PAINT cell (row=14, col=1) -> (0.18, 0.06, 2.50), orientation=vertical
+   451. PAINT cell (row=14, col=2) -> (0.30, 0.06, 2.50), orientation=vertical
+   452. PAINT cell (row=14, col=3) -> (0.42, 0.06, 2.50), orientation=vertical
+   453. PAINT cell (row=14, col=4) -> (0.54, 0.06, 2.50), orientation=vertical
+   454. PAINT cell (row=14, col=5) -> (0.66, 0.06, 2.50), orientation=vertical
+   455. PAINT cell (row=14, col=6) -> (0.78, 0.06, 2.50), orientation=vertical
+   456. PAINT cell (row=14, col=7) -> (0.90, 0.06, 2.50), orientation=vertical
+   457. PAINT cell (row=14, col=8) -> (1.02, 0.06, 2.50), orientation=vertical
+   458. PAINT cell (row=14, col=9) -> (1.14, 0.06, 2.50), orientation=vertical
+   459. PAINT cell (row=14, col=10) -> (1.26, 0.06, 2.50), orientation=vertical
+   460. PAINT cell (row=14, col=11) -> (1.38, 0.06, 2.50), orientation=vertical
+   461. PAINT cell (row=14, col=12) -> (1.50, 0.06, 2.50), orientation=vertical
+   462. PAINT cell (row=14, col=13) -> (1.62, 0.06, 2.50), orientation=vertical
+   463. PAINT cell (row=14, col=14) -> (1.74, 0.06, 2.50), orientation=vertical
+   464. PAINT cell (row=14, col=15) -> (1.86, 0.06, 2.50), orientation=vertical
+   465. PAINT cell (row=14, col=16) -> (1.98, 0.06, 2.50), orientation=vertical
+   466. PAINT cell (row=14, col=17) -> (2.10, 0.06, 2.50), orientation=vertical
+   467. PAINT cell (row=14, col=18) -> (2.22, 0.06, 2.50), orientation=vertical
+   468. PAINT cell (row=14, col=19) -> (2.34, 0.06, 2.50), orientation=vertical
+   469. PAINT cell (row=14, col=20) -> (2.46, 0.06, 2.50), orientation=vertical
+   470. PAINT cell (row=14, col=21) -> (2.58, 0.06, 2.50), orientation=vertical
+   471. PAINT cell (row=14, col=22) -> (2.70, 0.06, 2.50), orientation=vertical
+   472. PAINT cell (row=14, col=23) -> (2.82, 0.06, 2.50), orientation=vertical
+   473. PAINT cell (row=14, col=24) -> (2.94, 0.06, 2.50), orientation=vertical
+   474. PAINT cell (row=14, col=25) -> (3.06, 0.06, 2.50), orientation=vertical
+   475. PAINT cell (row=14, col=26) -> (3.18, 0.06, 2.50), orientation=vertical
+   476. PAINT cell (row=14, col=27) -> (3.30, 0.06, 2.50), orientation=vertical
+   477. PAINT cell (row=14, col=28) -> (3.42, 0.06, 2.50), orientation=vertical
+   478. PAINT cell (row=14, col=29) -> (3.54, 0.06, 2.50), orientation=vertical
+   479. PAINT cell (row=14, col=30) -> (3.66, 0.06, 2.50), orientation=vertical
+   480. PAINT cell (row=14, col=31) -> (3.78, 0.06, 2.50), orientation=vertical
+   481. PAINT cell (row=14, col=32) -> (3.90, 0.06, 2.50), orientation=vertical
+   482. PAINT cell (row=14, col=33) -> (3.93, 0.06, 2.50), orientation=vertical
+[DIAG] cell=(0, 0) target=[0.07, 0.059, 0.11] actual=[0.07, 0.059, 0.11] position_error=0.000m verticality=1.0000 wall_contact=True
+[DIAG] cell=(0, 1) target=[0.18, 0.059, 0.11] actual=[0.18, 0.059, 0.11] position_error=0.000m verticality=1.0000 wall_contact=True
+[DIAG] cell=(0, 2) target=[0.3, 0.059, 0.11] actual=[0.3, 0.059, 0.11] position_error=0.000m verticality=1.0000 wall_contact=True
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0113).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0145).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0133).
+Progress: 1.7% (8/475 cells), path length so far: 9.54 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0142).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0148).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0111).
+Progress: 3.8% (18/475 cells), path length so far: 9.54 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0049).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0040).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0059).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0059).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0059).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0059).
+Progress: 5.9% (28/475 cells), path length so far: 9.54 m
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0135).
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0161).
+[CoordRobotController] Cell (0, 33) not reached/painted enough; fraction=63.78%, target_threshold=80%.
+[main_lets_paint] Skipping cell (0,33) after 3 failed attempts.
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0157).
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0157).
+[CoordRobotController] Cell (1, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (1,33) after 3 failed attempts.
+Progress: 7.8% (37/475 cells), path length so far: 9.54 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0174).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0158).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0133).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0161).
+[CoordRobotController] Tool pose reached (position error 0.0010 m; residual joint error 0.0117).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0134).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0073).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0107).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0090).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0141).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0106).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0131).
+Progress: 9.9% (47/475 cells), path length so far: 9.54 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0134).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0118).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0151).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0121).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0132).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0134).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0119).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0151).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0121).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0132).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0134).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0119).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0151).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0050).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0135).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0135).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0135).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0135).
+Progress: 12.0% (57/475 cells), path length so far: 9.54 m
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0135).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0098).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0106).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0096).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0089).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0076).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0094).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0094).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0091).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0095).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0104).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0101).
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0105).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[RobotController] Roller dipped in paint.
+Progress: 14.1% (67/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0077).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0086).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0133).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0106).
+Progress: 16.2% (77/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0105).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0108).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0109).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0107).
+Progress: 18.3% (87/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0074).
+Progress: 20.4% (97/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0085).
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0085).
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0085).
+[CoordRobotController] Cell (2, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (2,33) after 3 failed attempts.
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0155).
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0140).
+[CoordRobotController] Cell (3, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (3,33) after 3 failed attempts.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0146).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0138).
+Progress: 22.1% (105/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0102).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0105).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0035).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0113).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0111).
+Progress: 24.2% (115/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0114).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0132).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0133).
+Progress: 26.3% (125/475 cells), path length so far: 13.74 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0050).
+[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[RobotController] Roller dipped in paint.
+Progress: 28.4% (135/475 cells), path length so far: 18.26 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0118).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0103).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0100).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0095).
+Progress: 30.5% (145/475 cells), path length so far: 18.26 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0116).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0108).
+Progress: 32.6% (155/475 cells), path length so far: 18.26 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0124).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0115).
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0050).
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0059).
+[CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (4,33) after 3 failed attempts.
+Progress: 34.5% (164/475 cells), path length so far: 18.26 m
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0155).
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0158).
+[CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (5,33) after 3 failed attempts.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0118).
+[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0100).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0097).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0095).
+Progress: 36.4% (173/475 cells), path length so far: 19.48 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0116).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0119).
+[CoordRobotController] Tool pose reached (position error 0.0003 m; residual joint error 0.0122).
+Progress: 38.5% (183/475 cells), path length so far: 19.48 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0127).
+Progress: 40.6% (193/475 cells), path length so far: 19.48 m
+[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[RobotController] Roller dipped in paint.
+Progress: 42.7% (203/475 cells), path length so far: 24.48 m
+Progress: 44.8% (213/475 cells), path length so far: 24.48 m
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0080).
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0081).
+[CoordRobotController] Cell (6, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (6,33) after 3 failed attempts.
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0135).
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0142).
+[CoordRobotController] Cell (7, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (7,33) after 3 failed attempts.
+[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0024).
+Progress: 46.5% (221/475 cells), path length so far: 26.92 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0099).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0086).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0109).
+Progress: 48.6% (231/475 cells), path length so far: 26.92 m
+Progress: 50.7% (241/475 cells), path length so far: 26.92 m
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0022).
+[CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
+[RobotController] Roller dipped in paint.
+Progress: 52.8% (251/475 cells), path length so far: 32.54 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0131).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0106).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0107).
+Progress: 54.9% (261/475 cells), path length so far: 32.54 m
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0134).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0104).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0056).
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0066).
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0070).
+[CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (8,33) after 3 failed attempts.
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0062).
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0064).
+[CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
+[main_lets_paint] Skipping cell (9,33) after 3 failed attempts.
+Progress: 56.6% (269/475 cells), path length so far: 33.76 m
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0077).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0129).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0153).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0101).
+Progress: 58.7% (279/475 cells), path length so far: 34.98 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0075).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0152).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0093).
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0082).
+Progress: 60.8% (289/475 cells), path length so far: 34.98 m
+[CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0061).
+[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0180).
+Progress: 62.9% (299/475 cells), path length so far: 34.98 m
+PyBullet call failed: getLinkState failed.; connected=0

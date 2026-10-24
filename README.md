@@ -55,7 +55,7 @@ Use `--strategy` to pick a coverage strategy. Examples:
 
 ```bash
 # Use the trained RL policy (planner-driven) in a single pass (no replanning)
-KMP_DUPLICATE_LIB_OK=TRUE python3 main.py --strategy rl --disable-replanning --headless
+KMP_DUPLICATE_LIB_OK=TRUE python3 main.py --strategy rl --disable-replanning
 
 # Use the RL planner but allow replanning (multiple attempts)
 python3 main.py --strategy rl --headless

@@ -466,8 +466,14 @@ class CoveragePlanner:
         total_cells = self.wall.total_cells()
         max_steps = rl_max_steps
         obs = build_obs(painted)
+        last_position = list(start_position)
 
         for step in range(max_steps):
+            remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
+            if not remaining:
+                print(f"[CoveragePlanner][RL] No remaining uncovered cells after {step} RL steps; stopping planner.")
+                break
+
             try:
                 action, _ = model.predict(obs, deterministic=True)
             except Exception as e:
@@ -476,55 +482,46 @@ class CoveragePlanner:
             actions_taken.append(action)
             a = _np.asarray(action).flatten()
             if a.size < 3:
-                # unexpected action shape; stop
                 break
             x, y, dip_score = float(a[0]), float(a[1]), float(a[2])
             dip = bool(dip_score > 0.5)
 
-            # Map world (x,y) to nearest grid cell on this wall
-            try:
-                row, col = self.wall.world_to_grid((x, y, 0.0))
-            except Exception:
-                # fallback: choose nearest uncovered cell by euclidean distance
-                remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
-                if not remaining:
-                    break
-                best = None
-                best_d = None
-                for r, c in remaining:
-                    pos = self.wall.touch_point(r, c, offset=self.approach_offset)
-                    d = math.dist((x, y), (pos[0], pos[1]))
-                    if best_d is None or d < best_d:
-                        best, best_d = (r, c), d
-                row, col = best
+            # Prefer the next target to be near the current wall progress, not an arbitrary jump
+            # across the entire wall. This keeps the RL planner behaving like a wall sweep while
+            # still using the model output as a guide.
+            best = None
+            best_key = None
+            for r, c in remaining:
+                pos = self.wall.touch_point(r, c, offset=self.approach_offset)
+                action_distance = math.dist((x, y), (pos[0], pos[1]))
+                continuity_distance = math.dist(last_position, pos)
+                # A low continuity distance is preferred, but the model still influences the choice.
+                key = (continuity_distance + 0.25 * action_distance, action_distance)
+                if best_key is None or key < best_key:
+                    best_key = key
+                    best = (r, c)
 
+            if best is None:
+                break
+            row, col = best
             if (row, col) in painted:
-                # already planned; don't stop outright (policy may repeat the same action).
-                # Instead, map to the nearest remaining uncovered cell as a sensible fallback
-                remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
-                if not remaining:
-                    break
-                # choose nearest uncovered cell to the predicted (x,y)
-                best = None
-                best_d = None
-                for r, c in remaining:
-                    pos = self.wall.touch_point(r, c, offset=self.approach_offset)
-                    d = math.dist((x, y), (pos[0], pos[1]))
-                    if best_d is None or d < best_d:
-                        best, best_d = (r, c), d
-                row, col = best
-                print(f"[CoveragePlanner][RL] Predicted already-planned cell; falling back to nearest uncovered {row, col}")
+                print(f"[CoveragePlanner][RL] Duplicate target selected; retrying with nearest unpainted cell.")
+                row, col = min(remaining, key=lambda cell: math.dist(last_position, self.wall.touch_point(cell[0], cell[1], offset=self.approach_offset)))
 
             position = self.wall.touch_point(row, col, offset=self.approach_offset)
+            # The controller currently validates paint success only for near-vertical roller
+            # contact against the wall. Use the same orientation for RL-generated paint targets;
+            # travel/retraction remain vertical, so the motion planner can actually solve the IK.
             route.append(CoverageTarget(row, col, position, orientation="vertical"))
             painted.add((row, col))
+            last_position = list(position)
             if dip:
                 route.append(DipStep())
 
-            # recompute coverage fraction (simulated)
-            if float(len(painted)) / float(total_cells) >= 0.95:
-                break
             obs = build_obs(painted)
+
+        if not route:
+            print("[CoveragePlanner][RL] Generated no route; this is a planner issue, not a robot reachability issue.")
 
         # Log the raw actions and their mapped cells for auditability
         try:

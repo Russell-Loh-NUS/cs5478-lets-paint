@@ -290,6 +290,17 @@ class MotionPlanner:
         direction = math.atan2(y - by0, x - bx0)
         angles = [reference[2], direction]
         angles += [i * math.pi / 8 for i in range(-8, 8)]
+
+        # Search a wider neighborhood around the target instead of only the exact target
+        # base or the current base. The original implementation was too narrow and could
+        # reject valid wall cells that should be reachable from a nearby base pose.
+        radius_steps = [0.0, 0.12, 0.24, 0.36, 0.48]
+        for radius in radius_steps:
+            for yaw in angles:
+                for sign_x, sign_y in ((1, 1), (1, -1), (-1, 1), (-1, -1)):
+                    bases.append(clamp_base(x + sign_x * radius * math.cos(yaw),
+                                            y + sign_y * radius * math.sin(yaw)))
+
         for horizontal in (horizontal_min + 0.02,
                            (horizontal_min + horizontal_max) / 2,
                            horizontal_max - 0.02):
