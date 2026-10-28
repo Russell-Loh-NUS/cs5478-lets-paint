@@ -145,21 +145,13 @@ class Wall:
 
 def build_room(work_dir, room=None, px_per_m=250, base_rgb=(235, 232, 222),
                paint_rgb=(40, 90, 200), wall_rgba=(0.92, 0.91, 0.87, 1), render_paint=True):
-    # Spawn the four walls of room
+    # Spawn the walls of room (four for a rectangle, six for an L)
     from .room_config import RoomConfig
     room = room or RoomConfig.default()
     room.validate()
-    x, y = np.array([1.0, 0, 0]), np.array([0, 1.0, 0])
-    t, width, depth = room.thickness, room.width, room.depth
-    specs = [  # (name, origin, u_dir, normal, length, ext)
-        ("south", (0, 0, 0), x, y, width, (t, t)),
-        ("east", (width, 0, 0), y, -x, depth, (0, 0)),
-        ("north", (width, depth, 0), -x, -y, width, (t, t)),
-        ("west", (0, depth, 0), -y, x, depth, (0, 0)),
-    ]
     walls = []
-    for name, origin, u, n, length, ext in specs:
-        w = Wall(name, origin, u, n, length, room.height, t, tuple(room.openings.get(name, ())), ext)
+    for name, origin, u, n, length, ext in room.wall_specs():
+        w = Wall(name, origin, u, n, length, room.height, room.thickness, tuple(room.openings.get(name, ())), ext)
         w.spawn(work_dir, px_per_m, base_rgb, paint_rgb, wall_rgba, render_paint)
         walls.append(w)
     return walls

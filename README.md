@@ -3,6 +3,7 @@
 ## Environment
 - Environment consist of walls at 90 degrees to each other
 - The room layout is a `RoomConfig` (`simulation/room_config.py`). By default it is a fixed 4 x 3 x 2.6 m room. Pass `seed=` (or call `env.reset(seed=...)`) to get a random room from `RoomSampler`; the same seed always gives the same room
+- Rooms can also be L shaped: a rectangle with one corner notched out (6 walls, named `south east north west` plus `south_2`/`west_2`/... for the extra ones). `RoomSampler(l_shape_probability=p)` makes a seeded room L shaped with chance p, and `RoomConfig(notch=(corner, notch_width, notch_depth))` builds one by hand
 - Obstacles such as windows and doors are defined as 'holes' in the wall and should not be painted
 
 # Painting
@@ -11,9 +12,28 @@
 - This mask will be used to create a texture which we will reload onto the overlay to simulate the painted wall.
 _Note: We have to store the texture locally before loading it again to allow our perception camera to render the updated texture_
 
+# Room Layout
+Example of room layout generation - pair of points (x,y) for this example are (1) - (0,0), (2) - (6,0), (3) - (6,2.5), (4) - (4,2.5), (5) - (4,4), (6) - (0,4)
+
+4.0  (6)+---------------+(5)
+         |               |
+3.5      |               |
+         |               |
+3.0      |               | Extension of room to create L shaped room, we refer to the part we extend as a notch.
+         |               |
+2.5      |               +-------+(3)     <- (4) is at the + on the left of 3, notch refers to the extension between the length of (1-6) and (4-5) that creates the L
+         |                       |
+2.0      |                       |
+         |                       |
+1.0      |                       |
+         |                       |
+0.0  (1)+-----------------------+(2)
+         x=0     x=2     x=4     x=6
+
 # Notes
 - Considered simulating painted wall by breaking wall into segments and consider each segment painted once roller touches it. However, this is not feasible as many segments would have to be created if we want it to be more 'granular/detailed'. Moreover, at corners, painting a single side would also result in the other side getting painted (due to a single texture update to the whole object).
 - Another alternative considered was to initialize and 'stretch' a plane by noting its start and end collision on the wall surface. However, for each stroke we will have to initialize a plane and overlapping strokes would cause the planes to fight at the same index causing it to not render properly.
+- Considered adding partitions within room to make motion of robot more sophisticated, but there is the challenge of appropriately positioning the partitions such that it can appropriately fit the robot especially with randomisation of seed. Instead, we create L shaped rooms which is determined by the notch (the area of where the extension of the room will be). At least, the shortest path between paint can and robot wont be the straight line distance.
 
 ## Setup
 ```bash
@@ -27,6 +47,8 @@ Run all commands from the project root.
 ```bash
 .venv/bin/python main.py # Opens the GUI
 .venv/bin/python main.py --headless # Full coverage without the GUI
+.venv/bin/python main.py --seed 3 # Random room from seed 3 (same seed, same room)
+.venv/bin/python main.py --seed 3 --l-shape # Same, but always L shaped (--l-shape 0.5 = 50% chance)
 .venv/bin/python verify_painting.py # Checks of the painting setup (DIRECT physics, no GUI, takes a few minutes)
 ```
 In the GUI, use the arrow keys to orbit, shift + arrow keys to pan, `=` / `-` to zoom and the number keys 1-5 for preset views. Closing the window mid-run stops the run early with partial results.

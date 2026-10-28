@@ -108,7 +108,7 @@ class PaintEnvironment:
         """Switch to the numbered camera view matching the given wall name (see camera_views)."""
         if not self.gui:
             return
-        view_number = self.WALL_VIEW_NUMBER.get(name)
+        view_number = self.WALL_VIEW_NUMBER.get(name.split("_")[0]) # "east_2" -> the east view
         if view_number is None:
             return
         self._cam_view = self.camera_views[view_number]
