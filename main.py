@@ -224,8 +224,13 @@ def main(gui=True, seed=None, l_shape_probability=0.0):
         # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
         # default (4mm) assumes a much smaller, more realistic roller and would never fill a
         # whole grid cell.
-        env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS),
-                               seed=seed, sampler=RoomSampler(l_shape_probability=l_shape_probability, video_path=video_path))
+        env = PaintEnvironment(
+            gui=gui,
+            paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS),
+            seed=seed,
+            sampler=RoomSampler(l_shape_probability=l_shape_probability),
+            video_path=video_path,
+        )
         print(f"Room: seed={seed} {env.room.width:.2f} x {env.room.depth:.2f} x {env.room.height:.2f} m, "
               f"notch={env.room.notch}, walls={[w.name for w in env.walls]}")
         try:
