@@ -11,6 +11,7 @@ from pathlib import Path
 import pybullet as p
 
 from simulation.paint_environment import PaintEnvironment, PaintConfig
+from simulation.room_config import RoomSampler
 from simulation.paint_can import PaintCan
 from simulation.robot import Robot
 from mapping.coord_wall_map import CoordWallMap
@@ -28,7 +29,9 @@ MAX_REPLANS = 3
 COVERAGE_STRATEGY = "rl"
 # Set to False to disable repaint/replanning after the first pass.
 REPLANNING_ENABLED = False
-WALL_ORDER = ["south", "east", "north", "west"]
+# Room layout: ROOM_SEED=None uses the fixed default room.
+ROOM_SEED: int | None = None
+L_SHAPE_PROBABILITY = 0.0 # chance a seeded room is L shaped (see RoomSampler)
 # Optional CLI override for RL model path
 RL_MODEL_PATH: str | None = None
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
@@ -206,7 +209,7 @@ def _room_bounds(env):
     return (min(xs), max(xs)), (min(ys), max(ys))
 
 
-def main(gui=True):
+def main(gui=True, seed=None, l_shape_probability=0.0):
     log_file = configure_file_logging(COVERAGE_STRATEGY)
     original_stdout = sys.stdout
     original_stderr = sys.stderr
@@ -222,7 +225,9 @@ def main(gui=True):
         # default (4mm) assumes a much smaller, more realistic roller and would never fill a
         # whole grid cell.
         env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS),
-                              video_path=video_path)
+                               seed=seed, sampler=RoomSampler(l_shape_probability=l_shape_probability, video_path=video_path))
+        print(f"Room: seed={seed} {env.room.width:.2f} x {env.room.depth:.2f} x {env.room.height:.2f} m, "
+              f"notch={env.room.notch}, walls={[w.name for w in env.walls]}")
         try:
             _run(env, run_started_at)
         except KeyboardInterrupt:
@@ -242,7 +247,8 @@ def _run(env, run_started_at):
 
     x_range, y_range = _room_bounds(env)
     wall_height = max(w.height for w in env.walls)
-    start_xy = ((x_range[0] + x_range[1]) / 2.0, (y_range[0] + y_range[1]) / 2.0)
+    wall_order = [w.name for w in env.walls]
+    start_xy = env.room.room_start_pos() # not the bounding-box center: that can be inside an L's notch
 
     # Keep the refill can beside the compact chassis so the arm approaches it from the side.
     paint_can = PaintCan(position=(start_xy[0] - 0.8, start_xy[1], 0.0))
@@ -257,7 +263,7 @@ def _run(env, run_started_at):
     wall_maps = {}
     wall_metrics = {}
     try:
-        for name in WALL_ORDER:
+        for name in wall_order:
             wall = env.walls_by_name[name]
             # Registered immediately (before execution) so a mid-wall connection loss still
             # leaves this wall's partial progress visible in the final summary below.
@@ -284,7 +290,7 @@ def _run(env, run_started_at):
     total_cells = sum(wm.total_cells() for wm in wall_maps.values())
     total_painted = sum(wm.painted_count() for wm in wall_maps.values())
     overall_coverage = 100.0 * total_painted / total_cells if total_cells else 0.0
-    all_complete = all(wm.all_painted() for wm in wall_maps.values()) and len(wall_maps) == len(WALL_ORDER)
+    all_complete = all(wm.all_painted() for wm in wall_maps.values()) and len(wall_maps) == len(wall_order)
 
     print("\n=== Room painting summary ===")
     print("All walls complete!" if all_complete else "Room painting stopped before full coverage.")
@@ -343,6 +349,10 @@ if __name__ == "__main__":
                         help="Disable repaint/replanning after the first pass")
     parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, lawnmower)")
     parser.add_argument("--rl-model", type=str, help="Path to RL model to use when strategy=rl")
+    parser.add_argument("--seed", type=int, default=ROOM_SEED,
+                        help="Random room from this seed (same seed = same room); omit for the default room")
+    parser.add_argument("--l-shape", type=float, nargs="?", const=1.0, default=L_SHAPE_PROBABILITY,
+                        metavar="PROB", help="Chance a seeded room is L shaped (bare flag = always)")
     args = parser.parse_args()
     if args.disable_replanning:
         REPLANNING_ENABLED = False
@@ -351,4 +361,4 @@ if __name__ == "__main__":
     # If provided, let the rl model path override the default used by the planner.
     if args.rl_model:
         RL_MODEL_PATH = args.rl_model
-    main(gui=not args.headless)
+    main(gui=not args.headless, seed=args.seed, l_shape_probability=args.l_shape)
