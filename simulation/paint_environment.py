@@ -4,6 +4,7 @@ import math
 import tempfile
 import time
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pybullet as p
@@ -29,14 +30,21 @@ class PaintEnvironment:
     ORBIT_RATE, PAN_RATE, ZOOM_RATE = 90.0, 1.5, 1.5  # Deg/s, Meter/s, Factor/s
 
     def __init__(self, gui=False, paint=PaintConfig(), dt=1 / 240, room=None, seed=None,
-                 sampler=RoomSampler()):
+                 sampler=RoomSampler(), video_path=None):
         # If room is given, we use it. Otherwise a random one drawn using sampler based on the seed
         # else, use default
         self.paint, self.dt, self.gui, self.sampler = paint, dt, gui, sampler
+        self.video_path = Path(video_path) if video_path is not None else None
         self.client = p.connect(p.GUI if gui else p.DIRECT)
         if gui:
             p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
             self._cam_keys_active = False
+            if self.video_path is not None:
+                try:
+                    p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, str(self.video_path))
+                    print(f"[PaintEnvironment] Recording video to {self.video_path}")
+                except Exception as exc:
+                    print(f"[PaintEnvironment] Video recording unavailable: {exc}")
             print("Use your arrow keys to look around, number keys 1-5 for different views")
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.81)
@@ -180,8 +188,19 @@ class PaintEnvironment:
         per_wall = {w.name: w.canvas.painted_area for w in self.walls}
         return per_wall, sum(per_wall.values())
 
+    def save_video(self):
+        if not self.gui or self.video_path is None:
+            return
+        try:
+            p.stopStateLogging()
+            print(f"[PaintEnvironment] Saved video to {self.video_path}")
+        except Exception as exc:
+            print(f"[PaintEnvironment] Failed to save final video: {exc}")
+
     def close(self):
         try:
+            if self.gui and self.video_path is not None:
+                self.save_video()
             if p.isConnected(self.client):
                 p.disconnect(self.client)
         finally:

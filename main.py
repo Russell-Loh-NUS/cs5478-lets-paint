@@ -57,11 +57,12 @@ class Tee:
             stream.flush()
 
 
-def configure_file_logging():
+def configure_file_logging(strategy_name: str = None):
     log_dir = Path(__file__).resolve().parent / "logs"
     log_dir.mkdir(exist_ok=True)
+    strategy = (strategy_name or COVERAGE_STRATEGY or "unknown").strip().lower()
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    log_path = log_dir / f"program-{timestamp}.log"
+    log_path = log_dir / f"{strategy}-{timestamp}.log"
     log_file = log_path.open("w", encoding="utf-8")
     print(f"[main] Logging to {log_path}")
     return log_file
@@ -95,8 +96,8 @@ def _execute_route(route, controller, paint_can, wall_map, path_tracker, total_c
             if success:
                 break
         if not success:
-            print(f"[main_lets_paint] Skipping cell ({step.row},{step.col}) after "
-                  f"{MAX_PAINT_ATTEMPTS} failed attempts.")
+            print(f"[main_lets_paint] Skipping unreachable cell ({step.row},{step.col}) after "
+                  f"{MAX_PAINT_ATTEMPTS} failed attempts; continuing with the rest of the route.")
 
         iteration += 1
         if iteration % 10 == 0:
@@ -124,32 +125,47 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
     print(f"\n=== Painting wall '{name}' ===")
     if not controller.ensure_dipped(paint_can):
         print(f"[{name}] Could not dip the roller; skipping this wall.")
-        return
+        return {
+            "name": name,
+            "coverage": coverage_percentage(wall_map),
+            "planner_time": 0.0,
+            "redips": 0,
+        }
 
     total_cells = wall_map.total_cells()
     attempt = 0
+    planner_time_total = 0.0
+    redips_total = 0
     # default RL model path (used when COVERAGE_STRATEGY == 'rl')
     rl_model_default = Path(__file__).resolve().parent / "models" / "ppo_coverage_final.zip"
     # allow CLI override
     model_path = RL_MODEL_PATH if RL_MODEL_PATH is not None else (str(rl_model_default) if rl_model_default.exists() else None)
+
+    def plan_route():
+        nonlocal planner_time_total, redips_total
+        planner_start = time.perf_counter()
+        if COVERAGE_STRATEGY == 'rl':
+            if model_path is None:
+                print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
+            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
+                                                   rl_model_path=model_path)
+        else:
+            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
+                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
+        planner_time_total += time.perf_counter() - planner_start
+        redips_total += sum(1 for s in route if isinstance(s, DipStep))
+        print(f"[{name}] Route planned: {len(route)} steps "
+              f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
+        coverage_planner.print_route(route)
+        return route
+
     if REPLANNING_ENABLED:
         while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
             attempt += 1
             print(f"[{name}] Planning the full paint route (attempt {attempt}/{MAX_REPLANS}, "
                   f"{COVERAGE_STRATEGY}, dip-aware)...")
-            # If using RL strategy, pass the trained model path into the planner
-            if COVERAGE_STRATEGY == 'rl':
-                if model_path is None:
-                    print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
-                route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                                       RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
-                                                       rl_model_path=model_path)
-            else:
-                route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                                       RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
-            print(f"[{name}] Route planned: {len(route)} steps "
-                  f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
-            coverage_planner.print_route(route)
+            route = plan_route()
 
             if not _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells):
                 break
@@ -162,18 +178,7 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
             print(f"[{name}] Still incomplete after {MAX_REPLANS} replanning attempts; giving up.")
     else:
         print(f"[{name}] Replanning disabled; running a single paint pass only.")
-        if COVERAGE_STRATEGY == 'rl':
-            if model_path is None:
-                print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
-            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
-                                                   rl_model_path=model_path)
-        else:
-            route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
-                                                   RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
-        print(f"[{name}] Route planned: {len(route)} steps "
-              f"({sum(1 for s in route if isinstance(s, DipStep))} redips included).")
-        coverage_planner.print_route(route)
+        route = plan_route()
         _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells)
 
     coverage = coverage_percentage(wall_map)
@@ -184,6 +189,12 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         if uncovered:
             for row, col, frac in uncovered[:20]:
                 print(f"  - [{name}] cell ({row}, {col}) covered only {frac:.2%}")
+    return {
+        "name": name,
+        "coverage": coverage,
+        "planner_time": planner_time_total,
+        "redips": redips_total,
+    }
 
 
 def _room_bounds(env):
@@ -196,17 +207,22 @@ def _room_bounds(env):
 
 
 def main(gui=True):
-    log_file = configure_file_logging()
+    log_file = configure_file_logging(COVERAGE_STRATEGY)
     original_stdout = sys.stdout
     original_stderr = sys.stderr
     sys.stdout = Tee(sys.stdout, log_file)
     sys.stderr = Tee(sys.stderr, log_file)
     run_started_at = time.perf_counter()
+    strategy_label = COVERAGE_STRATEGY.replace(" ", "_")
+    video_dir = Path(__file__).resolve().parent / "videos"
+    video_dir.mkdir(exist_ok=True)
+    video_path = None if not gui else video_dir / f"{strategy_label}_{time.strftime('%Y%m%d-%H%M%S')}.mp4"
     try:
         # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
         # default (4mm) assumes a much smaller, more realistic roller and would never fill a
         # whole grid cell.
-        env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS))
+        env = PaintEnvironment(gui=gui, paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS),
+                              video_path=video_path)
         try:
             _run(env, run_started_at)
         except KeyboardInterrupt:
@@ -239,6 +255,7 @@ def _run(env, run_started_at):
     motion_planner = MotionPlanner(robot, collision_bodies=[w.body_id for w in env.walls] + [env.floor_id])
 
     wall_maps = {}
+    wall_metrics = {}
     try:
         for name in WALL_ORDER:
             wall = env.walls_by_name[name]
@@ -256,7 +273,7 @@ def _run(env, run_started_at):
             wall_maps[name] = CoordWallMap(wall, cell_width=cell_width, cell_height=cell_height,
                                             touch_spacing=2 * Robot.ROLLER_RADIUS,
                                             line_spacing=Robot.ROLLER_LENGTH)
-            _paint_wall(name, wall_maps[name], env, robot, paint_can, motion_planner, path_tracker)
+            wall_metrics[name] = _paint_wall(name, wall_maps[name], env, robot, paint_can, motion_planner, path_tracker)
             if not p.isConnected():
                 break
     except p.error as exc:
@@ -285,6 +302,19 @@ def _run(env, run_started_at):
     elapsed = time.perf_counter() - run_started_at
     print(f"Total runtime (environment init to painting finish): {elapsed:.2f} s")
 
+    planner_time_total = sum(stats.get("planner_time", 0.0) for stats in wall_metrics.values())
+    redips_total = sum(stats.get("redips", 0) for stats in wall_metrics.values())
+    wall_coverage_statement = ", ".join(
+        f"{name}={wall_metrics.get(name, {}).get('coverage', 0.0):.1f}%"
+        for name in WALL_ORDER if name in wall_metrics
+    )
+    print("\n=== Final conclusion ===")
+    print(f"Conclusion: wall coverage: {wall_coverage_statement}; total coverage: {overall_coverage:.1f}% over four walls; "
+          f"total path length: {path_tracker.get_total_length():.2f} m; total run time: {elapsed:.2f} s; "
+          f"planner planning time: {planner_time_total:.2f} s; total redips required: {redips_total}.")
+    if env.gui and env.video_path is not None:
+        env.save_video()
+
     if not p.isConnected():
         return
 
@@ -298,8 +328,11 @@ def _run(env, run_started_at):
 
     if not env.gui:
         return  # headless full-run diagnostics must finish instead of waiting for a window
-    while True:
-        env.step()
+    try:
+        while p.isConnected() and env.client == p.getConnectionInfo()["connectionMethod"]:
+            env.step()
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

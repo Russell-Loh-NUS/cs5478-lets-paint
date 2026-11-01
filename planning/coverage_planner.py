@@ -360,6 +360,37 @@ class CoveragePlanner:
 
         return route
 
+    def _filter_unpainted_targets(self, points):
+        """Keep the sweep-style strategies deterministic and wall-aligned by removing
+        already-painted cells and any repeated samples from the same grid cell."""
+        seen = set()
+        filtered = []
+        for row, col, position in points:
+            if self.wall.is_painted(row, col):
+                continue
+            key = (row, col)
+            if key in seen:
+                continue
+            seen.add(key)
+            filtered.append((row, col, position))
+        return filtered
+
+    def _normalize_sweep_targets(self, points):
+        """Make the sweep follow the same wall-cell target convention as the motion-feasible
+        strategies: keep the ordered sweep, but pin each target to the cell's touch point so the
+        robot never attempts raw continuous edge samples that the IK solver rejects."""
+        normalized = []
+        seen = set()
+        for row, col, _ in points:
+            if self.wall.is_painted(row, col):
+                continue
+            key = (row, col)
+            if key in seen:
+                continue
+            seen.add(key)
+            normalized.append((row, col, self.wall.touch_point(row, col, offset=self.approach_offset)))
+        return normalized
+
     def _build_route_sweep(self, start_position, paint_can, redip_distance):
         """Continuous boustrophedon sweep directly over the wall's real surface (see
         CoordWallMap.continuous_targets) -- the visiting order IS the sweep, so there's no
@@ -367,7 +398,7 @@ class CoveragePlanner:
         if not hasattr(self.wall, "continuous_targets"):
             raise ValueError("The 'sweep' strategy requires a continuous wall map (e.g. "
                               "CoordWallMap) that exposes continuous_targets().")
-        points = self.wall.continuous_targets()
+        points = self._normalize_sweep_targets(self.wall.continuous_targets())
         return self._build_route_fixed_points(points, start_position, paint_can, redip_distance)
 
     def _build_route_fixed_points(self, points, start_position, paint_can, redip_distance):
@@ -557,61 +588,66 @@ class CoveragePlanner:
             pts = smoothed
         return pts
 
-    def _build_route_prm(self, start_position, paint_can, redip_distance):
-        """Continuous A*, option 2 (sampling-based): a probabilistic roadmap (PRM). Randomly
-        sample valid points on the wall, connect each to its K nearest neighbors into a graph,
-        pick an overall visiting order (nearest-neighbor + 2-opt, same as "optimized"), then
-        route between consecutive targets with A* over the roadmap -- not a straight line --
-        since the roadmap's sparse connectivity may force a multi-hop path between them."""
-        samples, positions, graph, order = self._build_prm_roadmap(start_position)
-        if not samples:
-            return []
-
-        route = []
-        current_position = list(start_position)
-        current_node = None
-        distance_since_dip = 0.0
-        dip_position = paint_can.get_dip_position()
-
-        for node in order:
-            # First hop has no roadmap node to start from yet -- go straight to it, same as
-            # every other strategy's first move. Later hops route through the roadmap via A*.
-            hop_nodes = [node] if current_node is None else self._roadmap_astar(graph, positions, current_node, node)[1:]
-            for idx in hop_nodes:
-                position = positions[idx]
-                distance = math.dist(current_position, position)
-                if distance_since_dip + distance > redip_distance:
-                    route.append(DipStep())
-                    current_position = dip_position
-                    distance_since_dip = 0.0
-                    distance = math.dist(current_position, position)
-                row, col, _ = samples[idx]
-                route.append(CoverageTarget(row, col, position, orientation="vertical"))
-                distance_since_dip += distance
-                current_position = position
-            current_node = node
-
-        return route
-
-    def _build_route_optimized_prm(self, start_position, paint_can, redip_distance):
-        """"optimized" fully adapted to continuous PRM coverage: same roadmap, same
-        nearest-neighbor + 2-opt visiting order, and same A*-routed hops as "prm" -- but
-        dipping also reuses "optimized"'s DP-optimal placement over the full A*-expanded
-        waypoint sequence, instead of "prm"'s simple forced-only redipping."""
-        samples, positions, graph, order = self._build_prm_roadmap(start_position)
-        if not samples:
-            return []
-
+    def _interpolate_roadmap_path(self, graph, positions, samples, order):
+        """Return a dense, continuous list of wall waypoints along the roadmap path, not just a
+        sparse set of sampled nodes. Each graph edge is interpolated into a short chain of points
+        so the robot moves continuously instead of jumping between isolated contact points."""
         ordered_points = []
         current_node = None
         for node in order:
-            hop_nodes = [node] if current_node is None else self._roadmap_astar(graph, positions, current_node, node)[1:]
-            for idx in hop_nodes:
-                row, col, _ = samples[idx]
-                ordered_points.append((row, col, positions[idx]))
+            hop_nodes = [node] if current_node is None else self._roadmap_astar(graph, positions, current_node, node)
+            for a_idx, b_idx in zip(hop_nodes, hop_nodes[1:]):
+                a = positions[a_idx]
+                b = positions[b_idx]
+                distance = math.dist(a, b)
+                step_count = max(1, int(math.ceil(distance / max(self.wall.touch_spacing, 0.05))))
+                for step in range(1, step_count + 1):
+                    t = step / step_count
+                    point = [a[i] + (b[i] - a[i]) * t for i in range(3)]
+                    row, col = self.wall.world_to_grid(point)
+                    if self.wall.is_painted(row, col):
+                        continue
+                    ordered_points.append((row, col, [point[0], point[1], point[2]]))
             current_node = node
+        return ordered_points
 
+    def _build_route_prm(self, start_position, paint_can, redip_distance):
+        """Continuous A*, option 2 (sampling-based): sample valid wall points, connect them into a
+        roadmap, then interpolate the graph edges so the robot moves continuously along the path
+        instead of only visiting isolated sample centers."""
+        samples, positions, graph, order = self._build_prm_roadmap(start_position)
+        if not samples:
+            return []
+
+        ordered_points = self._interpolate_roadmap_path(graph, positions, samples, order)
+        if not ordered_points:
+            return []
         return self._insert_optimal_dips_points(ordered_points, start_position, paint_can, redip_distance)
+
+    def _build_route_optimized_prm(self, start_position, paint_can, redip_distance):
+        """"optimized" PRM coverage with continuous motion between roadmap samples.
+
+        We keep the PRM path construction but normalize the geometric waypoints to the wall's
+        touch-point convention so each interpolated point remains physically reachable.
+        """
+        samples, positions, graph, order = self._build_prm_roadmap(start_position)
+        if not samples:
+            return []
+
+        ordered_points = self._interpolate_roadmap_path(graph, positions, samples, order)
+        if not ordered_points:
+            return []
+
+        normalized_points = []
+        seen = set()
+        for row, col, position in ordered_points:
+            key = (row, col)
+            if key in seen:
+                continue
+            seen.add(key)
+            normalized_points.append((row, col, self.wall.touch_point(row, col, offset=self.approach_offset)))
+
+        return self._insert_optimal_dips_points(normalized_points, start_position, paint_can, redip_distance)
 
     def _build_prm_roadmap(self, start_position):
         """Shared by "prm" and "optimized_prm": sample the wall, connect each sample to its K
