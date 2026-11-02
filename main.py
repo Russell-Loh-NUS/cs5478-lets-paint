@@ -317,15 +317,12 @@ def _run(env, run_started_at):
     redips_total = sum(stats.get("redips", 0) for stats in wall_metrics.values())
     wall_coverage_statement = ", ".join(
         f"{name}={wall_metrics.get(name, {}).get('coverage', 0.0):.1f}%"
-        for name in WALL_ORDER if name in wall_metrics
+        for name in wall_order if name in wall_metrics
     )
     print("\n=== Final conclusion ===")
-    print(f"Conclusion: wall coverage: {wall_coverage_statement}; total coverage: {overall_coverage:.1f}% over four walls; "
+    print(f"Conclusion: wall coverage: {wall_coverage_statement}; total coverage: {overall_coverage:.1f}% over {len(wall_order)} walls; "
           f"total path length: {path_tracker.get_total_length():.2f} m; total run time: {elapsed:.2f} s; "
           f"planner planning time: {planner_time_total:.2f} s; total redips required: {redips_total}.")
-    if env.gui and env.video_path is not None:
-        env.save_video()
-
     if not p.isConnected():
         return
 

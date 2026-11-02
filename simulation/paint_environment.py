@@ -34,14 +34,16 @@ class PaintEnvironment:
         # If room is given, we use it. Otherwise a random one drawn using sampler based on the seed
         # else, use default
         self.paint, self.dt, self.gui, self.sampler = paint, dt, gui, sampler
-        self.video_path = Path(video_path) if video_path is not None else None
+        self.video_path = Path(video_path).expanduser().resolve() if video_path is not None else None
+        self._logging_id = None
         self.client = p.connect(p.GUI if gui else p.DIRECT)
         if gui:
             p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
             self._cam_keys_active = False
             if self.video_path is not None:
+                self.video_path.parent.mkdir(parents=True, exist_ok=True)
                 try:
-                    p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, str(self.video_path))
+                    self._logging_id = p.startStateLogging(p.STATE_LOGGING_VIDEO_MP4, str(self.video_path))
                     print(f"[PaintEnvironment] Recording video to {self.video_path}")
                 except Exception as exc:
                     print(f"[PaintEnvironment] Video recording unavailable: {exc}")
@@ -191,9 +193,14 @@ class PaintEnvironment:
     def save_video(self):
         if not self.gui or self.video_path is None:
             return
+        if self._logging_id is None:
+            return
         try:
-            p.stopStateLogging()
+            p.stopStateLogging(self._logging_id)
+            self._logging_id = None
             print(f"[PaintEnvironment] Saved video to {self.video_path}")
+            if not self.video_path.exists():
+                print(f"[PaintEnvironment] Warning: video file was not created at {self.video_path}")
         except Exception as exc:
             print(f"[PaintEnvironment] Failed to save final video: {exc}")
 
