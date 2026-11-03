@@ -216,10 +216,6 @@ def main(gui=True, seed=None, l_shape_probability=0.0):
     sys.stdout = Tee(sys.stdout, log_file)
     sys.stderr = Tee(sys.stderr, log_file)
     run_started_at = time.perf_counter()
-    strategy_label = COVERAGE_STRATEGY.replace(" ", "_")
-    video_dir = Path(__file__).resolve().parent / "videos"
-    video_dir.mkdir(exist_ok=True)
-    video_path = None if not gui else video_dir / f"{strategy_label}_{time.strftime('%Y%m%d-%H%M%S')}.mp4"
     try:
         # patch_width scaled to our roller's actual diameter -- the paint environment's tiny
         # default (4mm) assumes a much smaller, more realistic roller and would never fill a
@@ -229,7 +225,6 @@ def main(gui=True, seed=None, l_shape_probability=0.0):
             paint=PaintConfig(patch_width=2 * Robot.ROLLER_RADIUS),
             seed=seed,
             sampler=RoomSampler(l_shape_probability=l_shape_probability),
-            video_path=video_path,
         )
         print(f"Room: seed={seed} {env.room.width:.2f} x {env.room.depth:.2f} x {env.room.height:.2f} m, "
               f"notch={env.room.notch}, walls={[w.name for w in env.walls]}")
@@ -337,8 +332,12 @@ def _run(env, run_started_at):
     if not env.gui:
         return  # headless full-run diagnostics must finish instead of waiting for a window
     try:
-        while p.isConnected() and env.client == p.getConnectionInfo()["connectionMethod"]:
+        # Keep the GUI alive after the final conclusion so the painted walls remain visible.
+        # The old check compared the client handle to the connection-method enum, which is
+        # always false in PyBullet (e.g. 0 != 1), so the loop exited immediately.
+        while p.isConnected():
             env.step()
+            time.sleep(env.dt)
     except Exception:
         pass
 

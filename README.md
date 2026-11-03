@@ -37,20 +37,46 @@ Example of room layout generation - pair of points (x,y) for this example are (1
 
 ## Setup
 ```bash
-uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -r requirements.txt
+conda activate base
+python -m pip install -r requirements.txt
 ```
 _Note: `pybullet` has no prebuilt macOS wheel, so it is compiled from source. This can fail on recent macOS SDKs (zlib's `zutil.h` redefines `fdopen`); building from the sdist after deleting the `#define fdopen(fd, mode) NULL` lines in `examples/ThirdPartyLibs/zlib/zutil.h` works around it._
 
 ## Run
 Run all commands from the project root.
 ```bash
-.venv/bin/python main.py # Opens the GUI
-.venv/bin/python main.py --headless # Full coverage without the GUI
-.venv/bin/python main.py --seed 3 # Random room from seed 3 (same seed, same room)
-.venv/bin/python main.py --seed 3 --l-shape # Same, but always L shaped (--l-shape 0.5 = 50% chance)
-.venv/bin/python verify_painting.py # Checks of the painting setup (DIRECT physics, no GUI, takes a few minutes)
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py # Opens the GUI
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --headless # Full coverage without the GUI
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --seed 3 # Random room from seed 3 (same seed, same room)
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --seed 3 --l-shape # Same, but always L shaped (--l-shape 0.5 = 50% chance)
+KMP_DUPLICATE_LIB_OK=TRUE python verify_painting.py # Checks of the painting setup (DIRECT physics, no GUI, takes a few minutes)
 ```
+
+### Strategy-specific runs
+```bash
+# Sweep strategy
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy sweep --headless
+
+# Optimized PRM strategy
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy optimized_prm --headless
+
+# BCD A* strategy
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy bcd_astar --headless
+
+# RL strategy
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --headless
+
+# Behavioral cloning strategy
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy behavioral_cloning --headless
+```
+
+For GUI runs, omit `--headless` from the same commands above.
 In the GUI, use the arrow keys to orbit, shift + arrow keys to pan, `=` / `-` to zoom and the number keys 1-5 for preset views. Closing the window mid-run stops the run early with partial results.
 
 ## RL training and strategy options
@@ -77,19 +103,19 @@ Use `--strategy` to pick a coverage strategy. Examples:
 
 ```bash
 # Use the trained RL policy (planner-driven) in a single pass (no replanning)
-KMP_DUPLICATE_LIB_OK=TRUE python3 main.py --strategy rl --disable-replanning
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --disable-replanning
 
 # Use the RL planner but allow replanning (multiple attempts)
-python3 main.py --strategy rl --headless
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --headless
 
 # Run BCD A* strategy
-python3 main.py --strategy bcd_astar --headless
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy bcd_astar --headless
 
-# Run PRM strategy
-python3 main.py --strategy prm --headless
+# Run optimized PRM strategy
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy optimized_prm --headless
 
 # Run sweep strategy
-python3 main.py --strategy sweep --headless
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy sweep --headless
 ```
 
 Notes:
