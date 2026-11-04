@@ -25,7 +25,7 @@ from evaluation.path_length import PathLengthTracker
 
 MAX_PAINT_ATTEMPTS = 3
 MAX_REPLANS = 3
-# Toggle between "nearest_neighbor", "lawnmower", "optimized", "astar", and "sweep", "grid_smooth", "prm", "optimized_prm", "bcd_astar"
+# Active strategies: sweep, optimized_prm, bcd_astar, rl
 COVERAGE_STRATEGY = "rl"
 # Set to False to disable repaint/replanning after the first pass.
 REPLANNING_ENABLED = False
@@ -37,8 +37,6 @@ RL_MODEL_PATH: str | None = None
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
 # small enough to actually finish, instead of the much finer grid the other strategies use.
-ASTAR_CELL_WIDTH = 1.0
-ASTAR_CELL_HEIGHT = 0.5
 # Chassis is 0.55 x 0.64 m; its half-diagonal is about 0.422 m. This also
 # leaves a small margin when the base yaw rotates the chassis diagonally toward a wall.
 BASE_CLEARANCE = 0.60
@@ -269,13 +267,8 @@ def _run(env, run_started_at):
             # leaves this wall's partial progress visible in the final summary below.
             # Cell size matches the roller's true footprint 1:1 (the original design intent:
             # one touch at a cell's center should fully cover it) -- more cells than a floored
-            # grid, but no structural gaps for "optimized"/"lawnmower"/"nearest_neighbor" like a
-            # coarser grid leaves. "astar" keeps its own coarser dedicated grid (see
-            # ASTAR_CELL_WIDTH/HEIGHT above) since its exact search needs a small cell count.
-            if COVERAGE_STRATEGY == "astar":
-                cell_width, cell_height = ASTAR_CELL_WIDTH, ASTAR_CELL_HEIGHT
-            else:
-                cell_width, cell_height = 2 * Robot.ROLLER_RADIUS, Robot.ROLLER_LENGTH
+            # Keep the wall cell footprint aligned to the actual roller contact size.
+            cell_width, cell_height = 2 * Robot.ROLLER_RADIUS, Robot.ROLLER_LENGTH
             wall_maps[name] = CoordWallMap(wall, cell_width=cell_width, cell_height=cell_height,
                                             touch_spacing=2 * Robot.ROLLER_RADIUS,
                                             line_spacing=Robot.ROLLER_LENGTH)
@@ -348,7 +341,7 @@ if __name__ == "__main__":
     parser.add_argument("--headless", action="store_true", help="Run full coverage without the GUI")
     parser.add_argument("--disable-replanning", action="store_true",
                         help="Disable repaint/replanning after the first pass")
-    parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, lawnmower)")
+    parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, sweep)")
     parser.add_argument("--rl-model", type=str, help="Path to RL model to use when strategy=rl")
     parser.add_argument("--seed", type=int, default=ROOM_SEED,
                         help="Random room from this seed (same seed = same room); omit for the default room")

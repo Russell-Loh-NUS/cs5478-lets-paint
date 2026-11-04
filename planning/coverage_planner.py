@@ -1,55 +1,13 @@
-"""Coverage planner: plans the entire paint route up front, with four selectable strategies.
+"""Coverage planner for the active strategies used in this project.
 
-- "nearest_neighbor": greedily visits the nearest remaining unpainted cell each step. Not a
-  provably optimal TSP tour, but it naturally clusters nearby cells instead of forcing a rigid
-  row-by-row sweep. Redips only when forced (budget about to run out).
-- "lawnmower": the classic fixed boustrophedon sweep (row by row, alternating direction).
-  Redips only when forced, same as above.
-- "optimized": builds a nearest-neighbor tour and then improves it with 2-opt local search (so
-  the visiting order itself approximates the shortest path over the whole wall, not just a
-  greedy walk). Then, for that fixed order, a dynamic program chooses the cost-minimizing set
-  of dip stops: dipping is allowed at any point in the route (not just when forced), and is
-  only ever inserted where it reduces -- or is required to achieve -- total path length,
-  subject to never exceeding redip_distance of travel since the last dip.
-- "astar": solves the visiting order exactly via A* search over (current cell, visited-set)
-  states, with an admissible nearest-unvisited-cell heuristic -- the provably shortest possible
-  Hamiltonian path, not just a heuristic approximation. The state space is exponential in the
-  cell count (2^n) and ALWAYS runs exactly -- no fallback to a heuristic tour -- so it must be
-  given a small enough grid (tens of cells, not hundreds) by the caller or it will never
-  finish. Dip placement reuses the same optimal DP as "optimized".
-- "sweep": continuous boustrophedon coverage directly over the wall's real (u, v) surface
-  (see CoordWallMap.continuous_targets), with sample/line spacing from the roller's actual
-  footprint rather than the (possibly coarser) planning grid used by the other strategies.
-  Visiting order is the sweep itself, not a TSP tour. Only available for a continuous wall
-  map (one that exposes continuous_targets(), e.g. CoordWallMap) -- the legacy grid-only Wall
-  doesn't support it.
-- "grid_smooth": continuous A* via option 1 (discretize + smooth) -- takes the same fine
-  boustrophedon grid as "sweep", then repeatedly applies Chaikin corner-cutting to round off
-  its sharp right-angle turns into a smooth curve, instead of a blocky grid-aligned path.
-- "prm": continuous A* via option 2 (sampling-based) -- randomly samples valid points across
-  the wall (a probabilistic roadmap), connects each to its K nearest neighbors into a graph,
-  picks an overall visiting order with the same nearest-neighbor + 2-opt heuristic as
-  "optimized", then routes BETWEEN consecutive targets with A* over the roadmap graph (not a
-  straight line) -- since the roadmap only connects nearby samples, distant targets may need
-  several hops, found exactly via graph search rather than guessed. Dipping is still only
-  forced when the budget is about to run out (like "nearest_neighbor"/"lawnmower"), not placed
-  optimally -- see "optimized_prm" for that.
-- "optimized_prm": "optimized" fully adapted to continuous PRM coverage -- same roadmap,
-  same nearest-neighbor + 2-opt visiting order, and same A*-routed hops as "prm", but dipping
-  also reuses "optimized"'s DP-optimal placement (free to land anywhere it reduces total
-  travel, not just when forced) over the full A*-expanded waypoint sequence.
-- "bcd_astar": obstacle-aware boustrophedon via classic Boustrophedon Cellular Decomposition --
-  flood-fills the grid into connected regions split by openings (see
-  CoordWallMap.boustrophedon_regions), sweeps each region boustrophedon-style, then routes
-  BETWEEN regions with A* over the (row, col) grid itself (see CoordWallMap.grid_astar),
-  forced to stay on valid cells rather than hopping straight across the gap. "sweep"/
-  "grid_smooth" already skip obstacle points individually but don't decompose into regions or
-  route transitions this way -- though since openings are just empty airspace in front of the
-  wall (not physical obstacles blocking the robot's 3D path), a straight hop across one is
-  already perfectly safe here, so this mostly matters for genuinely blocking obstacles.
+The current planner supports the following route builders:
+- "sweep": continuous boustrophedon coverage along the wall's real (u, v) surface.
+- "optimized_prm": PRM-style continuous coverage with optimal dip placement.
+- "bcd_astar": region-aware boustrophedon coverage with A* transitions between regions.
+- "rl": RL-guided route planning via a pretrained policy model.
 
-All nine respect the same hard dip-distance budget, so they can be run back-to-back and
-compared (total path length, redip count, etc.) on equal footing.
+All strategies respect the same hard dip-distance budget so their results are directly
+comparable in path length and redip count.
 """
 import heapq
 import math
@@ -69,8 +27,7 @@ class DipStep:
 
 
 class CoveragePlanner:
-    STRATEGIES = ("nearest_neighbor", "lawnmower", "optimized", "astar", "sweep", "grid_smooth",
-                  "prm", "optimized_prm", "bcd_astar", "rl")
+    STRATEGIES = ("sweep", "optimized_prm", "bcd_astar", "rl")
     # How many nearest neighbors each PRM sample connects to in the roadmap graph.
     PRM_K_NEIGHBORS = 6
 
@@ -79,43 +36,19 @@ class CoveragePlanner:
         self.wall = wall
         self.approach_offset = approach_offset
 
-    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="nearest_neighbor", rl_model_path: Optional[str] = None, rl_max_steps: int = 2000):
+    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="sweep", rl_model_path: Optional[str] = None, rl_max_steps: int = 2000):
         """Read the whole unpainted set and return a dip-aware route, using the given strategy."""
         if strategy not in self.STRATEGIES:
             raise ValueError(f"Unknown coverage strategy '{strategy}', expected one of {self.STRATEGIES}")
 
         if strategy == "sweep":
             return self._build_route_sweep(start_position, paint_can, redip_distance)
-        if strategy == "grid_smooth":
-            return self._build_route_grid_smooth(start_position, paint_can, redip_distance)
-        if strategy == "prm":
-            return self._build_route_prm(start_position, paint_can, redip_distance)
         if strategy == "optimized_prm":
             return self._build_route_optimized_prm(start_position, paint_can, redip_distance)
         if strategy == "bcd_astar":
             return self._build_route_bcd_astar(start_position, paint_can, redip_distance)
-
         if strategy == "rl":
             return self._build_route_rl(start_position, paint_can, redip_distance, rl_model_path=rl_model_path, rl_max_steps=rl_max_steps)
-
-        remaining = self.coverage_map.unpainted_cells(threshold=0.8)
-        cell_positions = {(row, col): self.wall.touch_point(row, col, offset=self.approach_offset)
-                           for row, col in remaining}
-
-        if strategy == "lawnmower":
-            ordered_cells = self._lawnmower_order(remaining)
-            return self._build_route_fixed_order(ordered_cells, cell_positions, start_position,
-                                                   paint_can, redip_distance)
-        if strategy == "optimized":
-            order = self._nearest_neighbor_order(remaining, cell_positions, start_position)
-            order = self._two_opt_improve(order, cell_positions, start_position)
-            return self._insert_optimal_dips(order, cell_positions, start_position, paint_can, redip_distance)
-        if strategy == "astar":
-            order = self._astar_order(remaining, cell_positions, start_position)
-            return self._insert_optimal_dips(order, cell_positions, start_position, paint_can, redip_distance)
-        if strategy == "nearest_neighbor":
-            return self._build_route_nearest_neighbor(remaining, cell_positions, start_position,
-                                                        paint_can, redip_distance)
         raise ValueError(f"Unhandled coverage strategy '{strategy}'")
 
     def print_route(self, route):
@@ -129,19 +62,8 @@ class CoveragePlanner:
                 print(f"  {i:4d}. PAINT cell (row={step.row}, col={step.col}) "
                       f"-> ({x:.2f}, {y:.2f}, {z:.2f}), orientation={step.orientation}")
 
-    def _lawnmower_order(self, remaining):
-        # Sweep each row left-to-right, then right-to-left on the next row, bottom to top.
-        remaining_set = set(remaining)
-        ordered = []
-        for row in range(self.wall.rows):
-            cols = range(self.wall.cols) if row % 2 == 0 else reversed(range(self.wall.cols))
-            for col in cols:
-                if (row, col) in remaining_set:
-                    ordered.append((row, col))
-        return ordered
-
-    def _nearest_neighbor_order(self, remaining, cell_positions, start_position):
-        """Greedy nearest-neighbor visiting order, ignoring dip stops (seed tour for 2-opt)."""
+    def _nearest_order(self, remaining, cell_positions, start_position):
+        """Greedy nearest-cell visiting order, ignoring dip stops (seed tour for 2-opt)."""
         remaining = list(remaining)
         order = []
         current_position = list(start_position)
@@ -185,62 +107,6 @@ class CoveragePlanner:
 
         return [order[k - 1] for k in perm[1:]]
 
-    def _astar_order(self, remaining, cell_positions, start_position):
-        """Exact shortest visiting order via A* search over (current cell, visited-set) states.
-        Provably optimal, unlike the 2-opt heuristic -- but the state space is exponential in
-        the number of cells, so this always runs for real with no fallback; it's the caller's
-        job to keep the grid small enough (see main_lets_paint.py's astar-specific cell size).
-        """
-        cells = list(remaining)
-        n = len(cells)
-        if n == 0:
-            return []
-
-        positions = [cell_positions[c] for c in cells]
-        full_mask = (1 << n) - 1
-
-        def heuristic(position, mask):
-            # Admissible: at least this far must still be travelled to reach any unvisited cell.
-            unvisited_distances = [math.dist(position, positions[i]) for i in range(n) if not (mask & (1 << i))]
-            return min(unvisited_distances) if unvisited_distances else 0.0
-
-        start_state = (-1, 0)  # (current cell index, visited bitmask); -1 = at start_position
-        g_score = {start_state: 0.0}
-        came_from = {}
-        open_heap = [(heuristic(start_position, 0), 0.0, start_state)]
-        closed = set()
-
-        while open_heap:
-            _, g, state = heapq.heappop(open_heap)
-            if state in closed:
-                continue
-            closed.add(state)
-            node, mask = state
-
-            if mask == full_mask:
-                order_indices = []
-                current = state
-                while current in came_from:
-                    previous, added_index = came_from[current]
-                    order_indices.append(added_index)
-                    current = previous
-                order_indices.reverse()
-                return [cells[i] for i in order_indices]
-
-            current_position = start_position if node == -1 else positions[node]
-            for next_index in range(n):
-                if mask & (1 << next_index):
-                    continue
-                new_mask = mask | (1 << next_index)
-                new_state = (next_index, new_mask)
-                new_g = g + math.dist(current_position, positions[next_index])
-                if new_g < g_score.get(new_state, float("inf")):
-                    g_score[new_state] = new_g
-                    came_from[new_state] = (state, next_index)
-                    new_f = new_g + heuristic(positions[next_index], new_mask)
-                    heapq.heappush(open_heap, (new_f, new_g, new_state))
-
-        return cells  # unreachable for a complete graph, but avoids crashing if it ever is
 
     def _insert_optimal_dips(self, ordered_cells, cell_positions, start_position, paint_can, redip_distance):
         """Given a fixed visiting order, choose where (if anywhere) to dip so total added
@@ -332,33 +198,6 @@ class CoveragePlanner:
 
         return route
 
-    def _build_route_nearest_neighbor(self, remaining, cell_positions, start_position, paint_can, redip_distance):
-        remaining = list(remaining)
-        route = []
-        current_position = list(start_position)
-        distance_since_dip = 0.0
-        dip_position = paint_can.get_dip_position()
-
-        while remaining:
-            best_cell, best_distance = None, None
-            for cell in remaining:
-                distance = math.dist(current_position, cell_positions[cell])
-                if best_distance is None or distance < best_distance:
-                    best_cell, best_distance = cell, distance
-
-            if distance_since_dip + best_distance > redip_distance:
-                route.append(DipStep())
-                current_position = dip_position
-                distance_since_dip = 0.0
-                best_distance = math.dist(current_position, cell_positions[best_cell])
-
-            remaining.remove(best_cell)
-            row, col = best_cell
-            route.append(CoverageTarget(row, col, cell_positions[best_cell], orientation="vertical"))
-            distance_since_dip += best_distance
-            current_position = cell_positions[best_cell]
-
-        return route
 
     def _filter_unpainted_targets(self, points):
         """Keep the sweep-style strategies deterministic and wall-aligned by removing
@@ -424,17 +263,6 @@ class CoveragePlanner:
             current_position = position
 
         return route
-
-    def _build_route_grid_smooth(self, start_position, paint_can, redip_distance):
-        """Continuous A*, option 1 (discretize + smooth): reuse the same fine boustrophedon
-        grid as "sweep", then round off its sharp right-angle turns with Chaikin corner-cutting
-        so the roller follows a smooth curve instead of a blocky grid-aligned path."""
-        if not hasattr(self.wall, "continuous_targets"):
-            raise ValueError("The 'grid_smooth' strategy requires a continuous wall map (e.g. "
-                              "CoordWallMap) that exposes continuous_targets().")
-        points = self.wall.continuous_targets()
-        smoothed = self._chaikin_smooth(points)
-        return self._build_route_fixed_points(smoothed, start_position, paint_can, redip_distance)
 
     def _build_route_rl(self, start_position, paint_can, redip_distance, rl_model_path: Optional[str] = None, rl_max_steps: int = 200):
         """Placeholder for RL-driven coverage planning.
@@ -675,7 +503,7 @@ class CoveragePlanner:
                 graph[j].append((i, d))
 
         index_positions = {i: positions[i] for i in range(n)}
-        order = self._nearest_neighbor_order(list(range(n)), index_positions, start_position)
+        order = self._nearest_order(list(range(n)), index_positions, start_position)
         order = self._two_opt_improve(order, index_positions, start_position)
         return samples, positions, graph, order
 
