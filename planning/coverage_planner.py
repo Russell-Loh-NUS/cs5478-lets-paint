@@ -326,6 +326,8 @@ class CoveragePlanner:
         max_steps = rl_max_steps
         obs = build_obs(painted)
         last_position = list(start_position)
+        current_position = list(start_position)
+        distance_since_dip = 0.0
 
         for step in range(max_steps):
             remaining = [cell for cell in self.coverage_map.unpainted_cells(threshold=0.8) if cell not in painted]
@@ -368,14 +370,30 @@ class CoveragePlanner:
                 row, col = min(remaining, key=lambda cell: math.dist(last_position, self.wall.touch_point(cell[0], cell[1], offset=self.approach_offset)))
 
             position = self.wall.touch_point(row, col, offset=self.approach_offset)
+            distance = math.dist(current_position, position)
+
+            # The RL model may output a target without an explicit dip action, but the robot still
+            # must respect the hard paint budget. If the projected distance since the last successful
+            # dip would exceed the redip threshold, force a dip before continuing.
+            if distance_since_dip + distance > redip_distance:
+                route.append(DipStep())
+                current_position = list(paint_can.get_dip_position())
+                distance_since_dip = 0.0
+                distance = math.dist(current_position, position)
+
             # The controller currently validates paint success only for near-vertical roller
             # contact against the wall. Use the same orientation for RL-generated paint targets;
             # travel/retraction remain vertical, so the motion planner can actually solve the IK.
             route.append(CoverageTarget(row, col, position, orientation="vertical"))
             painted.add((row, col))
             last_position = list(position)
+            distance_since_dip += distance
+            current_position = list(position)
+
             if dip:
                 route.append(DipStep())
+                distance_since_dip = 0.0
+                current_position = list(paint_can.get_dip_position())
 
             obs = build_obs(painted)
 
