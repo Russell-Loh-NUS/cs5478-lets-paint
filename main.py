@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pybullet as p
 
+from simulation import pybullet_retry
 from simulation.paint_environment import PaintEnvironment, PaintConfig
 from simulation.room_config import RoomSampler
 from simulation.paint_can import PaintCan
@@ -18,6 +19,7 @@ from mapping.coord_wall_map import CoordWallMap
 from mapping.coverage_map import CoverageMap
 from planning.coverage_planner import CoveragePlanner, DipStep
 from planning.motion_planner import MotionPlanner
+from planning.motion_planner_rl import BaseNavigator
 from control.coord_robot_controller import CoordRobotController
 from control.robot_controller import RobotController
 from evaluation.coverage import coverage_percentage, coverage_error
@@ -34,6 +36,12 @@ ROOM_SEED: int | None = None
 L_SHAPE_PROBABILITY = 0.0 # chance a seeded room is L shaped (see RoomSampler)
 # Optional CLI override for RL model path
 RL_MODEL_PATH: str | None = None
+# Trained base-motion policy (planning/motion_planner_rl.py) for the trips to the paint can and
+# back to the wall. None = classic motion planner only (default).
+MOTION_RL_MODEL_PATH: str | None = None
+# False - when the motion policy fails a leg, abort instead of finishing it with the classic
+# planner, so the policy's own performance is visible. --motion-rl-fallback turns the safety net on.
+MOTION_RL_FALLBACK = False
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
 # small enough to actually finish, instead of the much finer grid the other strategies use.
@@ -108,7 +116,7 @@ def _execute_route(route, controller, paint_can, wall_map, path_tracker, total_c
     return True
 
 
-def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_tracker):
+def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_tracker, navigator=None):
     """Plan and paint a single wall (replanning the remainder if a pass leaves gaps)."""
     wall = env.walls_by_name[name]
     env.focus_camera_on_wall(name)
@@ -121,7 +129,8 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
     coverage_planner = CoveragePlanner(
         coverage_map, wall_map, approach_offset=Robot.ROLLER_RADIUS - 0.001
     )
-    controller = CoordRobotController(robot, motion_planner, wall_map, path_tracker, env)
+    controller = CoordRobotController(robot, motion_planner, wall_map, path_tracker, env,
+                                      base_navigator=navigator, rl_fallback=MOTION_RL_FALLBACK)
 
     print(f"\n=== Painting wall '{name}' ===")
     if not controller.ensure_dipped(paint_can):
@@ -209,6 +218,8 @@ def _room_bounds(env):
 
 def main(gui=True, seed=None, l_shape_probability=0.0):
     log_file = configure_file_logging(COVERAGE_STRATEGY)
+    if gui:
+        pybullet_retry.install()  # the GUI connection fails sporadically - see simulation/pybullet_retry.py
     original_stdout = sys.stdout
     original_stderr = sys.stderr
     sys.stdout = Tee(sys.stdout, log_file)
@@ -236,6 +247,8 @@ def main(gui=True, seed=None, l_shape_probability=0.0):
             except p.error as exc:
                 print(f"[cleanup] PyBullet disconnect failed: {exc}")
     finally:
+        if pybullet_retry.recovered:
+            print(f"[main] absorbed {pybullet_retry.recovered} transient PyBullet GUI errors by retrying")
         sys.stdout = original_stdout
         sys.stderr = original_stderr
         log_file.close()
@@ -258,6 +271,12 @@ def _run(env, run_started_at):
     path_tracker = PathLengthTracker()
     motion_planner = MotionPlanner(robot, collision_bodies=[w.body_id for w in env.walls] + [env.floor_id])
 
+    navigator = None
+    if MOTION_RL_MODEL_PATH:
+        navigator = BaseNavigator.load(MOTION_RL_MODEL_PATH, robot, [w.body_id for w in env.walls],
+                                       paint_can, env.room.footprint())
+        print(f"[main] RL base motion enabled for can/resume trips: {MOTION_RL_MODEL_PATH}")
+
     wall_maps = {}
     wall_metrics = {}
     try:
@@ -272,7 +291,8 @@ def _run(env, run_started_at):
             wall_maps[name] = CoordWallMap(wall, cell_width=cell_width, cell_height=cell_height,
                                             touch_spacing=2 * Robot.ROLLER_RADIUS,
                                             line_spacing=Robot.ROLLER_LENGTH)
-            wall_metrics[name] = _paint_wall(name, wall_maps[name], env, robot, paint_can, motion_planner, path_tracker)
+            wall_metrics[name] = _paint_wall(name, wall_maps[name], env, robot, paint_can, motion_planner, path_tracker,
+                                             navigator=navigator)
             if not p.isConnected():
                 break
     except p.error as exc:
@@ -343,6 +363,10 @@ if __name__ == "__main__":
                         help="Disable repaint/replanning after the first pass")
     parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, sweep)")
     parser.add_argument("--rl-model", type=str, help="Path to RL model to use when strategy=rl")
+    parser.add_argument("--motion-rl", type=str, metavar="MODEL",
+                        help="Trained base-motion policy (.zip) for the trips to the paint can and back")
+    parser.add_argument("--motion-rl-fallback", action="store_true",
+                        help="With --motion-rl: finish a failed RL leg with the classic planner")
     parser.add_argument("--seed", type=int, default=ROOM_SEED,
                         help="Random room from this seed (same seed = same room); omit for the default room")
     parser.add_argument("--l-shape", type=float, nargs="?", const=1.0, default=L_SHAPE_PROBABILITY,
@@ -355,4 +379,8 @@ if __name__ == "__main__":
     # If provided, let the rl model path override the default used by the planner.
     if args.rl_model:
         RL_MODEL_PATH = args.rl_model
+    if args.motion_rl:
+        MOTION_RL_MODEL_PATH = args.motion_rl
+    if args.motion_rl_fallback:
+        MOTION_RL_FALLBACK = True
     main(gui=not args.headless, seed=args.seed, l_shape_probability=args.l_shape)
