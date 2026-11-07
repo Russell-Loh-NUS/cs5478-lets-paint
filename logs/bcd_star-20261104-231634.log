@@ -1,7 +1,0 @@
-Use your arrow keys to look around, number keys 1-5 for different views
-Room: seed=None 4.00 x 3.00 x 2.60 m, notch=None, walls=['south', 'east', 'north', 'west']
-
-=== Painting wall 'south' ===
-[CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
-[RobotController] Roller dipped in paint.
-[south] Replanning disabled; running a single paint pass only.

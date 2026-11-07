@@ -71,9 +71,7 @@ KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy bcd_astar --headless
 conda activate base
 KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --headless
 
-# Behavioral cloning strategy
-conda activate base
-KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy behavioral_cloning --headless
+
 ```
 
 For GUI runs, omit `--headless` from the same commands above.

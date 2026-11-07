@@ -2355,7 +2355,6 @@ Progress: 52.4% (162/309 cells), path length so far: 94.70 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0103).
 [RobotController] Roller dipped in paint.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0094).
-[MotionPlanner] Recovered collision query using refreshed collision data.
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0101).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0092).
 [CoordRobotController] Tool pose reached (position error 0.0011 m; residual joint error 0.0173).
@@ -3598,8 +3597,8 @@ Progress: 14.4% (67/465 cells), path length so far: 137.92 m
 Progress: 16.1% (75/465 cells), path length so far: 141.28 m
 Progress: 18.3% (85/465 cells), path length so far: 141.28 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0075).
-[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0160).
-[CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0100).
+[CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0121).
+[CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0114).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0103).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0129).
 Progress: 20.4% (95/465 cells), path length so far: 141.28 m
@@ -4866,7 +4865,7 @@ Progress: 15.5% (58/375 cells), path length so far: 208.43 m
 [CoordRobotController] Move rejected: No collision-free pose/path at [0.059, 0.828, 0.63]
 [MotionPlanner] Wall retreat rerouted using collision-checked joint-space search.
 [CoordRobotController] Motion stalled (joint error 0.0129); move failed.
-[CoordRobotController] Motion incomplete; tool position error 0.2377 m.
+[CoordRobotController] Motion incomplete; tool position error 0.2376 m.
 [CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0021).
 [CoordRobotController] Tool pose reached (position error 0.0001 m; residual joint error 0.0023).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0105).
@@ -4946,14 +4945,14 @@ Progress: 47.5% (178/375 cells), path length so far: 245.05 m
 Roller has travelled 10.47m since last dip; redipping...
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0024).
 [RobotController] Roller dipped in paint.
-Progress: 50.1% (188/375 cells), path length so far: 250.60 m
+Progress: 50.1% (188/375 cells), path length so far: 250.59 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0125).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0104).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
-Progress: 52.8% (198/375 cells), path length so far: 250.60 m
+Progress: 52.8% (198/375 cells), path length so far: 250.59 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0112).
@@ -5062,7 +5061,7 @@ Progress: 71.5% (268/375 cells), path length so far: 269.23 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0103).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0050).
-Progress: 74.1% (278/375 cells), path length so far: 275.53 m
+Progress: 74.1% (278/375 cells), path length so far: 275.52 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0048).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0065).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0076).
@@ -5079,7 +5078,7 @@ Progress: 74.1% (278/375 cells), path length so far: 275.53 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0058).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0064).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0165).
-Progress: 76.8% (288/375 cells), path length so far: 275.53 m
+Progress: 76.8% (288/375 cells), path length so far: 275.52 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0105).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0125).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0180).
@@ -5101,7 +5100,7 @@ Progress: 76.8% (288/375 cells), path length so far: 275.53 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
-Progress: 79.5% (298/375 cells), path length so far: 275.53 m
+Progress: 79.5% (298/375 cells), path length so far: 275.52 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
@@ -5132,7 +5131,7 @@ Roller has travelled 11.56m since last dip; redipping...
 [RobotController] Roller dipped in paint.
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0068).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0152).
-Progress: 82.1% (308/375 cells), path length so far: 282.86 m
+Progress: 82.1% (308/375 cells), path length so far: 282.85 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0044).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0164).
 [CoordRobotController] Stopped: unexpected collision or insufficient floor clearance.
@@ -5226,7 +5225,7 @@ Progress: 95.2% (357/375 cells), path length so far: 291.13 m
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0024).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0107).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0108).
-Progress: 97.6% (366/375 cells), path length so far: 296.81 m
+Progress: 97.6% (366/375 cells), path length so far: 296.80 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0108).
 [west] Coverage: 98.9%  Error: 1.1%
 [west] Uncovered cells (0 total): []
@@ -5243,7 +5242,7 @@ Overall coverage: 97.0% (1575/1624 cells)
 [west] incomplete wall: coverage=98.9%
 Ground-truth painted area (from canvas): 31.906 m^2 {'south': 9.35144, 'east': 5.826976, 'north': 9.052448, 'west': 7.675024}
 Total path length travelled: 298.42 m
-Total runtime (environment init to painting finish): 1128.71 s
+Total runtime (environment init to painting finish): 1237.45 s
 
 === Final conclusion ===
-Conclusion: wall coverage: south=96.4%, east=96.4%, north=96.3%, west=98.9%; total coverage: 97.0% over 4 walls; total path length: 298.42 m; total run time: 1128.71 s; planner planning time: 44.67 s; total redips required: 24.
+Conclusion: wall coverage: south=96.4%, east=96.4%, north=96.3%, west=98.9%; total coverage: 97.0% over 4 walls; total path length: 298.42 m; total run time: 1237.45 s; planner planning time: 58.54 s; total redips required: 24.

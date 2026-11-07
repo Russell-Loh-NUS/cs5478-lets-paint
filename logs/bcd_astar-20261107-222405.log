@@ -1,5 +1,5 @@
-[PaintEnvironment] Recording video to /Users/huangbin/Desktop/CS5478/Project/videos/bcd_astar_20261101-224246.mp4
 Use your arrow keys to look around, number keys 1-5 for different views
+Room: seed=None 4.00 x 3.00 x 2.60 m, notch=None, walls=['south', 'east', 'north', 'west']
 
 === Painting wall 'south' ===
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
@@ -1616,7 +1616,7 @@ Progress: 68.6% (212/309 cells), path length so far: 123.91 m
 [CoordRobotController] Tool pose reached (position error 0.0010 m; residual joint error 0.0060).
 [CoordRobotController] Tool pose reached (position error 0.0016 m; residual joint error 0.0187).
 [CoordRobotController] Tool pose reached (position error 0.0020 m; residual joint error 0.0199).
-Progress: 71.8% (222/309 cells), path length so far: 133.17 m
+Progress: 71.8% (222/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0050).
 [CoordRobotController] Tool pose reached (position error 0.0010 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0013 m; residual joint error 0.0126).
@@ -1629,7 +1629,7 @@ Progress: 71.8% (222/309 cells), path length so far: 133.17 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0190).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0151).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0142).
-Progress: 75.1% (232/309 cells), path length so far: 133.17 m
+Progress: 75.1% (232/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0109).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0113).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0106).
@@ -1653,7 +1653,7 @@ Progress: 75.1% (232/309 cells), path length so far: 133.17 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
-Progress: 78.3% (242/309 cells), path length so far: 133.17 m
+Progress: 78.3% (242/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
@@ -1692,7 +1692,7 @@ Progress: 78.3% (242/309 cells), path length so far: 133.17 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0116).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0128).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0064).
-Progress: 81.6% (252/309 cells), path length so far: 133.17 m
+Progress: 81.6% (252/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0120).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0118).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0116).
@@ -1720,7 +1720,7 @@ Progress: 81.6% (252/309 cells), path length so far: 133.17 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0051).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0059).
-Progress: 84.8% (262/309 cells), path length so far: 133.17 m
+Progress: 84.8% (262/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0091).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0051).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0059).
@@ -1762,7 +1762,7 @@ Progress: 84.8% (262/309 cells), path length so far: 133.17 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0080).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0083).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0107).
-Progress: 88.0% (272/309 cells), path length so far: 133.17 m
+Progress: 88.0% (272/309 cells), path length so far: 133.18 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0100).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0115).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0125).
@@ -2463,22 +2463,22 @@ Progress: 24.7% (115/465 cells), path length so far: 161.94 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0111).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0114).
 [RobotController] Roller dipped in paint.
-Progress: 26.9% (125/465 cells), path length so far: 166.93 m
-Progress: 29.0% (135/465 cells), path length so far: 166.93 m
+Progress: 26.9% (125/465 cells), path length so far: 166.94 m
+Progress: 29.0% (135/465 cells), path length so far: 166.94 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0102).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0093).
 [CoordRobotController] Tool pose reached (position error 0.0003 m; residual joint error 0.0093).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0115).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0115).
-Progress: 31.2% (145/465 cells), path length so far: 166.93 m
-Progress: 33.3% (155/465 cells), path length so far: 166.93 m
+Progress: 31.2% (145/465 cells), path length so far: 166.94 m
+Progress: 33.3% (155/465 cells), path length so far: 166.94 m
 [CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0068).
 [CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0077).
 [CoordRobotController] Cell (4, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [main_lets_paint] Skipping unreachable cell (4,33) after 3 failed attempts; continuing with the rest of the route.
-Progress: 35.3% (164/465 cells), path length so far: 166.93 m
+Progress: 35.3% (164/465 cells), path length so far: 166.94 m
 [CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0146).
 [CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
@@ -2486,7 +2486,7 @@ Progress: 35.3% (164/465 cells), path length so far: 166.93 m
 [CoordRobotController] Cell (5, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [main_lets_paint] Skipping unreachable cell (5,33) after 3 failed attempts; continuing with the rest of the route.
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0127).
-Progress: 37.2% (173/465 cells), path length so far: 166.93 m
+Progress: 37.2% (173/465 cells), path length so far: 166.94 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0092).
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
@@ -2518,14 +2518,14 @@ Progress: 51.8% (241/465 cells), path length so far: 179.19 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0100).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0086).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0104).
-Progress: 54.0% (251/465 cells), path length so far: 180.63 m
+Progress: 54.0% (251/465 cells), path length so far: 180.64 m
 [CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0109).
 [CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0125).
 [CoordRobotController] Cell (8, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [main_lets_paint] Skipping unreachable cell (8,33) after 3 failed attempts; continuing with the rest of the route.
-Progress: 55.9% (260/465 cells), path length so far: 180.63 m
+Progress: 55.9% (260/465 cells), path length so far: 180.64 m
 [CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0079).
 [CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
@@ -2533,7 +2533,7 @@ Progress: 55.9% (260/465 cells), path length so far: 180.63 m
 [CoordRobotController] Cell (9, 33) not reached/painted enough; fraction=70.00%, target_threshold=80%.
 [main_lets_paint] Skipping unreachable cell (9,33) after 3 failed attempts; continuing with the rest of the route.
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0181).
-Progress: 57.8% (269/465 cells), path length so far: 180.63 m
+Progress: 57.8% (269/465 cells), path length so far: 180.64 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0162).
 [RobotController] Roller dipped in paint.
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0129).
@@ -2656,14 +2656,14 @@ Progress: 70.3% (327/465 cells), path length so far: 187.14 m
 [RobotController] Roller dipped in paint.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0134).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0145).
-Progress: 72.5% (337/465 cells), path length so far: 194.16 m
+Progress: 72.5% (337/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0163).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0164).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0132).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0140).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0124).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0130).
-Progress: 74.6% (347/465 cells), path length so far: 194.16 m
+Progress: 74.6% (347/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0111).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0149).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0117).
@@ -2673,7 +2673,7 @@ Progress: 74.6% (347/465 cells), path length so far: 194.16 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0179).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0142).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0109).
-Progress: 76.8% (357/465 cells), path length so far: 194.16 m
+Progress: 76.8% (357/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0112).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0106).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0098).
@@ -2703,7 +2703,7 @@ Progress: 76.8% (357/465 cells), path length so far: 194.16 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0082).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0065).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
-Progress: 78.9% (367/465 cells), path length so far: 194.16 m
+Progress: 78.9% (367/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0082).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0065).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
@@ -2734,7 +2734,7 @@ Progress: 78.9% (367/465 cells), path length so far: 194.16 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0082).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0065).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0075).
-Progress: 81.1% (377/465 cells), path length so far: 194.16 m
+Progress: 81.1% (377/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0062).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0080).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0110).
@@ -2775,7 +2775,7 @@ Progress: 81.1% (377/465 cells), path length so far: 194.16 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0114).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0122).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0029).
-Progress: 82.8% (385/465 cells), path length so far: 194.16 m
+Progress: 82.8% (385/465 cells), path length so far: 194.17 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0081).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0061).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0080).
@@ -3446,12 +3446,12 @@ Progress: 23.5% (88/375 cells), path length so far: 221.11 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0103).
 [CoordRobotController] Move rejected: No collision-free pose/path at [0.059, 2.412, 0.63]
 [MotionPlanner] Transit rerouted through collision-checked home pose.
-Progress: 26.1% (98/375 cells), path length so far: 228.70 m
+Progress: 26.1% (98/375 cells), path length so far: 228.71 m
 Roller has travelled 10.17m since last dip; redipping...
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
 [RobotController] Roller dipped in paint.
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0143).
-Progress: 28.8% (108/375 cells), path length so far: 233.48 m
+Progress: 28.8% (108/375 cells), path length so far: 233.49 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0147).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0109).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0127).
@@ -3459,20 +3459,20 @@ Progress: 28.8% (108/375 cells), path length so far: 233.48 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0108).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0110).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0107).
-Progress: 31.5% (118/375 cells), path length so far: 233.48 m
+Progress: 31.5% (118/375 cells), path length so far: 233.49 m
 [CoordRobotController] Move rejected: No collision-free pose/path at [0.059, 0.588, 0.81]
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
 [MotionPlanner] Transit rerouted through collision-checked home pose.
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0021).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0092).
-Progress: 34.1% (128/375 cells), path length so far: 240.50 m
+Progress: 34.1% (128/375 cells), path length so far: 240.51 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0125).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0124).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0127).
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0025).
 [RobotController] Roller dipped in paint.
-Progress: 36.8% (138/375 cells), path length so far: 244.28 m
+Progress: 36.8% (138/375 cells), path length so far: 244.29 m
 [CoordRobotController] Move rejected: No collision-free pose/path at [0.059, 2.412, 0.99]
 [MotionPlanner] Transit rerouted through collision-checked home pose.
 [CoordRobotController] Tool pose reached (position error 0.0000 m; residual joint error 0.0021).
@@ -3519,9 +3519,9 @@ Progress: 55.5% (208/375 cells), path length so far: 264.02 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0111).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0111).
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0111).
-Progress: 58.1% (218/375 cells), path length so far: 269.01 m
+Progress: 58.1% (218/375 cells), path length so far: 269.02 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0082).
-Progress: 60.8% (228/375 cells), path length so far: 269.01 m
+Progress: 60.8% (228/375 cells), path length so far: 269.02 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0176).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0164).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0128).
@@ -3529,7 +3529,7 @@ Progress: 60.8% (228/375 cells), path length so far: 269.01 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0046).
 Roller has travelled 10.10m since last dip; redipping...
 [RobotController] Roller dipped in paint.
-Progress: 63.5% (238/375 cells), path length so far: 274.25 m
+Progress: 63.5% (238/375 cells), path length so far: 274.26 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0101).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0081).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0094).
@@ -3537,7 +3537,7 @@ Progress: 63.5% (238/375 cells), path length so far: 274.25 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0069).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0119).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0073).
-Progress: 66.1% (248/375 cells), path length so far: 274.25 m
+Progress: 66.1% (248/375 cells), path length so far: 274.26 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0064).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0185).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0170).
@@ -3547,7 +3547,7 @@ Progress: 66.1% (248/375 cells), path length so far: 274.25 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0101).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0124).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0109).
-Progress: 68.8% (258/375 cells), path length so far: 274.25 m
+Progress: 68.8% (258/375 cells), path length so far: 274.26 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0123).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0044).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0106).
@@ -3577,7 +3577,7 @@ Progress: 68.8% (258/375 cells), path length so far: 274.25 m
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0050).
 Roller has travelled 10.10m since last dip; redipping...
 [RobotController] Roller dipped in paint.
-Progress: 71.5% (268/375 cells), path length so far: 280.44 m
+Progress: 71.5% (268/375 cells), path length so far: 280.45 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0070).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0073).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0079).
@@ -3585,7 +3585,7 @@ Progress: 71.5% (268/375 cells), path length so far: 280.44 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0222).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0146).
 [RobotController] Roller dipped in paint.
-Progress: 74.1% (278/375 cells), path length so far: 287.55 m
+Progress: 74.1% (278/375 cells), path length so far: 287.56 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0151).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0164).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0188).
@@ -3604,7 +3604,7 @@ Progress: 74.1% (278/375 cells), path length so far: 287.55 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0088).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0093).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0097).
-Progress: 76.8% (288/375 cells), path length so far: 287.55 m
+Progress: 76.8% (288/375 cells), path length so far: 287.56 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0075).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0068).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0054).
@@ -3627,7 +3627,7 @@ Progress: 76.8% (288/375 cells), path length so far: 287.55 m
 [CoordRobotController] Tool pose reached (position error 0.0013 m; residual joint error 0.0148).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0051).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0083).
-Progress: 79.5% (298/375 cells), path length so far: 287.55 m
+Progress: 79.5% (298/375 cells), path length so far: 287.56 m
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0058).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0064).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0165).
@@ -3643,7 +3643,7 @@ Progress: 79.5% (298/375 cells), path length so far: 287.55 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0092).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0103).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0071).
-Progress: 82.1% (308/375 cells), path length so far: 287.55 m
+Progress: 82.1% (308/375 cells), path length so far: 287.56 m
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0075).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0059).
 [CoordRobotController] Tool pose reached (position error 0.0008 m; residual joint error 0.0077).
@@ -3672,7 +3672,7 @@ Progress: 82.1% (308/375 cells), path length so far: 287.55 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0068).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0087).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0055).
-Progress: 84.8% (318/375 cells), path length so far: 287.55 m
+Progress: 84.8% (318/375 cells), path length so far: 287.56 m
 [CoordRobotController] Tool pose reached (position error 0.0004 m; residual joint error 0.0056).
 [CoordRobotController] Tool pose reached (position error 0.0005 m; residual joint error 0.0075).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0098).
@@ -3746,7 +3746,7 @@ Progress: 90.1% (338/375 cells), path length so far: 294.88 m
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0066).
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0143).
 [CoordRobotController] Tool pose reached (position error 0.0007 m; residual joint error 0.0037).
-Progress: 92.8% (348/375 cells), path length so far: 301.71 m
+Progress: 92.8% (348/375 cells), path length so far: 301.72 m
 [CoordRobotController] Stopped: unexpected collision or insufficient floor clearance.
 [CoordRobotController] Motion incomplete; tool position error 0.0154 m.
 [CoordRobotController] Tool pose reached (position error 0.0006 m; residual joint error 0.0146).
@@ -3808,9 +3808,7 @@ Overall coverage: 97.0% (1576/1624 cells)
 [west] incomplete wall: coverage=98.9%
 Ground-truth painted area (from canvas): 31.909 m^2 {'south': 9.35248, 'east': 5.829488, 'north': 9.052448, 'west': 7.674512}
 Total path length travelled: 310.17 m
-Total runtime (environment init to painting finish): 2327.39 s
+Total runtime (environment init to painting finish): 1300.60 s
 
 === Final conclusion ===
-Conclusion: wall coverage: south=96.4%, east=96.8%, north=96.3%, west=98.9%; total coverage: 97.0% over four walls; total path length: 310.17 m; total run time: 2327.39 s; planner planning time: 0.12 s; total redips required: 25.
-[PaintEnvironment] Failed to save final video: function missing required argument 'loggingId' (pos 1)
-[PaintEnvironment] Failed to save final video: function missing required argument 'loggingId' (pos 1)
+Conclusion: wall coverage: south=96.4%, east=96.8%, north=96.3%, west=98.9%; total coverage: 97.0% over 4 walls; total path length: 310.17 m; total run time: 1300.60 s; planner planning time: 0.12 s; total redips required: 25.
