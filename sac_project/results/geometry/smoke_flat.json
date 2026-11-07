@@ -1,0 +1,70 @@
+{
+  "wall_type": "flat",
+  "wall": "south",
+  "seed": 860000,
+  "status": "smoke_passed",
+  "termination_reason": "running",
+  "failure_reason": null,
+  "target_coverage": 0.00021463348508297278,
+  "whole_valid_wall_coverage": 0.0002128040858384481,
+  "verified_refills": 0,
+  "painting_actions": 0,
+  "painting_contact_distance_m": 0.0,
+  "collision_count": 0,
+  "neural_painting_used": false,
+  "neural_dipping_used": false,
+  "independent_wall_episode": true,
+  "test_type": "environment_smoke",
+  "paint_budget": {
+    "capacity_m": 12.0,
+    "low_fraction": 0.15
+  },
+  "controllers": {
+    "painting": "Stage3 V4 neural actor",
+    "dipping": "Stage4 V2 neural actor",
+    "refill_travel": "original geometric motor controller",
+    "goals": "original V8"
+  },
+  "comparison_limitations": [],
+  "geometry": {
+    "type": "flat",
+    "wall": "south",
+    "wall_length_m": 4.0432364524476805,
+    "wall_height_m": 2.210009626007202,
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "u_direction": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "normal": [
+      0.0,
+      1.0,
+      0.0
+    ]
+  },
+  "mask": {
+    "file": "masks.npz",
+    "shape": [
+      221,
+      404
+    ],
+    "pixels_per_m": 100,
+    "axes": "row=(height-v)*ppm; column=(length-u)*ppm",
+    "target_area_m2": 8.8523,
+    "valid_wall_area_m2": 8.9284,
+    "target_pixels": 88523,
+    "paintable_pixels": 89284
+  },
+  "scene_checks": {
+    "wall_material_probe_passed": true
+  },
+  "paint_level": 1.0,
+  "target_area_m2": 8.8523,
+  "valid_wall_area_m2": 8.9284,
+  "collision_events": []
+}

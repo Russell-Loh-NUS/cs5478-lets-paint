@@ -1,0 +1,92 @@
+[
+  {
+    "round": 0,
+    "training": {
+      "mean_loss": 0.005242659623334475,
+      "last_loss": 0.000539328262093477,
+      "samples": 7151,
+      "phase_samples": {
+        "align": 480,
+        "lower": 3151,
+        "hold": 320,
+        "withdraw": 3200
+      },
+      "student_origin_samples": 0
+    },
+    "student_success_rate": 1.0,
+    "student_collision_rate": 0.0,
+    "best_round": 0
+  },
+  {
+    "round": 1,
+    "training": {
+      "mean_loss": 0.0007092427748866612,
+      "last_loss": 0.000491793682333082,
+      "samples": 10737,
+      "phase_samples": {
+        "align": 719,
+        "lower": 4737,
+        "hold": 480,
+        "withdraw": 4801
+      },
+      "student_origin_samples": 2300
+    },
+    "student_success_rate": 1.0,
+    "student_collision_rate": 0.0,
+    "best_round": 1
+  },
+  {
+    "round": 2,
+    "training": {
+      "mean_loss": 0.0005093789601960452,
+      "last_loss": 0.00037885928538162263,
+      "samples": 14287,
+      "phase_samples": {
+        "align": 924,
+        "lower": 6322,
+        "hold": 640,
+        "withdraw": 6401
+      },
+      "student_origin_samples": 5219
+    },
+    "student_success_rate": 1.0,
+    "student_collision_rate": 0.0,
+    "best_round": 2
+  },
+  {
+    "round": 3,
+    "training": {
+      "mean_loss": 0.0003681529185487307,
+      "last_loss": 0.00030784346046857535,
+      "samples": 17857,
+      "phase_samples": {
+        "align": 1150,
+        "lower": 7906,
+        "hold": 800,
+        "withdraw": 8001
+      },
+      "student_origin_samples": 8464
+    },
+    "student_success_rate": 1.0,
+    "student_collision_rate": 0.0,
+    "best_round": 3
+  },
+  {
+    "round": 4,
+    "training": {
+      "mean_loss": 0.0002967832202630234,
+      "last_loss": 0.0002520853237947449,
+      "samples": 21428,
+      "phase_samples": {
+        "align": 1380,
+        "lower": 9487,
+        "hold": 960,
+        "withdraw": 9601
+      },
+      "student_origin_samples": 12019
+    },
+    "student_success_rate": 1.0,
+    "student_collision_rate": 0.0,
+    "best_round": 3
+  }
+]

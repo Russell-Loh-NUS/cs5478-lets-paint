@@ -1,0 +1,11 @@
+{
+  "wall": "west",
+  "seed": 860003,
+  "result": "failed",
+  "neural_painting": true,
+  "neural_dipping": true,
+  "geometric_refill_travel": true,
+  "independent_wall_reset": true,
+  "error": "Refill travel motor tracking timeout, max_error=0.1556",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/four_wall_coverage_demo.py\", line 64, in main\n    obs = refill.run()\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/stage3_native_refill_demo.py\", line 107, in run\n    self.move(self.local_ik_world(stage))\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/stage3_native_refill_demo.py\", line 90, in move\n    raise RuntimeError(f'Refill travel motor tracking timeout, max_error={np.max(np.abs(actual-target)):.4f}')\nRuntimeError: Refill travel motor tracking timeout, max_error=0.1556\n"
+}

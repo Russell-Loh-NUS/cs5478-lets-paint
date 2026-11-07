@@ -1,0 +1,269 @@
+{
+  "wall": "north",
+  "seed": 860002,
+  "result": "stalled",
+  "neural_painting": true,
+  "neural_dipping": true,
+  "geometric_refill_travel": true,
+  "independent_wall_reset": true,
+  "painting_actions": 23371,
+  "target_coverage": 0.9286839801575721,
+  "whole_wall_coverage": 0.9167886071136409,
+  "refills": 10,
+  "paint_level": 0.3581675124718564,
+  "contact_distance_m": 109.7302586611401,
+  "paint_budget": "contact_distance",
+  "paint_distance_capacity_m": 12.0,
+  "refill_events": [
+    {
+      "event": "pause",
+      "physics_steps": 0,
+      "wall": "north",
+      "command": [
+        0.39582736600321206,
+        0.6509810528835316,
+        0.0595,
+        -9.024045199534925e-06
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 588
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 1956,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 3744,
+      "refills": 1
+    },
+    {
+      "event": "pause",
+      "physics_steps": 3744,
+      "wall": "north",
+      "command": [
+        0.699514678308187,
+        2.0477249274333924,
+        0.0595,
+        0.00033235768345951655
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 4536
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 5904,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 7896,
+      "refills": 2
+    },
+    {
+      "event": "pause",
+      "physics_steps": 7896,
+      "wall": "north",
+      "command": [
+        1.0627436782805324,
+        1.0330651510437983,
+        0.0595,
+        -0.0001166345688958792
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 8412
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 9780,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 11496,
+      "refills": 3
+    },
+    {
+      "event": "pause",
+      "physics_steps": 11496,
+      "wall": "north",
+      "command": [
+        1.4444238295046705,
+        0.43005187756624197,
+        0.0595,
+        -0.00031393339367680184
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 12084
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 13440,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 15216,
+      "refills": 4
+    },
+    {
+      "event": "pause",
+      "physics_steps": 15216,
+      "wall": "north",
+      "command": [
+        1.746918441840828,
+        1.823750832148458,
+        0.0595,
+        -0.0005662589284969322
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 15876
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 17244,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 19104,
+      "refills": 5
+    },
+    {
+      "event": "pause",
+      "physics_steps": 19104,
+      "wall": "north",
+      "command": [
+        2.1133772240964803,
+        1.282773690887356,
+        0.0595,
+        -0.0011966868254735807
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 19644
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 21012,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 22740,
+      "refills": 6
+    },
+    {
+      "event": "pause",
+      "physics_steps": 22740,
+      "wall": "north",
+      "command": [
+        2.4898885567872,
+        0.16443095839824964,
+        0.0595,
+        0.0015812785413693575
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 23400
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 24756,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 26616,
+      "refills": 7
+    },
+    {
+      "event": "pause",
+      "physics_steps": 26616,
+      "wall": "north",
+      "command": [
+        2.787186435350605,
+        1.5230971992692042,
+        0.0595,
+        -0.0022453548523908573
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 27192
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 28560,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 30324,
+      "refills": 8
+    },
+    {
+      "event": "pause",
+      "physics_steps": 30324,
+      "wall": "north",
+      "command": [
+        3.158280408271983,
+        1.6035698462208776,
+        0.0595,
+        -0.0011069526288007836
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 30948
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 32316,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 34140,
+      "refills": 9
+    },
+    {
+      "event": "pause",
+      "physics_steps": 34140,
+      "wall": "north",
+      "command": [
+        3.4562298433868466,
+        0.23310091889706291,
+        0.0595,
+        0.0021105046060534427
+      ]
+    },
+    {
+      "event": "at_can",
+      "physics_steps": 34824
+    },
+    {
+      "event": "refill_verified",
+      "physics_steps": 36180,
+      "dwell_seconds": 0.5
+    },
+    {
+      "event": "resumed",
+      "physics_steps": 38064,
+      "refills": 10
+    }
+  ]
+}

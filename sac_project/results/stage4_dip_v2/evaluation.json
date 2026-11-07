@@ -1,0 +1,811 @@
+{
+  "controller": "student",
+  "episodes": [
+    {
+      "seed": 980000,
+      "controller": "student",
+      "episode_reward": 55.05424019864533,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 9,
+        "lower": 101,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 220,
+      "target_error_m": 0.006265397976065414,
+      "tilt_error_rad": 0.005567912214666261
+    },
+    {
+      "seed": 980001,
+      "controller": "student",
+      "episode_reward": 59.16321550805037,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006257715685562564,
+      "tilt_error_rad": 0.005290330599795887
+    },
+    {
+      "seed": 980002,
+      "controller": "student",
+      "episode_reward": 58.46525181517686,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006141354992133621,
+      "tilt_error_rad": 0.0055083973399666815
+    },
+    {
+      "seed": 980003,
+      "controller": "student",
+      "episode_reward": 56.010849775712074,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 10,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 219,
+      "target_error_m": 0.006207815936333313,
+      "tilt_error_rad": 0.0055190143771264
+    },
+    {
+      "seed": 980004,
+      "controller": "student",
+      "episode_reward": 57.52789805858781,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 19,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 227,
+      "target_error_m": 0.006105287843574278,
+      "tilt_error_rad": 0.005587930317000617
+    },
+    {
+      "seed": 980005,
+      "controller": "student",
+      "episode_reward": 58.36297474504856,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006111661614350145,
+      "tilt_error_rad": 0.005528506846269416
+    },
+    {
+      "seed": 980006,
+      "controller": "student",
+      "episode_reward": 56.50668470595504,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 13,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 222,
+      "target_error_m": 0.006186418687014102,
+      "tilt_error_rad": 0.005382976083406901
+    },
+    {
+      "seed": 980007,
+      "controller": "student",
+      "episode_reward": 56.24237453373228,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 13,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 221,
+      "target_error_m": 0.006086111026773666,
+      "tilt_error_rad": 0.0055365981457460405
+    },
+    {
+      "seed": 980008,
+      "controller": "student",
+      "episode_reward": 56.11200965632226,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 15,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 223,
+      "target_error_m": 0.006161965837519258,
+      "tilt_error_rad": 0.005361682080702473
+    },
+    {
+      "seed": 980009,
+      "controller": "student",
+      "episode_reward": 57.756565781117146,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 15,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 223,
+      "target_error_m": 0.006167381752544732,
+      "tilt_error_rad": 0.005315493916025361
+    },
+    {
+      "seed": 980010,
+      "controller": "student",
+      "episode_reward": 58.40591373889977,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 20,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 229,
+      "target_error_m": 0.006310590971465113,
+      "tilt_error_rad": 0.005529396255924201
+    },
+    {
+      "seed": 980011,
+      "controller": "student",
+      "episode_reward": 59.029532770571706,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 16,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 224,
+      "target_error_m": 0.006157072611846959,
+      "tilt_error_rad": 0.005371081739871613
+    },
+    {
+      "seed": 980012,
+      "controller": "student",
+      "episode_reward": 58.66547281045338,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 17,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006285085763212131,
+      "tilt_error_rad": 0.00556695295613235
+    },
+    {
+      "seed": 980013,
+      "controller": "student",
+      "episode_reward": 57.54576501483314,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 19,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 227,
+      "target_error_m": 0.006142329958484509,
+      "tilt_error_rad": 0.005433487432723129
+    },
+    {
+      "seed": 980014,
+      "controller": "student",
+      "episode_reward": 58.458840995501745,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 21,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 229,
+      "target_error_m": 0.006173586763841505,
+      "tilt_error_rad": 0.0054072588341440506
+    },
+    {
+      "seed": 980015,
+      "controller": "student",
+      "episode_reward": 57.301832879512624,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 13,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 222,
+      "target_error_m": 0.006356406985075803,
+      "tilt_error_rad": 0.005468557044970179
+    },
+    {
+      "seed": 980016,
+      "controller": "student",
+      "episode_reward": 56.760368702567646,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 13,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 223,
+      "target_error_m": 0.006247871733601428,
+      "tilt_error_rad": 0.005524927321632164
+    },
+    {
+      "seed": 980017,
+      "controller": "student",
+      "episode_reward": 58.16582296916026,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 15,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 223,
+      "target_error_m": 0.006240101207070104,
+      "tilt_error_rad": 0.005376414939485488
+    },
+    {
+      "seed": 980018,
+      "controller": "student",
+      "episode_reward": 57.70604381868026,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 15,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 225,
+      "target_error_m": 0.006316360389388376,
+      "tilt_error_rad": 0.005345244296250686
+    },
+    {
+      "seed": 980019,
+      "controller": "student",
+      "episode_reward": 57.270805473374125,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006129937129040001,
+      "tilt_error_rad": 0.005431892548689399
+    },
+    {
+      "seed": 980020,
+      "controller": "student",
+      "episode_reward": 57.43690777279675,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 19,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 227,
+      "target_error_m": 0.006089174270844282,
+      "tilt_error_rad": 0.005527269588962605
+    },
+    {
+      "seed": 980021,
+      "controller": "student",
+      "episode_reward": 55.805585495322994,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 8,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 218,
+      "target_error_m": 0.006192974978753297,
+      "tilt_error_rad": 0.005325915695975942
+    },
+    {
+      "seed": 980022,
+      "controller": "student",
+      "episode_reward": 58.3169570671797,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 17,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 225,
+      "target_error_m": 0.006144629579957441,
+      "tilt_error_rad": 0.005535327826642106
+    },
+    {
+      "seed": 980023,
+      "controller": "student",
+      "episode_reward": 58.31865433936775,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 21,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 229,
+      "target_error_m": 0.0061703327533440275,
+      "tilt_error_rad": 0.0055320859052120815
+    },
+    {
+      "seed": 980024,
+      "controller": "student",
+      "episode_reward": 57.42564089148598,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 17,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 225,
+      "target_error_m": 0.006132595776009162,
+      "tilt_error_rad": 0.005355403126522155
+    },
+    {
+      "seed": 980025,
+      "controller": "student",
+      "episode_reward": 55.2970571150817,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 11,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 219,
+      "target_error_m": 0.006161264010131852,
+      "tilt_error_rad": 0.005425184722474581
+    },
+    {
+      "seed": 980026,
+      "controller": "student",
+      "episode_reward": 56.03444054505711,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 5,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 215,
+      "target_error_m": 0.006251218784412434,
+      "tilt_error_rad": 0.005384228707748514
+    },
+    {
+      "seed": 980027,
+      "controller": "student",
+      "episode_reward": 57.72836647141432,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006080091337091699,
+      "tilt_error_rad": 0.005557141510678849
+    },
+    {
+      "seed": 980028,
+      "controller": "student",
+      "episode_reward": 56.09073020927093,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 9,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 219,
+      "target_error_m": 0.006121697819229359,
+      "tilt_error_rad": 0.00555228794171531
+    },
+    {
+      "seed": 980029,
+      "controller": "student",
+      "episode_reward": 57.982570092066226,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 19,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 227,
+      "target_error_m": 0.006238717607907811,
+      "tilt_error_rad": 0.005462318138207386
+    },
+    {
+      "seed": 980030,
+      "controller": "student",
+      "episode_reward": 56.79918109131632,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 18,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 226,
+      "target_error_m": 0.006104948016169889,
+      "tilt_error_rad": 0.005375806322365982
+    },
+    {
+      "seed": 980031,
+      "controller": "student",
+      "episode_reward": 58.18246410166793,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 17,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 225,
+      "target_error_m": 0.006204575595867499,
+      "tilt_error_rad": 0.005413512964872853
+    },
+    {
+      "seed": 980032,
+      "controller": "student",
+      "episode_reward": 57.963263471955116,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 13,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 222,
+      "target_error_m": 0.006258426535637064,
+      "tilt_error_rad": 0.005539995131747859
+    },
+    {
+      "seed": 980033,
+      "controller": "student",
+      "episode_reward": 55.822205416331734,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 9,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 218,
+      "target_error_m": 0.006197172047566219,
+      "tilt_error_rad": 0.00538689926557447
+    },
+    {
+      "seed": 980034,
+      "controller": "student",
+      "episode_reward": 55.69401387225322,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 6,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 214,
+      "target_error_m": 0.006124007565808119,
+      "tilt_error_rad": 0.005468967756697407
+    },
+    {
+      "seed": 980035,
+      "controller": "student",
+      "episode_reward": 56.947412009130794,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 19,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 227,
+      "target_error_m": 0.006153891776371121,
+      "tilt_error_rad": 0.005362104899624456
+    },
+    {
+      "seed": 980036,
+      "controller": "student",
+      "episode_reward": 57.62780656674647,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 14,
+        "lower": 100,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 224,
+      "target_error_m": 0.006352152051238742,
+      "tilt_error_rad": 0.005464064361562015
+    },
+    {
+      "seed": 980037,
+      "controller": "student",
+      "episode_reward": 58.31671198199338,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 16,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 224,
+      "target_error_m": 0.006183752757821019,
+      "tilt_error_rad": 0.0052422220527973806
+    },
+    {
+      "seed": 980038,
+      "controller": "student",
+      "episode_reward": 57.91618754327617,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 11,
+        "lower": 99,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 220,
+      "target_error_m": 0.00617254312339864,
+      "tilt_error_rad": 0.005282293779523143
+    },
+    {
+      "seed": 980039,
+      "controller": "student",
+      "episode_reward": 58.809139834475076,
+      "is_success": true,
+      "collision": false,
+      "reason": "success",
+      "phase": "withdraw",
+      "phase_steps": {
+        "align": 20,
+        "lower": 98,
+        "hold": 10,
+        "withdraw": 100
+      },
+      "dwell_seconds": 0.49999999999999994,
+      "refilled": true,
+      "steps": 228,
+      "target_error_m": 0.006201340010002046,
+      "tilt_error_rad": 0.005292121526868192
+    }
+  ],
+  "success_rate": 1.0,
+  "collision_rate": 0.0,
+  "passed": true,
+  "selected_round": 3,
+  "selection": "student validation; final test not used for model selection",
+  "training_method": "behavior cloning + DAgger; no RL updates"
+}

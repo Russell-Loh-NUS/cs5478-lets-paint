@@ -94,12 +94,6 @@ class PaintEnvironment:
             self.flush_textures()
         if self.gui:
             self._camera_keys()
-            # Sleeping every single step paces the whole run to literal real-time (240 steps/s),
-            # which made full routes take tens of minutes once the planning grid got finer (more
-            # total moves). Sleeping only a fraction of steps still looks smooth -- PyBullet
-            # renders every step regardless -- but lets bulk execution run several times faster.
-            if self._steps % 4 == 0:
-                time.sleep(self.dt)
 
     def _apply_cam(self):
         dist, yaw, pitch, target = self._cam_view

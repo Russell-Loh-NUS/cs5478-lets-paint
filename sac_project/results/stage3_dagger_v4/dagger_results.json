@@ -1,0 +1,2955 @@
+[
+  {
+    "round": 1,
+    "beta": 1.0,
+    "samples": 31920,
+    "rollouts": [
+      {
+        "mode": "expert",
+        "wall": "south",
+        "seed": 370000,
+        "steps": 30000,
+        "coverage": 0.9769048112620846,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 1.0,
+        "student_fraction": 0.0,
+        "action_mae": 0.0,
+        "action_mae_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "labeled_samples": 4200,
+        "main_samples": 2730,
+        "cleanup_samples": 840,
+        "recovery_samples": 0,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26717,
+          "cleanup_transit": 828,
+          "cleanup_stroke": 2455,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 375000,
+        "steps": 7000,
+        "coverage": 0.27303603677557053,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.0652865858058046,
+        "action_mae_by_axis": [
+          0.0124,
+          0.0038,
+          0.035,
+          0.2099
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "expert",
+        "wall": "east",
+        "seed": 370001,
+        "steps": 21942,
+        "coverage": 0.9800026469031233,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 1.0,
+        "student_fraction": 0.0,
+        "action_mae": 0.0,
+        "action_mae_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "labeled_samples": 4200,
+        "main_samples": 2730,
+        "cleanup_samples": 840,
+        "recovery_samples": 0,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 18825,
+          "cleanup_transit": 961,
+          "cleanup_stroke": 2156,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 375001,
+        "steps": 7000,
+        "coverage": 0.3805871727973853,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.07000888734856354,
+        "action_mae_by_axis": [
+          0.0075,
+          0.0033,
+          0.0427,
+          0.2265
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "expert",
+        "wall": "north",
+        "seed": 370002,
+        "steps": 25736,
+        "coverage": 0.9800161576266241,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 1.0,
+        "student_fraction": 0.0,
+        "action_mae": 0.0,
+        "action_mae_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "labeled_samples": 4200,
+        "main_samples": 2730,
+        "cleanup_samples": 840,
+        "recovery_samples": 0,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 22165,
+          "cleanup_transit": 818,
+          "cleanup_stroke": 2753,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 6
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 375002,
+        "steps": 7000,
+        "coverage": 0.2725342213094324,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.05634666891129954,
+        "action_mae_by_axis": [
+          0.0109,
+          0.0037,
+          0.0356,
+          0.1751
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "expert",
+        "wall": "west",
+        "seed": 370003,
+        "steps": 21065,
+        "coverage": 0.9800126946398909,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 1.0,
+        "student_fraction": 0.0,
+        "action_mae": 0.0,
+        "action_mae_by_axis": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "labeled_samples": 4200,
+        "main_samples": 2730,
+        "cleanup_samples": 840,
+        "recovery_samples": 0,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 18068,
+          "cleanup_transit": 1200,
+          "cleanup_stroke": 1797,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 375003,
+        "steps": 7000,
+        "coverage": 0.370929560406287,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.07501330419027778,
+        "action_mae_by_axis": [
+          0.0097,
+          0.0034,
+          0.0438,
+          0.2431
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.2314733482178712,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 3208,
+          "coverage": 0.10277138788476285,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.3622
+          },
+          "action_mae_by_axis": [
+            0.4281,
+            0.0125,
+            0.3012,
+            0.7071
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 7756,
+          "coverage": 0.2406121063351961,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.3681
+          },
+          "action_mae_by_axis": [
+            0.4729,
+            0.0334,
+            0.3189,
+            0.6471
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 7686,
+          "coverage": 0.21832108518893556,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.3225
+          },
+          "action_mae_by_axis": [
+            0.4216,
+            0.0158,
+            0.2247,
+            0.6278
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 1495,
+          "coverage": 0.07520990245709347,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.4682
+          },
+          "action_mae_by_axis": [
+            0.6291,
+            0.026,
+            0.3083,
+            0.9095
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 22694,
+          "coverage": 0.9036975212658923,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.1588,
+            "cleanup_transit": 0.8025,
+            "bottom_fallback": 0.4473
+          },
+          "action_mae_by_axis": [
+            0.0709,
+            0.0053,
+            0.1345,
+            0.5237
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 5856,
+          "coverage": 0.25171852138144274,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.314
+          },
+          "action_mae_by_axis": [
+            0.3626,
+            0.017,
+            0.222,
+            0.6542
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 1065,
+          "coverage": 0.055665178107799355,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.3816
+          },
+          "action_mae_by_axis": [
+            0.4115,
+            0.0078,
+            0.2494,
+            0.8576
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 1590,
+          "coverage": 0.003791083121847291,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.7694,
+            "cleanup_transit": 0.8268
+          },
+          "action_mae_by_axis": [
+            0.8961,
+            0.5134,
+            0.929,
+            0.8413
+          ]
+        }
+      ]
+    },
+    "improved": false,
+    "stale": 1,
+    "best_success": 0.0,
+    "best_coverage": 0.3279446106676688,
+    "elapsed_s": 282.932129792
+  },
+  {
+    "round": 2,
+    "beta": 0.85,
+    "samples": 61399,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 380000,
+        "steps": 29845,
+        "coverage": 0.9800137704165551,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.8493550008376612,
+        "student_fraction": 0.15064499916233876,
+        "action_mae": 0.012921455303003777,
+        "action_mae_by_axis": [
+          0.0107,
+          0.0035,
+          0.0208,
+          0.0167
+        ],
+        "labeled_samples": 3588,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 18,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26942,
+          "cleanup_transit": 812,
+          "cleanup_stroke": 2091,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 385000,
+        "steps": 7000,
+        "coverage": 0.2992981477608124,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.08393774574090328,
+        "action_mae_by_axis": [
+          0.0098,
+          0.0046,
+          0.04,
+          0.2814
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 380001,
+        "steps": 26306,
+        "coverage": 0.9800097838655163,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.8492739299019235,
+        "student_fraction": 0.15072607009807648,
+        "action_mae": 0.014827570096119687,
+        "action_mae_by_axis": [
+          0.0111,
+          0.0036,
+          0.0273,
+          0.0173
+        ],
+        "labeled_samples": 3599,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 29,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 22732,
+          "cleanup_transit": 1277,
+          "cleanup_stroke": 2297,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 385001,
+        "steps": 7000,
+        "coverage": 0.36879219394867024,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.06371228944590049,
+        "action_mae_by_axis": [
+          0.0109,
+          0.0032,
+          0.0336,
+          0.2072
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 380002,
+        "steps": 27029,
+        "coverage": 0.9800122969184756,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.8524547708017315,
+        "student_fraction": 0.1475452291982685,
+        "action_mae": 0.014932992728542616,
+        "action_mae_by_axis": [
+          0.011,
+          0.0041,
+          0.0225,
+          0.0221
+        ],
+        "labeled_samples": 3584,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 14,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 24271,
+          "cleanup_transit": 450,
+          "cleanup_stroke": 2308,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 385002,
+        "steps": 7000,
+        "coverage": 0.28436921562543466,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.06697497626606908,
+        "action_mae_by_axis": [
+          0.01,
+          0.0035,
+          0.0328,
+          0.2216
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 380003,
+        "steps": 20975,
+        "coverage": 0.9800008332986125,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.8450059594755661,
+        "student_fraction": 0.15499404052443386,
+        "action_mae": 0.015228989552218583,
+        "action_mae_by_axis": [
+          0.0103,
+          0.0049,
+          0.0235,
+          0.0222
+        ],
+        "labeled_samples": 3588,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 18,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 17520,
+          "cleanup_transit": 1125,
+          "cleanup_stroke": 2330,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 385003,
+        "steps": 7000,
+        "coverage": 0.294369110549299,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.21731675392921482,
+        "action_mae_by_axis": [
+          0.0168,
+          0.0103,
+          0.5304,
+          0.3117
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.8107852071746018,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 23699,
+          "coverage": 0.9082484390404206,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0697,
+            "cleanup_transit": 0.7597,
+            "bottom_fallback": 0.6008
+          },
+          "action_mae_by_axis": [
+            0.0606,
+            0.007,
+            0.0985,
+            0.2162
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 20016,
+          "coverage": 0.9139813025539248,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0598,
+            "cleanup_transit": 0.7542,
+            "bottom_fallback": 0.4141
+          },
+          "action_mae_by_axis": [
+            0.0404,
+            0.0435,
+            0.1076,
+            0.1693
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 25763,
+          "coverage": 0.909537511404309,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0767,
+            "cleanup_transit": 0.7611,
+            "bottom_fallback": 0.546
+          },
+          "action_mae_by_axis": [
+            0.0527,
+            0.0064,
+            0.1137,
+            0.228
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 16575,
+          "coverage": 0.9000339548092358,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.1286,
+            "cleanup_transit": 0.782,
+            "bottom_fallback": 0.4999
+          },
+          "action_mae_by_axis": [
+            0.0778,
+            0.0048,
+            0.2133,
+            0.3568
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 23878,
+          "coverage": 0.92779886581908,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0937,
+            "cleanup_transit": 0.5353,
+            "cleanup_stroke": 0.4144
+          },
+          "action_mae_by_axis": [
+            0.0268,
+            0.0268,
+            0.1686,
+            0.3017
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 18571,
+          "coverage": 0.902078789719239,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0879,
+            "cleanup_transit": 0.7846,
+            "bottom_fallback": 0.5297
+          },
+          "action_mae_by_axis": [
+            0.071,
+            0.0064,
+            0.1638,
+            0.2426
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 24221,
+          "coverage": 0.9083324678921314,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.098,
+            "cleanup_transit": 0.8146
+          },
+          "action_mae_by_axis": [
+            0.0844,
+            0.0569,
+            0.248,
+            0.3211
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 2741,
+          "coverage": 0.11627032615847353,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.371
+          },
+          "action_mae_by_axis": [
+            0.3274,
+            0.0414,
+            0.3162,
+            0.7989
+          ]
+        }
+      ]
+    },
+    "improved": true,
+    "stale": 0,
+    "best_success": 0.0,
+    "best_coverage": 0.8107852071746018,
+    "elapsed_s": 608.0626914579999
+  },
+  {
+    "round": 3,
+    "beta": 0.7999999999999999,
+    "samples": 84000,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 390000,
+        "steps": 29187,
+        "coverage": 0.9800542923701893,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.802617603727687,
+        "student_fraction": 0.19738239627231302,
+        "action_mae": 0.030985542077072565,
+        "action_mae_by_axis": [
+          0.0233,
+          0.0057,
+          0.032,
+          0.0629
+        ],
+        "labeled_samples": 3719,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 149,
+        "transition_samples": 630,
+        "rescue_events": 10,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26427,
+          "cleanup_transit": 620,
+          "cleanup_stroke": 2140,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 395000,
+        "steps": 7000,
+        "coverage": 0.2640265373819852,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.08816287119899477,
+        "action_mae_by_axis": [
+          0.018,
+          0.0043,
+          0.1127,
+          0.2177
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 390001,
+        "steps": 20551,
+        "coverage": 0.980010035667304,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.8039511459296385,
+        "student_fraction": 0.19604885407036154,
+        "action_mae": 0.02917065933214517,
+        "action_mae_by_axis": [
+          0.0235,
+          0.0048,
+          0.0379,
+          0.0505
+        ],
+        "labeled_samples": 3661,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 91,
+        "transition_samples": 630,
+        "rescue_events": 6,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 18331,
+          "cleanup_transit": 706,
+          "cleanup_stroke": 1514,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 395001,
+        "steps": 7000,
+        "coverage": 0.3125163998950407,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.06412269518018833,
+        "action_mae_by_axis": [
+          0.0218,
+          0.0031,
+          0.0765,
+          0.1551
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 390002,
+        "steps": 27068,
+        "coverage": 0.9800240159563641,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7993571745234225,
+        "student_fraction": 0.2006428254765775,
+        "action_mae": 0.02863433190174898,
+        "action_mae_by_axis": [
+          0.0198,
+          0.0046,
+          0.0322,
+          0.058
+        ],
+        "labeled_samples": 3676,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 106,
+        "transition_samples": 630,
+        "rescue_events": 7,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 24378,
+          "cleanup_transit": 452,
+          "cleanup_stroke": 2238,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 395002,
+        "steps": 7000,
+        "coverage": 0.26106361342322326,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.08500978365833206,
+        "action_mae_by_axis": [
+          0.0195,
+          0.0032,
+          0.1172,
+          0.2001
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 390003,
+        "steps": 20472,
+        "coverage": 0.9800274693830834,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7980656506447831,
+        "student_fraction": 0.20193434935521687,
+        "action_mae": 0.0403522208908598,
+        "action_mae_by_axis": [
+          0.019,
+          0.006,
+          0.0381,
+          0.0982
+        ],
+        "labeled_samples": 3638,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 68,
+        "transition_samples": 630,
+        "rescue_events": 4,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 17534,
+          "cleanup_transit": 760,
+          "cleanup_stroke": 2178,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 395003,
+        "steps": 7000,
+        "coverage": 0.371267629494727,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.08487635175750724,
+        "action_mae_by_axis": [
+          0.0224,
+          0.0034,
+          0.1071,
+          0.2066
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.8590283055090335,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 24290,
+          "coverage": 0.9185562493153687,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0463,
+            "cleanup_transit": 0.7144,
+            "bottom_fallback": 0.3645
+          },
+          "action_mae_by_axis": [
+            0.0454,
+            0.0055,
+            0.1096,
+            0.1206
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 20514,
+          "coverage": 0.920287773541547,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0377,
+            "cleanup_transit": 0.7285,
+            "bottom_fallback": 0.3216
+          },
+          "action_mae_by_axis": [
+            0.0551,
+            0.0067,
+            0.0917,
+            0.1146
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 26254,
+          "coverage": 0.9137884362812428,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0357,
+            "cleanup_transit": 0.7277,
+            "bottom_fallback": 0.362
+          },
+          "action_mae_by_axis": [
+            0.0448,
+            0.0051,
+            0.0806,
+            0.1044
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 16861,
+          "coverage": 0.9108840597604643,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0397,
+            "cleanup_transit": 0.5946,
+            "bottom_fallback": 0.6061
+          },
+          "action_mae_by_axis": [
+            0.0374,
+            0.0071,
+            0.0866,
+            0.146
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 24131,
+          "coverage": 0.9267470044818441,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0357,
+            "cleanup_transit": 0.7326,
+            "cleanup_stroke": 0.3595,
+            "bottom_fallback": 0.5751
+          },
+          "action_mae_by_axis": [
+            0.0458,
+            0.0372,
+            0.0893,
+            0.1615
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 19613,
+          "coverage": 0.926593600750904,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.033,
+            "cleanup_transit": 0.7276,
+            "bottom_fallback": 0.5963
+          },
+          "action_mae_by_axis": [
+            0.0613,
+            0.0178,
+            0.1139,
+            0.1396
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 23039,
+          "coverage": 0.9135828111838081,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0357,
+            "cleanup_transit": 0.6168,
+            "cleanup_stroke": 0.3291
+          },
+          "action_mae_by_axis": [
+            0.0358,
+            0.0073,
+            0.0804,
+            0.1191
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 8489,
+          "coverage": 0.4417865087570887,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.2181
+          },
+          "action_mae_by_axis": [
+            0.1164,
+            0.0122,
+            0.4224,
+            0.3214
+          ]
+        }
+      ]
+    },
+    "improved": true,
+    "stale": 0,
+    "best_success": 0.0,
+    "best_coverage": 0.8590283055090335,
+    "elapsed_s": 642.3500988340002
+  },
+  {
+    "round": 4,
+    "beta": 0.75,
+    "samples": 84000,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 400000,
+        "steps": 24006,
+        "coverage": 0.9800065667581324,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7462717653919854,
+        "student_fraction": 0.25372823460801464,
+        "action_mae": 0.028396066825866727,
+        "action_mae_by_axis": [
+          0.0167,
+          0.0039,
+          0.0494,
+          0.0436
+        ],
+        "labeled_samples": 3615,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 45,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 21548,
+          "cleanup_transit": 705,
+          "cleanup_stroke": 1753,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 405000,
+        "steps": 7000,
+        "coverage": 0.27789489295437453,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.03377179339820785,
+        "action_mae_by_axis": [
+          0.0129,
+          0.003,
+          0.0622,
+          0.0571
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 400001,
+        "steps": 22833,
+        "coverage": 0.9800002492180783,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7494415976875575,
+        "student_fraction": 0.25055840231244253,
+        "action_mae": 0.0247662825498327,
+        "action_mae_by_axis": [
+          0.0192,
+          0.0052,
+          0.033,
+          0.0416
+        ],
+        "labeled_samples": 3591,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 21,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 20186,
+          "cleanup_transit": 833,
+          "cleanup_stroke": 1814,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 405001,
+        "steps": 7000,
+        "coverage": 0.3696922585749781,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.03688818529075278,
+        "action_mae_by_axis": [
+          0.0156,
+          0.0025,
+          0.0668,
+          0.0626
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 400002,
+        "steps": 29005,
+        "coverage": 0.9800514306549734,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7483192553008102,
+        "student_fraction": 0.2516807446991898,
+        "action_mae": 0.03072780766877925,
+        "action_mae_by_axis": [
+          0.0165,
+          0.0036,
+          0.0531,
+          0.0496
+        ],
+        "labeled_samples": 3604,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 34,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26425,
+          "cleanup_transit": 812,
+          "cleanup_stroke": 1768,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 405002,
+        "steps": 7000,
+        "coverage": 0.2829115101379816,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.03206438284217646,
+        "action_mae_by_axis": [
+          0.0104,
+          0.0036,
+          0.0517,
+          0.0625
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 400003,
+        "steps": 22272,
+        "coverage": 0.9800467150382666,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7482938218390804,
+        "student_fraction": 0.25170617816091956,
+        "action_mae": 0.02260334816345749,
+        "action_mae_by_axis": [
+          0.0176,
+          0.004,
+          0.035,
+          0.0339
+        ],
+        "labeled_samples": 3617,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 47,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 19910,
+          "cleanup_transit": 752,
+          "cleanup_stroke": 1610,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 405003,
+        "steps": 7000,
+        "coverage": 0.38411125083216213,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.040587280404354845,
+        "action_mae_by_axis": [
+          0.0146,
+          0.0026,
+          0.0721,
+          0.073
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.8994742291645219,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 24075,
+          "coverage": 0.9141965165954651,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0269,
+            "cleanup_transit": 0.7897,
+            "bottom_fallback": 0.3878
+          },
+          "action_mae_by_axis": [
+            0.0477,
+            0.0091,
+            0.0705,
+            0.0912
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 22130,
+          "coverage": 0.9210842429623439,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0324,
+            "cleanup_transit": 0.8018,
+            "bottom_fallback": 0.5049
+          },
+          "action_mae_by_axis": [
+            0.0811,
+            0.0635,
+            0.1868,
+            0.1662
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 30000,
+          "coverage": 0.9174879440161215,
+          "success": false,
+          "reason": "time_limit",
+          "phase_action_mae": {
+            "main": 0.0224,
+            "cleanup_transit": 0.7083,
+            "bottom_fallback": 0.3509
+          },
+          "action_mae_by_axis": [
+            0.0404,
+            0.0944,
+            0.1001,
+            0.1091
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 16707,
+          "coverage": 0.9080287689838252,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.027,
+            "cleanup_transit": 0.5603,
+            "bottom_fallback": 0.6177
+          },
+          "action_mae_by_axis": [
+            0.0252,
+            0.0058,
+            0.0897,
+            0.1026
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 22909,
+          "coverage": 0.9167771883289124,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0238,
+            "cleanup_transit": 0.4749,
+            "cleanup_stroke": 0.8409,
+            "bottom_fallback": 0.6104
+          },
+          "action_mae_by_axis": [
+            0.0295,
+            0.0107,
+            0.0781,
+            0.0848
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 19370,
+          "coverage": 0.9085663804764929,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0221,
+            "cleanup_transit": 0.7082
+          },
+          "action_mae_by_axis": [
+            0.0436,
+            0.0418,
+            0.1099,
+            0.1032
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 23625,
+          "coverage": 0.912867379790217,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0209,
+            "cleanup_transit": 0.8531,
+            "bottom_fallback": 0.1916
+          },
+          "action_mae_by_axis": [
+            0.0621,
+            0.0479,
+            0.1371,
+            0.0814
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 15188,
+          "coverage": 0.7967854121627972,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.2181,
+            "bottom_fallback": 0.7145
+          },
+          "action_mae_by_axis": [
+            0.0939,
+            0.032,
+            0.4767,
+            0.2812
+          ]
+        }
+      ]
+    },
+    "improved": true,
+    "stale": 0,
+    "best_success": 0.0,
+    "best_coverage": 0.8994742291645219,
+    "elapsed_s": 686.786093292
+  },
+  {
+    "round": 5,
+    "beta": 0.7,
+    "samples": 84000,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 410000,
+        "steps": 29062,
+        "coverage": 0.9800040318322758,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7006400110109421,
+        "student_fraction": 0.29935998898905786,
+        "action_mae": 0.018321710821100075,
+        "action_mae_by_axis": [
+          0.0125,
+          0.0041,
+          0.0296,
+          0.0271
+        ],
+        "labeled_samples": 3601,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 31,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26665,
+          "cleanup_transit": 379,
+          "cleanup_stroke": 2018,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 415000,
+        "steps": 7000,
+        "coverage": 0.303144933163237,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.015817442323480334,
+        "action_mae_by_axis": [
+          0.0069,
+          0.0015,
+          0.0283,
+          0.0265
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 410001,
+        "steps": 25519,
+        "coverage": 0.9800267201068805,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6949723735256084,
+        "student_fraction": 0.30502762647439163,
+        "action_mae": 0.018004103035500377,
+        "action_mae_by_axis": [
+          0.0105,
+          0.0041,
+          0.0271,
+          0.0303
+        ],
+        "labeled_samples": 3613,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 43,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 22479,
+          "cleanup_transit": 842,
+          "cleanup_stroke": 2198,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 415001,
+        "steps": 7000,
+        "coverage": 0.3495797198132088,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.01622363626152011,
+        "action_mae_by_axis": [
+          0.0056,
+          0.0022,
+          0.0341,
+          0.023
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 410002,
+        "steps": 25067,
+        "coverage": 0.9800243746735534,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6965731838672358,
+        "student_fraction": 0.3034268161327642,
+        "action_mae": 0.02171676035300619,
+        "action_mae_by_axis": [
+          0.0137,
+          0.0047,
+          0.0308,
+          0.0376
+        ],
+        "labeled_samples": 3598,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 28,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 21474,
+          "cleanup_transit": 960,
+          "cleanup_stroke": 2633,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 6
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 415002,
+        "steps": 7000,
+        "coverage": 0.2562862290459032,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.019406747685412742,
+        "action_mae_by_axis": [
+          0.0079,
+          0.0023,
+          0.0329,
+          0.0346
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 410003,
+        "steps": 19871,
+        "coverage": 0.9800638524299397,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.7044939862110613,
+        "student_fraction": 0.29550601378893865,
+        "action_mae": 0.025091183068740107,
+        "action_mae_by_axis": [
+          0.0154,
+          0.0049,
+          0.0366,
+          0.0434
+        ],
+        "labeled_samples": 3599,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 29,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 17476,
+          "cleanup_transit": 458,
+          "cleanup_stroke": 1937,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 415003,
+        "steps": 7000,
+        "coverage": 0.32750799615698006,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.019743691161008818,
+        "action_mae_by_axis": [
+          0.0062,
+          0.0021,
+          0.043,
+          0.0277
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.9030422474539546,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 24382,
+          "coverage": 0.9325555920692299,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0241,
+            "cleanup_transit": 0.462,
+            "cleanup_stroke": 0.3109
+          },
+          "action_mae_by_axis": [
+            0.0243,
+            0.0137,
+            0.0564,
+            0.0712
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 24448,
+          "coverage": 0.9332532511620619,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0343,
+            "cleanup_transit": 0.7874,
+            "bottom_fallback": 0.524
+          },
+          "action_mae_by_axis": [
+            0.0624,
+            0.0858,
+            0.2234,
+            0.2076
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 27329,
+          "coverage": 0.9179992580932997,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.021,
+            "cleanup_transit": 0.6369,
+            "bottom_fallback": 0.5981
+          },
+          "action_mae_by_axis": [
+            0.0379,
+            0.0145,
+            0.1123,
+            0.1129
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 16711,
+          "coverage": 0.9080750709964194,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0222,
+            "cleanup_transit": 0.4937,
+            "bottom_fallback": 0.6385
+          },
+          "action_mae_by_axis": [
+            0.0121,
+            0.0039,
+            0.0921,
+            0.0844
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 24092,
+          "coverage": 0.933332571114973,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0209,
+            "cleanup_transit": 0.6267,
+            "cleanup_stroke": 0.27,
+            "bottom_fallback": 0.6034
+          },
+          "action_mae_by_axis": [
+            0.0183,
+            0.041,
+            0.0963,
+            0.1029
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 19480,
+          "coverage": 0.9320459376639152,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0233,
+            "cleanup_transit": 0.6933,
+            "cleanup_stroke": 0.2764
+          },
+          "action_mae_by_axis": [
+            0.0792,
+            0.0199,
+            0.0922,
+            0.0671
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 22813,
+          "coverage": 0.9146559582741948,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0186,
+            "cleanup_transit": 0.6234,
+            "cleanup_stroke": 0.3123
+          },
+          "action_mae_by_axis": [
+            0.0323,
+            0.0078,
+            0.0687,
+            0.0682
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 13400,
+          "coverage": 0.752420340257543,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.2095
+          },
+          "action_mae_by_axis": [
+            0.072,
+            0.014,
+            0.4924,
+            0.2596
+          ]
+        }
+      ]
+    },
+    "improved": true,
+    "stale": 0,
+    "best_success": 0.0,
+    "best_coverage": 0.9030422474539546,
+    "elapsed_s": 673.6822709580001
+  },
+  {
+    "round": 6,
+    "beta": 0.6499999999999999,
+    "samples": 84000,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 420000,
+        "steps": 22708,
+        "coverage": 0.9800467731502214,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.65250132112031,
+        "student_fraction": 0.34749867887969,
+        "action_mae": 0.019686920627380023,
+        "action_mae_by_axis": [
+          0.0105,
+          0.0035,
+          0.0357,
+          0.029
+        ],
+        "labeled_samples": 3585,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 15,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 20259,
+          "cleanup_transit": 730,
+          "cleanup_stroke": 1719,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 425000,
+        "steps": 7000,
+        "coverage": 0.2811165160482711,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.021820394440421036,
+        "action_mae_by_axis": [
+          0.0068,
+          0.0019,
+          0.0536,
+          0.025
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 420001,
+        "steps": 21126,
+        "coverage": 0.9800045535511002,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6522294802612894,
+        "student_fraction": 0.3477705197387106,
+        "action_mae": 0.01769763188693517,
+        "action_mae_by_axis": [
+          0.0097,
+          0.0038,
+          0.0281,
+          0.0292
+        ],
+        "labeled_samples": 3612,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 42,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 18688,
+          "cleanup_transit": 690,
+          "cleanup_stroke": 1748,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 425001,
+        "steps": 7000,
+        "coverage": 0.3786749250301281,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.017968914495240563,
+        "action_mae_by_axis": [
+          0.0083,
+          0.0016,
+          0.0298,
+          0.0322
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 420002,
+        "steps": 26468,
+        "coverage": 0.9800516139773982,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.651843735831948,
+        "student_fraction": 0.348156264168052,
+        "action_mae": 0.015401607079000677,
+        "action_mae_by_axis": [
+          0.0105,
+          0.0034,
+          0.0309,
+          0.0168
+        ],
+        "labeled_samples": 3609,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 39,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 23954,
+          "cleanup_transit": 502,
+          "cleanup_stroke": 2012,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 425002,
+        "steps": 7000,
+        "coverage": 0.28069743084221555,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.01626915126643975,
+        "action_mae_by_axis": [
+          0.0067,
+          0.0016,
+          0.0342,
+          0.0226
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 420003,
+        "steps": 20001,
+        "coverage": 0.9800255174369152,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6503174841257937,
+        "student_fraction": 0.3496825158742063,
+        "action_mae": 0.017543187387373805,
+        "action_mae_by_axis": [
+          0.0106,
+          0.0038,
+          0.0279,
+          0.0279
+        ],
+        "labeled_samples": 3588,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 18,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 17291,
+          "cleanup_transit": 697,
+          "cleanup_stroke": 2013,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 425003,
+        "steps": 7000,
+        "coverage": 0.337491800641097,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.15316383957117796,
+        "action_mae_by_axis": [
+          0.022,
+          0.0037,
+          0.4687,
+          0.1182
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.8735009368555768,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 23779,
+          "coverage": 0.905203198597875,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0476,
+            "cleanup_transit": 0.8235
+          },
+          "action_mae_by_axis": [
+            0.0495,
+            0.0306,
+            0.0666,
+            0.0844
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 20148,
+          "coverage": 0.9217240298741317,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0208,
+            "cleanup_transit": 0.7518,
+            "bottom_fallback": 0.373
+          },
+          "action_mae_by_axis": [
+            0.0527,
+            0.0047,
+            0.0716,
+            0.0816
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 25661,
+          "coverage": 0.9058279779032113,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0409,
+            "cleanup_transit": 0.8213
+          },
+          "action_mae_by_axis": [
+            0.0458,
+            0.028,
+            0.0517,
+            0.0738
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 16370,
+          "coverage": 0.9151901469317201,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0415,
+            "cleanup_transit": 0.7311
+          },
+          "action_mae_by_axis": [
+            0.0418,
+            0.027,
+            0.0646,
+            0.0734
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 22390,
+          "coverage": 0.9230311899753042,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.038,
+            "cleanup_transit": 0.7419
+          },
+          "action_mae_by_axis": [
+            0.0405,
+            0.0265,
+            0.052,
+            0.0645
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 18372,
+          "coverage": 0.8968058968058967,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0444,
+            "cleanup_transit": 0.5846
+          },
+          "action_mae_by_axis": [
+            0.045,
+            0.0236,
+            0.0718,
+            0.0852
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 22221,
+          "coverage": 0.9022628402626325,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.042,
+            "cleanup_transit": 0.8321
+          },
+          "action_mae_by_axis": [
+            0.0472,
+            0.0281,
+            0.0605,
+            0.0746
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 11214,
+          "coverage": 0.6179622144938435,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0695
+          },
+          "action_mae_by_axis": [
+            0.0469,
+            0.014,
+            0.1269,
+            0.09
+          ]
+        }
+      ]
+    },
+    "improved": false,
+    "stale": 1,
+    "best_success": 0.0,
+    "best_coverage": 0.9030422474539546,
+    "elapsed_s": 644.099391625
+  },
+  {
+    "round": 7,
+    "beta": 0.6,
+    "samples": 84000,
+    "rollouts": [
+      {
+        "mode": "mixed",
+        "wall": "south",
+        "seed": 430000,
+        "steps": 26680,
+        "coverage": 0.9800339402065743,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6011994002998501,
+        "student_fraction": 0.3988005997001499,
+        "action_mae": 0.019888605449499313,
+        "action_mae_by_axis": [
+          0.0106,
+          0.0036,
+          0.0415,
+          0.0238
+        ],
+        "labeled_samples": 3597,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 27,
+        "transition_samples": 630,
+        "rescue_events": 2,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 23984,
+          "cleanup_transit": 503,
+          "cleanup_stroke": 2193,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 4
+      },
+      {
+        "mode": "probe",
+        "wall": "south",
+        "seed": 435000,
+        "steps": 7000,
+        "coverage": 0.2669395647344387,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.016056289781683258,
+        "action_mae_by_axis": [
+          0.0068,
+          0.0023,
+          0.0326,
+          0.0226
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "east",
+        "seed": 430001,
+        "steps": 20156,
+        "coverage": 0.9800538031584963,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.6055765032744592,
+        "student_fraction": 0.3944234967255408,
+        "action_mae": 0.01847589057395532,
+        "action_mae_by_axis": [
+          0.0109,
+          0.004,
+          0.0357,
+          0.0233
+        ],
+        "labeled_samples": 3577,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 7,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 17843,
+          "cleanup_transit": 789,
+          "cleanup_stroke": 1524,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 3
+      },
+      {
+        "mode": "probe",
+        "wall": "east",
+        "seed": 435001,
+        "steps": 7000,
+        "coverage": 0.37020621317621855,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.014722478073090316,
+        "action_mae_by_axis": [
+          0.0072,
+          0.0013,
+          0.0329,
+          0.0175
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "north",
+        "seed": 430002,
+        "steps": 30000,
+        "coverage": 0.9790152581713025,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.6011333333333333,
+        "student_fraction": 0.39886666666666665,
+        "action_mae": 0.015834387393497552,
+        "action_mae_by_axis": [
+          0.0088,
+          0.0036,
+          0.0281,
+          0.0228
+        ],
+        "labeled_samples": 3611,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 41,
+        "transition_samples": 630,
+        "rescue_events": 3,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 26636,
+          "cleanup_transit": 1121,
+          "cleanup_stroke": 2243,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "north",
+        "seed": 435002,
+        "steps": 7000,
+        "coverage": 0.3247412070948605,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.02264369421705903,
+        "action_mae_by_axis": [
+          0.0094,
+          0.0017,
+          0.058,
+          0.0215
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      },
+      {
+        "mode": "mixed",
+        "wall": "west",
+        "seed": 430003,
+        "steps": 25056,
+        "coverage": 0.9800027870680045,
+        "success": true,
+        "reason": "success",
+        "expert_fraction": 0.601772030651341,
+        "student_fraction": 0.398227969348659,
+        "action_mae": 0.019969483998347977,
+        "action_mae_by_axis": [
+          0.0094,
+          0.0047,
+          0.044,
+          0.0218
+        ],
+        "labeled_samples": 3588,
+        "main_samples": 2100,
+        "cleanup_samples": 840,
+        "recovery_samples": 18,
+        "transition_samples": 630,
+        "rescue_events": 1,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 21560,
+          "cleanup_transit": 1315,
+          "cleanup_stroke": 2181,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 5
+      },
+      {
+        "mode": "probe",
+        "wall": "west",
+        "seed": 435003,
+        "steps": 7000,
+        "coverage": 0.3823263053629546,
+        "success": false,
+        "reason": "time_limit",
+        "expert_fraction": 0.1662857142857143,
+        "student_fraction": 0.8337142857142857,
+        "action_mae": 0.013709157220753176,
+        "action_mae_by_axis": [
+          0.0056,
+          0.0015,
+          0.0266,
+          0.0212
+        ],
+        "labeled_samples": 3780,
+        "main_samples": 1890,
+        "cleanup_samples": 0,
+        "recovery_samples": 1260,
+        "transition_samples": 630,
+        "rescue_events": 0,
+        "safety_overrides": 0,
+        "phase_steps": {
+          "main": 7000,
+          "cleanup_transit": 0,
+          "cleanup_stroke": 0,
+          "bottom_fallback": 0
+        },
+        "cleanup_attempts": 0
+      }
+    ],
+    "evaluation": {
+      "success_rate": 0.0,
+      "mean_coverage": 0.9178368521325899,
+      "episodes": [
+        {
+          "wall": "south",
+          "seed": 860000,
+          "steps": 24032,
+          "coverage": 0.9147442217110308,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0232,
+            "cleanup_transit": 0.765,
+            "bottom_fallback": 0.4366
+          },
+          "action_mae_by_axis": [
+            0.0419,
+            0.0092,
+            0.0783,
+            0.0716
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860001,
+          "steps": 20247,
+          "coverage": 0.9193085078602392,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0198,
+            "cleanup_transit": 0.7669,
+            "bottom_fallback": 0.6506
+          },
+          "action_mae_by_axis": [
+            0.0516,
+            0.0097,
+            0.0702,
+            0.0794
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860002,
+          "steps": 25943,
+          "coverage": 0.9163249551346961,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0155,
+            "cleanup_transit": 0.7714,
+            "bottom_fallback": 0.4593
+          },
+          "action_mae_by_axis": [
+            0.0385,
+            0.0095,
+            0.0577,
+            0.0588
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860003,
+          "steps": 17690,
+          "coverage": 0.9259939498703544,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0176,
+            "cleanup_transit": 0.7168,
+            "cleanup_stroke": 0.4388
+          },
+          "action_mae_by_axis": [
+            0.0506,
+            0.0756,
+            0.0794,
+            0.1112
+          ]
+        },
+        {
+          "wall": "south",
+          "seed": 860004,
+          "steps": 23912,
+          "coverage": 0.9196469404555017,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0133,
+            "cleanup_transit": 0.7107,
+            "cleanup_stroke": 0.4959
+          },
+          "action_mae_by_axis": [
+            0.044,
+            0.0626,
+            0.0952,
+            0.1008
+          ]
+        },
+        {
+          "wall": "east",
+          "seed": 860005,
+          "steps": 19691,
+          "coverage": 0.9129972669298512,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0171,
+            "cleanup_transit": 0.6726,
+            "cleanup_stroke": 0.5278
+          },
+          "action_mae_by_axis": [
+            0.0647,
+            0.0247,
+            0.1,
+            0.1114
+          ]
+        },
+        {
+          "wall": "north",
+          "seed": 860006,
+          "steps": 22840,
+          "coverage": 0.9186023701549717,
+          "success": false,
+          "reason": "stalled",
+          "phase_action_mae": {
+            "main": 0.0156,
+            "cleanup_transit": 0.5906,
+            "cleanup_stroke": 0.3196
+          },
+          "action_mae_by_axis": [
+            0.0284,
+            0.009,
+            0.0577,
+            0.0676
+          ]
+        },
+        {
+          "wall": "west",
+          "seed": 860007,
+          "steps": 16319,
+          "coverage": 0.9150766049440737,
+          "success": false,
+          "reason": "collision",
+          "phase_action_mae": {
+            "main": 0.0614
+          },
+          "action_mae_by_axis": [
+            0.0172,
+            0.0092,
+            0.1209,
+            0.0983
+          ]
+        }
+      ]
+    },
+    "improved": true,
+    "stale": 0,
+    "best_success": 0.0,
+    "best_coverage": 0.9178368521325899,
+    "elapsed_s": 688.734895
+  }
+]

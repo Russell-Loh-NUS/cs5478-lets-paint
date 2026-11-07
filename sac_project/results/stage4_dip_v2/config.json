@@ -1,0 +1,21 @@
+{
+  "mode": "train",
+  "project_root": "/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint",
+  "out": "sac_project/runs/stage4_dip_v2",
+  "checkpoint": null,
+  "demos": 32,
+  "bc_updates": 4000,
+  "rounds": 4,
+  "episodes_per_round": 16,
+  "updates_per_round": 2000,
+  "batch_size": 256,
+  "eval_episodes": 12,
+  "test_episodes": 40,
+  "episode_steps": 800,
+  "seed": 5478,
+  "eval_seed": 970000,
+  "test_seed": 980000,
+  "spread": 0.08,
+  "gui": false,
+  "self_test": false
+}

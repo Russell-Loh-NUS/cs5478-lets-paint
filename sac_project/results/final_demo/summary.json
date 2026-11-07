@@ -1,0 +1,839 @@
+{
+  "wall_results": [
+    {
+      "wall": "south",
+      "seed": 860000,
+      "result": "stalled",
+      "neural_painting": true,
+      "neural_dipping": true,
+      "geometric_refill_travel": true,
+      "independent_wall_reset": true,
+      "painting_actions": 24180,
+      "target_coverage": 0.9118986026230471,
+      "whole_wall_coverage": 0.9041485596523453,
+      "refills": 10,
+      "paint_level": 0.2626567321047584,
+      "contact_distance_m": 110.87170056361794,
+      "paint_budget": "contact_distance",
+      "paint_distance_capacity_m": 12.0,
+      "refill_events": [
+        {
+          "event": "pause",
+          "physics_steps": 0,
+          "wall": "south",
+          "command": [
+            0.4663620003135242,
+            1.8864923071696833,
+            0.0595,
+            -7.877071830941773e-05
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 684
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 2052,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 3936,
+          "refills": 1
+        },
+        {
+          "event": "pause",
+          "physics_steps": 3936,
+          "wall": "south",
+          "command": [
+            0.7575225653321798,
+            0.21005397586370123,
+            0.0595,
+            0.0005215914037504099
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 4584
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 5940,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 7788,
+          "refills": 2
+        },
+        {
+          "event": "pause",
+          "physics_steps": 7788,
+          "wall": "south",
+          "command": [
+            1.129212391284235,
+            1.5561089151933252,
+            0.0595,
+            -0.0008440752837306498
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 8364
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 9732,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 11508,
+          "refills": 3
+        },
+        {
+          "event": "pause",
+          "physics_steps": 11508,
+          "wall": "south",
+          "command": [
+            1.494888766017684,
+            1.115663127882724,
+            0.0595,
+            0.0007134808090070166
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 12036
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 13404,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 15120,
+          "refills": 4
+        },
+        {
+          "event": "pause",
+          "physics_steps": 15120,
+          "wall": "south",
+          "command": [
+            1.8669565131337758,
+            0.6758253690435906,
+            0.0595,
+            0.00036162237193915203
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 15660
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 17028,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 18768,
+          "refills": 5
+        },
+        {
+          "event": "pause",
+          "physics_steps": 18768,
+          "wall": "south",
+          "command": [
+            2.2404083021552728,
+            1.9748523738815784,
+            0.0595,
+            -0.0008288859340841448
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 19500
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 20868,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 22800,
+          "refills": 6
+        },
+        {
+          "event": "pause",
+          "physics_steps": 22800,
+          "wall": "south",
+          "command": [
+            2.5208350341589636,
+            0.2780727144911276,
+            0.0595,
+            0.0008099178459981538
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 23424
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 24780,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 26604,
+          "refills": 7
+        },
+        {
+          "event": "pause",
+          "physics_steps": 26604,
+          "wall": "south",
+          "command": [
+            2.903780750838048,
+            1.4745753469898708,
+            0.0595,
+            -0.0009439252826850542
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 27168
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 28536,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 30300,
+          "refills": 8
+        },
+        {
+          "event": "pause",
+          "physics_steps": 30300,
+          "wall": "south",
+          "command": [
+            3.271177635398636,
+            1.1709417787029772,
+            0.0595,
+            -0.00031700422498426306
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 30972
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 32340,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 34212,
+          "refills": 9
+        },
+        {
+          "event": "pause",
+          "physics_steps": 34212,
+          "wall": "south",
+          "command": [
+            3.643567064014213,
+            0.6458746367528437,
+            0.0595,
+            0.0014851502564283692
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 34992
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 36348,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 38328,
+          "refills": 10
+        }
+      ]
+    },
+    {
+      "wall": "east",
+      "seed": 860001,
+      "result": "collision",
+      "neural_painting": true,
+      "neural_dipping": true,
+      "geometric_refill_travel": true,
+      "independent_wall_reset": true,
+      "painting_actions": 23037,
+      "target_coverage": 0.9236915321142367,
+      "whole_wall_coverage": 0.9131921996403088,
+      "refills": 10,
+      "paint_level": 0.6353148641405262,
+      "contact_distance_m": 106.40223500268016,
+      "paint_budget": "contact_distance",
+      "paint_distance_capacity_m": 12.0,
+      "refill_events": [
+        {
+          "event": "pause",
+          "physics_steps": 0,
+          "wall": "east",
+          "command": [
+            0.39245134620335637,
+            0.2437247757115467,
+            0.0595,
+            0.0009432020783495254
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 636
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 1992,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 3828,
+          "refills": 1
+        },
+        {
+          "event": "pause",
+          "physics_steps": 3828,
+          "wall": "east",
+          "command": [
+            0.688748417183427,
+            1.1215222443142037,
+            0.0595,
+            -1.0827183719364086e-05
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 4356
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 5724,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 7440,
+          "refills": 2
+        },
+        {
+          "event": "pause",
+          "physics_steps": 7440,
+          "wall": "east",
+          "command": [
+            0.9853633412566472,
+            2.0112086133160716,
+            0.0595,
+            0.00013491213322636142
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 8208
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 9576,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 11532,
+          "refills": 3
+        },
+        {
+          "event": "pause",
+          "physics_steps": 11532,
+          "wall": "east",
+          "command": [
+            1.3532881736603106,
+            1.8489975358047595,
+            0.0595,
+            -0.00019718617200048527
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 12204
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 13572,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 15444,
+          "refills": 4
+        },
+        {
+          "event": "pause",
+          "physics_steps": 15444,
+          "wall": "east",
+          "command": [
+            1.6450318053212474,
+            0.9847995517649788,
+            0.0595,
+            -0.0005772516131377081
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 15960
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 17328,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 19044,
+          "refills": 5
+        },
+        {
+          "event": "pause",
+          "physics_steps": 19044,
+          "wall": "east",
+          "command": [
+            1.938605387195612,
+            0.0954228718080682,
+            0.0595,
+            0.0006168198585609908
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 19740
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 21096,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 22992,
+          "refills": 6
+        },
+        {
+          "event": "pause",
+          "physics_steps": 22992,
+          "wall": "east",
+          "command": [
+            2.3185852631774235,
+            0.8595406625666765,
+            0.0595,
+            0.000275025069725654
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 23520
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 24888,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 26604,
+          "refills": 7
+        },
+        {
+          "event": "pause",
+          "physics_steps": 26604,
+          "wall": "east",
+          "command": [
+            2.611295862778696,
+            1.7469714869060702,
+            0.0595,
+            -0.0003878197073805545
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 27240
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 28608,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 30432,
+          "refills": 8
+        },
+        {
+          "event": "pause",
+          "physics_steps": 30432,
+          "wall": "east",
+          "command": [
+            2.978478264197378,
+            2.0920977963009064,
+            0.0595,
+            0.0009405046701509434
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 31248
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 32616,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 34620,
+          "refills": 9
+        },
+        {
+          "event": "pause",
+          "physics_steps": 34620,
+          "wall": "east",
+          "command": [
+            3.2751942404952414,
+            1.164096540311832,
+            0.0595,
+            0.001279668807995904
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 35196
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 36564,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 38340,
+          "refills": 10
+        }
+      ]
+    },
+    {
+      "wall": "north",
+      "seed": 860002,
+      "result": "stalled",
+      "neural_painting": true,
+      "neural_dipping": true,
+      "geometric_refill_travel": true,
+      "independent_wall_reset": true,
+      "painting_actions": 23371,
+      "target_coverage": 0.9286839801575721,
+      "whole_wall_coverage": 0.9167886071136409,
+      "refills": 10,
+      "paint_level": 0.3581675124718564,
+      "contact_distance_m": 109.7302586611401,
+      "paint_budget": "contact_distance",
+      "paint_distance_capacity_m": 12.0,
+      "refill_events": [
+        {
+          "event": "pause",
+          "physics_steps": 0,
+          "wall": "north",
+          "command": [
+            0.39582736600321206,
+            0.6509810528835316,
+            0.0595,
+            -9.024045199534925e-06
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 588
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 1956,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 3744,
+          "refills": 1
+        },
+        {
+          "event": "pause",
+          "physics_steps": 3744,
+          "wall": "north",
+          "command": [
+            0.699514678308187,
+            2.0477249274333924,
+            0.0595,
+            0.00033235768345951655
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 4536
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 5904,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 7896,
+          "refills": 2
+        },
+        {
+          "event": "pause",
+          "physics_steps": 7896,
+          "wall": "north",
+          "command": [
+            1.0627436782805324,
+            1.0330651510437983,
+            0.0595,
+            -0.0001166345688958792
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 8412
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 9780,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 11496,
+          "refills": 3
+        },
+        {
+          "event": "pause",
+          "physics_steps": 11496,
+          "wall": "north",
+          "command": [
+            1.4444238295046705,
+            0.43005187756624197,
+            0.0595,
+            -0.00031393339367680184
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 12084
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 13440,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 15216,
+          "refills": 4
+        },
+        {
+          "event": "pause",
+          "physics_steps": 15216,
+          "wall": "north",
+          "command": [
+            1.746918441840828,
+            1.823750832148458,
+            0.0595,
+            -0.0005662589284969322
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 15876
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 17244,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 19104,
+          "refills": 5
+        },
+        {
+          "event": "pause",
+          "physics_steps": 19104,
+          "wall": "north",
+          "command": [
+            2.1133772240964803,
+            1.282773690887356,
+            0.0595,
+            -0.0011966868254735807
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 19644
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 21012,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 22740,
+          "refills": 6
+        },
+        {
+          "event": "pause",
+          "physics_steps": 22740,
+          "wall": "north",
+          "command": [
+            2.4898885567872,
+            0.16443095839824964,
+            0.0595,
+            0.0015812785413693575
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 23400
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 24756,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 26616,
+          "refills": 7
+        },
+        {
+          "event": "pause",
+          "physics_steps": 26616,
+          "wall": "north",
+          "command": [
+            2.787186435350605,
+            1.5230971992692042,
+            0.0595,
+            -0.0022453548523908573
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 27192
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 28560,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 30324,
+          "refills": 8
+        },
+        {
+          "event": "pause",
+          "physics_steps": 30324,
+          "wall": "north",
+          "command": [
+            3.158280408271983,
+            1.6035698462208776,
+            0.0595,
+            -0.0011069526288007836
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 30948
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 32316,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 34140,
+          "refills": 9
+        },
+        {
+          "event": "pause",
+          "physics_steps": 34140,
+          "wall": "north",
+          "command": [
+            3.4562298433868466,
+            0.23310091889706291,
+            0.0595,
+            0.0021105046060534427
+          ]
+        },
+        {
+          "event": "at_can",
+          "physics_steps": 34824
+        },
+        {
+          "event": "refill_verified",
+          "physics_steps": 36180,
+          "dwell_seconds": 0.5
+        },
+        {
+          "event": "resumed",
+          "physics_steps": 38064,
+          "refills": 10
+        }
+      ]
+    },
+    {
+      "wall": "west",
+      "seed": 860003,
+      "result": "failed",
+      "neural_painting": true,
+      "neural_dipping": true,
+      "geometric_refill_travel": true,
+      "independent_wall_reset": true,
+      "error": "Refill travel motor tracking timeout, max_error=0.1556",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/four_wall_coverage_demo.py\", line 64, in main\n    obs = refill.run()\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/stage3_native_refill_demo.py\", line 107, in run\n    self.move(self.local_ik_world(stage))\n  File \"/Users/cindychin/Documents/NUS/CS5478 Intelligent Robots/cs5478-lets-paint/sac_project/stage3_native_refill_demo.py\", line 90, in move\n    raise RuntimeError(f'Refill travel motor tracking timeout, max_error={np.max(np.abs(actual-target)):.4f}')\nRuntimeError: Refill travel motor tracking timeout, max_error=0.1556\n"
+    }
+  ],
+  "walls_requested": 4,
+  "walls_evaluated": 3,
+  "walls_failed": 1,
+  "mean_target_coverage": 0.9214247049649519,
+  "total_refills": 30,
+  "evaluation_type": "independent original Stage3 wall episodes",
+  "continuous_four_wall_physics": false,
+  "paint_budget": "roller travel while canvas stroke active",
+  "paint_distance_capacity_m": 12.0,
+  "low_fraction": 0.15,
+  "controller_attribution": {
+    "painting": "Stage3 V4 neural DAgger",
+    "coverage_goals": "Stage3 rule-based coverage planner",
+    "dipping": "Stage4 V2 neural DAgger",
+    "refill_travel": "geometric motor controller",
+    "wall_switch": "reset to next wall frame (not physical navigation)"
+  }
+}

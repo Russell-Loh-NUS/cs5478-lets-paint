@@ -1,0 +1,142 @@
+{
+  "success_rate": 0.0,
+  "mean_coverage": 0.3279446106676688,
+  "episodes": [
+    {
+      "wall": "south",
+      "seed": 860000,
+      "steps": 12520,
+      "coverage": 0.3797458648263775,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.4922
+      },
+      "action_mae_by_axis": [
+        0.3611,
+        0.439,
+        0.2982,
+        0.8706
+      ]
+    },
+    {
+      "wall": "east",
+      "seed": 860001,
+      "steps": 5341,
+      "coverage": 0.2512142894448216,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.3517
+      },
+      "action_mae_by_axis": [
+        0.2926,
+        0.0854,
+        0.1668,
+        0.8619
+      ]
+    },
+    {
+      "wall": "north",
+      "seed": 860002,
+      "steps": 9268,
+      "coverage": 0.2967125512567298,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.3938
+      },
+      "action_mae_by_axis": [
+        0.3074,
+        0.0948,
+        0.2349,
+        0.9381
+      ]
+    },
+    {
+      "wall": "west",
+      "seed": 860003,
+      "steps": 4572,
+      "coverage": 0.26043338683788125,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.3605
+      },
+      "action_mae_by_axis": [
+        0.2588,
+        0.0629,
+        0.1811,
+        0.9391
+      ]
+    },
+    {
+      "wall": "south",
+      "seed": 860004,
+      "steps": 7678,
+      "coverage": 0.3238818256654167,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.3979
+      },
+      "action_mae_by_axis": [
+        0.2455,
+        0.1865,
+        0.2598,
+        0.8998
+      ]
+    },
+    {
+      "wall": "east",
+      "seed": 860005,
+      "steps": 7400,
+      "coverage": 0.33270297877039445,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.3783
+      },
+      "action_mae_by_axis": [
+        0.2535,
+        0.1089,
+        0.2082,
+        0.9425
+      ]
+    },
+    {
+      "wall": "north",
+      "seed": 860006,
+      "steps": 9210,
+      "coverage": 0.29534623417685,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.4122
+      },
+      "action_mae_by_axis": [
+        0.3579,
+        0.1004,
+        0.2481,
+        0.9425
+      ]
+    },
+    {
+      "wall": "west",
+      "seed": 860007,
+      "steps": 12675,
+      "coverage": 0.4835197543628787,
+      "success": false,
+      "reason": "stalled",
+      "phase_action_mae": {
+        "main": 0.4954
+      },
+      "action_mae_by_axis": [
+        0.605,
+        0.0876,
+        0.2856,
+        1.0035
+      ]
+    }
+  ]
+}
