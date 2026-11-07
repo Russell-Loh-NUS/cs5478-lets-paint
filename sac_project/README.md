@@ -7,12 +7,12 @@ Hybrid coverage-planning + DAgger robotic painting system (PyBullet).
 - `dagger/stage_2/`: goal-conditioned Stage 2 DAgger trainer.
 - `dagger/stage_3/`: final Stage 3 V4 painting actor and training entrypoint.
 - `dagger/stage_4/`: final Stage 4 V2 paint-dipping actor and training entrypoint.
-- `planning/`: coverage and collision-aware motion planning.
-- `simulation/`: original PyBullet simulation.
+- `../planning/`: shared coverage and collision-aware motion planning modules.
+- `../simulation/`: shared original PyBullet simulation modules.
 - `results/`: selected evaluation JSON files.
 - `runs/`: final model checkpoints at paths expected by original demo scripts.
 
-Original Python module filenames are intentionally kept at project root because several scripts import them directly, including older training modules. `dagger/stage_*/train.py` are convenient wrappers, not rewritten trainers.
+The simulation and planning modules are shared from the repository root; the duplicate copies previously under `sac_project/` have been removed. Scripts that need these modules add the repository root to Python's import path. `dagger/stage_*/train.py` are convenient wrappers, not rewritten trainers.
 
 ## Installation
 From `sac_project/`: `python -m pip install -r requirements.txt`

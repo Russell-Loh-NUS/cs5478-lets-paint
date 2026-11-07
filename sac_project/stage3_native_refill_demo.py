@@ -8,11 +8,14 @@ Navigation to the can is explicitly geometric; dipping uses the frozen 36D actor
 import argparse
 import json
 import math
+import sys
 import traceback
 from pathlib import Path
 
 import numpy as np
 import pybullet as p
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from train_stage3_goal_dagger_v4 import Stage3TrainEnv
 from dip_v2_environment import local_ik, contained, ACTION_SCALE, CONTROL_DT

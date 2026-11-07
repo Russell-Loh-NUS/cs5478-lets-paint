@@ -268,7 +268,7 @@ def self_test():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--project-root", type=Path, default=Path.cwd())
+    ap.add_argument("--project-root", type=Path, default=Path(__file__).resolve().parents[1])
     ap.add_argument("--mode", choices=("train", "evaluate", "expert", "smoke"), default="train")
     ap.add_argument("--out", type=Path, default=Path("sac_project/runs/stage4_dip_v1"))
     ap.add_argument("--checkpoint", type=Path)

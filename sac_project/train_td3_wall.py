@@ -79,6 +79,7 @@ from dataclasses import asdict, dataclass, fields
 import json
 import math
 from pathlib import Path
+import sys
 import tempfile
 
 import gymnasium as gym
@@ -92,6 +93,8 @@ from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.logger import configure
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.noise import NormalActionNoise
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from simulation.paint_environment import PaintEnvironment, PaintConfig
 from simulation.paint_wall import Wall, Opening

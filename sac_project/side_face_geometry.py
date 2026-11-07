@@ -6,8 +6,13 @@ valid chassis joint limits for narrow faces without shrinking the robot.
 """
 from functools import partial
 import math
+from pathlib import Path
+import sys
 import numpy as np
 import pybullet as p
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 import train_td3_wall as core
 from simulation.paint_wall import Wall, Opening
 from train_stage3_goal_dagger_v4 import Stage3TrainEnv
