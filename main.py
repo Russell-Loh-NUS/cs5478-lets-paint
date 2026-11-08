@@ -30,7 +30,7 @@ MAX_REPLANS = 3
 # Active strategies: sweep, optimized_prm, bcd_astar, rl
 COVERAGE_STRATEGY = "rl"
 # Set to False to disable repaint/replanning after the first pass.
-REPLANNING_ENABLED = False
+REPLANNING_ENABLED = True
 # Room layout: ROOM_SEED=None uses the fixed default room.
 ROOM_SEED: int | None = None
 L_SHAPE_PROBABILITY = 0.0 # chance a seeded room is L shaped (see RoomSampler)
