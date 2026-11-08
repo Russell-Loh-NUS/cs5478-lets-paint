@@ -35,6 +35,11 @@ class MotionPlanner:
         self.walls = []
         self.paint_cans = []
         self._reported_query_fallback = False
+        # Opt-in (default off) - plan with the base where it is. The arm joints still come from the
+        # analytic IK (yaw, shoulder pitch, extension) and every pose is still collision checked,
+        # but there is no search over other base positions and no home-pose / RRT detours. Used
+        # for the redip legs, where the RL policy is responsible for placing the base.
+        self.fixed_base = False
 
     def configure_environment(self, env):
         self.walls = list(env.walls)
@@ -115,6 +120,8 @@ class MotionPlanner:
         route before returning motor commands. Contact/vertical dip moves
         continue to use plan_motion without this detour.
         """
+        if self.fixed_base:
+            return self.plan_motion(target_position)  # no home-pose or RRT detours
         try:
             return self.plan_motion(target_position)
         except CollisionQueryError:
@@ -166,6 +173,8 @@ class MotionPlanner:
         except CollisionQueryError:
             raise
         except MotionPlanningError:
+            if self.fixed_base:
+                raise  # no RRT escape - the base is not allowed to move
             trajectory = self._search_transit(target_position,
                                               allowed_contact_body=allowed_contact_body)
             print("[MotionPlanner] Wall retreat rerouted using collision-checked joint-space search.")
@@ -291,25 +300,30 @@ class MotionPlanner:
         angles = [reference[2], direction]
         angles += [i * math.pi / 8 for i in range(-8, 8)]
 
-        # Search a wider neighborhood around the target instead of only the exact target
-        # base or the current base. The original implementation was too narrow and could
-        # reject valid wall cells that should be reachable from a nearby base pose.
-        radius_steps = [0.0, 0.12, 0.24, 0.36, 0.48]
-        for radius in radius_steps:
-            for yaw in angles:
-                for sign_x, sign_y in ((1, 1), (1, -1), (-1, 1), (-1, -1)):
-                    bases.append(clamp_base(x + sign_x * radius * math.cos(yaw),
-                                            y + sign_y * radius * math.sin(yaw)))
+        if self.fixed_base:
+            # The base stays where it is - only the arm solves the pose. A base driven onto a stop can
+            # read a hair past it, which would make every candidate fail the joint limit check.
+            bases = [clamp_base(bx0, by0)]
+        else:
+            # Search a wider neighborhood around the target instead of only the exact target
+            # base or the current base. The original implementation was too narrow and could
+            # reject valid wall cells that should be reachable from a nearby base pose.
+            radius_steps = [0.0, 0.12, 0.24, 0.36, 0.48]
+            for radius in radius_steps:
+                for yaw in angles:
+                    for sign_x, sign_y in ((1, 1), (1, -1), (-1, 1), (-1, -1)):
+                        bases.append(clamp_base(x + sign_x * radius * math.cos(yaw),
+                                                y + sign_y * radius * math.sin(yaw)))
 
-        for horizontal in (horizontal_min + 0.02,
-                           (horizontal_min + horizontal_max) / 2,
-                           horizontal_max - 0.02):
-            if horizontal < horizontal_min or horizontal > horizontal_max:
-                continue
-            radius = horizontal + self.SHOULDER_OFFSET
-            for yaw in angles:
-                bases.append(clamp_base(x - radius * math.cos(yaw),
-                                        y - radius * math.sin(yaw)))
+            for horizontal in (horizontal_min + 0.02,
+                               (horizontal_min + horizontal_max) / 2,
+                               horizontal_max - 0.02):
+                if horizontal < horizontal_min or horizontal > horizontal_max:
+                    continue
+                radius = horizontal + self.SHOULDER_OFFSET
+                for yaw in angles:
+                    bases.append(clamp_base(x - radius * math.cos(yaw),
+                                            y - radius * math.sin(yaw)))
 
         candidates, seen = [], set()
         for bx, by in bases:
