@@ -145,6 +145,12 @@ class MotionRLConfig:
     # Return starts are around the can, where a dip leaves the base, with any heading.
     return_start_range: tuple = (0.8, 1.5)
     target_z_range: tuple = (0.15, 2.4)  # heights of the wall targets used for returns
+    # --- scripted detour around the can (opt-in, see BaseNavigator.detour_waypoint) --------------
+    waypoint_clearance: float = 0.6    # straight line closer than this to the can centre needs a detour
+    waypoint_offset: float = 1.2       # preferred sideways distance of the detour points from the can centre
+    waypoint_along: float = 0.9        # how far before / past the can (along the line) they sit
+    waypoint_min_offset: float = 0.8   # the detour point is never closer to the can than this
+    waypoint_band: tuple = (0.0, 0.3)  # arrival band around the detour point (the base must get near it)
     # --- goal bands (horizontal distance from the goal point, metres) ---------------------------
     # Measured - the arm-only dip works from about 0.8-1.4 m from the can centre at any heading.
     dip_band: tuple = (0.9, 1.3)
@@ -165,6 +171,7 @@ class MotionRLConfig:
     inset_full_penalty: float = 0.35   # centre-to-wall distance at which the inset penalty is full
     # --- episode --------------------------------------------------------------------------
     max_steps: int = 400
+    live_max_steps: int = 50           # the live navigator gives up a leg after this many steps (training uses max_steps)
     # --- reward weights -------------------------------------------------------------------
     w_progress: float = 10.0           # per metre closer to the band
     w_time: float = 0.05
@@ -551,6 +558,42 @@ class BaseNavigator(_MotionCore):
         self.read_pose()
         return self._success(self._goal_metrics()[0])
 
+    def detour_waypoints(self, goal_xy):
+        # Scripted points that take the base around the can when the straight line from the base to
+        # `goal_xy` runs through it - one beside the can on this side of it, one beside it on the far
+        # side. Empty when the line is clear. The policy does not learn to go around a can that sits
+        # directly between it and the goal, so this part of the plan is hand written. The side that
+        # needs the smaller turn (without crossing the yaw stops) is used, and the points are pulled
+        # back inside the base limits, which a small room needs.
+        self.read_pose()
+        c = np.array(self.can.position[:2], float)
+        b = np.array([self.x, self.y])
+        v = np.array(goal_xy, float) - b
+        length = float(np.hypot(*v))
+        if length < 1e-6:
+            return []
+        t = float(np.dot(c - b, v)) / (length * length)
+        offset_from_line = abs(float((c[0] - b[0]) * v[1] - (c[1] - b[1]) * v[0])) / length
+        if not (0.0 < t < 1.0) or offset_from_line >= self.cfg.waypoint_clearance:
+            return []
+        direction = v / length
+        normal = np.array([-direction[1], direction[0]])
+        x0, x1, y0, y1 = self._limits()
+        best, best_score = [], -math.inf
+        for side in (1.0, -1.0):
+            points = []
+            for along in (-1.0, 1.0):
+                w = c + along * direction * self.cfg.waypoint_along + side * normal * self.cfg.waypoint_offset
+                points.append(np.array([min(max(w[0], x0), x1), min(max(w[1], y0), y1)]))
+            if any(not self._inside(w[0], w[1]) or float(np.hypot(*(w - c))) < self.cfg.waypoint_min_offset
+                   for w in points):
+                continue
+            turn = feasible_turn(self.yaw, math.atan2(points[0][1] - b[1], points[0][0] - b[0]))
+            score = -abs(turn) + 0.1 * min(distance_to_polygon_edges(w[0], w[1], self._poly) for w in points)
+            if score > best_score:
+                best, best_score = [(float(w[0]), float(w[1])) for w in points], score
+        return best
+
     def step(self):
         self.read_pose()
         self._steps += 1
@@ -559,7 +602,7 @@ class BaseNavigator(_MotionCore):
         dist, bearing, turn = self._goal_metrics()
         if self._success(dist):
             return "success", None
-        if self._steps > self.cfg.max_steps:
+        if self._steps > self.cfg.live_max_steps:
             return "timeout", None
         obs = self._observation(self._sense(), dist, bearing, turn)
         action, _ = self.model.predict(obs, deterministic=True)

@@ -42,6 +42,9 @@ MOTION_RL_MODEL_PATH: str | None = None
 # False - when the motion policy fails a leg, abort instead of finishing it with the classic
 # planner, so the policy's own performance is visible. --motion-rl-fallback turns the safety net on.
 MOTION_RL_FALLBACK = False
+# True - on a return, first drive to a scripted point beside the paint can when the can is in the
+# way (the policy does not learn that detour). Off by default. --motion-rl-waypoint turns it on.
+MOTION_RL_WAYPOINT = False
 # A* always runs its exact, exponential search now (no fallback) -- so when it's selected, use
 # a coarser grid (close to the pre-roller-shrink cell size) to keep the per-wall cell count
 # small enough to actually finish, instead of the much finer grid the other strategies use.
@@ -130,7 +133,8 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         coverage_map, wall_map, approach_offset=Robot.ROLLER_RADIUS - 0.001
     )
     controller = CoordRobotController(robot, motion_planner, wall_map, path_tracker, env,
-                                      base_navigator=navigator, rl_fallback=MOTION_RL_FALLBACK)
+                                      base_navigator=navigator, rl_fallback=MOTION_RL_FALLBACK,
+                                      rl_waypoints=MOTION_RL_WAYPOINT)
 
     print(f"\n=== Painting wall '{name}' ===")
     if not controller.ensure_dipped(paint_can):
@@ -367,6 +371,8 @@ if __name__ == "__main__":
                         help="Trained base-motion policy (.zip) for the trips to the paint can and back")
     parser.add_argument("--motion-rl-fallback", action="store_true",
                         help="With --motion-rl: finish a failed RL leg with the classic planner")
+    parser.add_argument("--motion-rl-waypoint", action="store_true",
+                        help="With --motion-rl: detour via a scripted point when the paint can is in the way")
     parser.add_argument("--seed", type=int, default=ROOM_SEED,
                         help="Random room from this seed (same seed = same room); omit for the default room")
     parser.add_argument("--l-shape", type=float, nargs="?", const=1.0, default=L_SHAPE_PROBABILITY,
@@ -383,4 +389,6 @@ if __name__ == "__main__":
         MOTION_RL_MODEL_PATH = args.motion_rl
     if args.motion_rl_fallback:
         MOTION_RL_FALLBACK = True
+    if args.motion_rl_waypoint:
+        MOTION_RL_WAYPOINT = True
     main(gui=not args.headless, seed=args.seed, l_shape_probability=args.l_shape)

@@ -22,7 +22,7 @@ class CoordRobotController(RobotController):
 
     def __init__(self, robot, motion_planner, wall_map, path_tracker, coord_env,
                  joint_tolerance=0.002, max_steps_per_waypoint=200, base_navigator=None,
-                 rl_fallback=True):
+                 rl_fallback=True, rl_waypoints=False):
         super().__init__(robot, motion_planner, wall_detector=None, wall_map=wall_map,
                          path_tracker=path_tracker, joint_tolerance=joint_tolerance,
                          max_steps_per_waypoint=max_steps_per_waypoint)
@@ -35,6 +35,9 @@ class CoordRobotController(RobotController):
         # False = no safety net - a failed RL leg aborts the dip / the cell instead of continuing
         # with the classic travel, so the policy's own performance is what shows up.
         self.rl_fallback = rl_fallback
+        # True = on a return, first go to a scripted point beside the paint can whenever the can is
+        # in the way (BaseNavigator.detour_waypoint). Off by default so the policy's own behaviour shows.
+        self.rl_waypoints = rl_waypoints
         self._resume_pending = False
         self._last_paint_position = None
         self._painting = False
@@ -381,7 +384,15 @@ class CoordRobotController(RobotController):
         # RL return - drive into the band in front of the target, then bring the roller to the
         # approach point in front of it with the arm alone.
         nav = self.base_navigator
-        if not self.navigate_base(RETURN, target.position[:2], nav.paint_band(target.position[2])):
+        goal = target.position[:2]
+        if self.rl_waypoints:
+            for waypoint in nav.detour_waypoints(goal):
+                if math.hypot(nav.x - waypoint[0], nav.y - waypoint[1]) < 0.35:
+                    continue  # already there
+                print(f"[RL motion] The paint can is in the way - detour via ({waypoint[0]:.2f}, {waypoint[1]:.2f}).")
+                if not self.navigate_base(RETURN, waypoint, nav.cfg.waypoint_band):
+                    return False
+        if not self.navigate_base(RETURN, goal, nav.paint_band(target.position[2])):
             return False
         approach = [float(v + n * self.RETRACT_DISTANCE) for v, n in zip(target.position, wall.normal)]
         return self._arm_to(approach)
