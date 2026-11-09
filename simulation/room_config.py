@@ -131,7 +131,7 @@ class RoomSampler:
     edge_margin: float = 0.3 # min gap between an opening and a wall end / the next one
     top_margin: float = 0.2 # min gap between an opening and the ceiling
 
-    def sample(self, seed=0) -> RoomConfig:
+    def sample(self, seed=None) -> RoomConfig:
         rng = np.random.default_rng(seed)
         u = lambda r: float(rng.uniform(*r))
         # Only draws from rng when L rooms are enabled, so rectangular rooms keep their seeds.
