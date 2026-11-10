@@ -45,6 +45,22 @@ class CoordRobotController(RobotController):
         self._allowed_contact_body = None
         self._diagnosed_cells = set()
 
+    def _wall_group(self, wall):
+        """Body ids of this wall and of the walls meeting it at a reflex corner (e.g. an L's notch).
+
+        At a reflex corner the two wall slabs overlap and their faces are coplanar, so a roller
+        painting near the corner presses into both - contact with the pair is allowed. A wall with
+        ext[0] == 0 has a reflex corner at its start (convex corners get ext[0] = thickness).
+        """
+        walls = self.coord_env.walls
+        i = walls.index(wall)
+        group = [wall.body_id]
+        if wall.ext[0] == 0:
+            group.append(walls[i - 1].body_id)
+        if walls[(i + 1) % len(walls)].ext[0] == 0:
+            group.append(walls[(i + 1) % len(walls)].body_id)
+        return tuple(group)
+
     def _lift_stroke(self):
         for wall in self.coord_env.walls:
             wall.canvas.lift()
@@ -215,20 +231,26 @@ class CoordRobotController(RobotController):
         position = self.robot.get_roller_position()
         retreat = list(position)
         touching = []
+        touched = None
         for wall in self.coord_env.walls:
             distance = wall.signed_distance(position)
             if p.getContactPoints(self.robot.id, wall.body_id,
                                   linkIndexA=self.robot.roller_link_index):
                 touching.append(wall.body_id)
+                touched = touched or wall
+            u = wall.world_to_uv(position)[0]
+            if not -0.05 <= u <= wall.length + 0.05:
+                continue  # beside this wall, not in front of it (e.g. above an L's notch)
             gap = self.robot.ROLLER_RADIUS + self.RETRACT_DISTANCE - distance
             if gap > 0:
                 retreat = [v + float(n) * gap for v, n in zip(retreat, wall.normal)]
-        if len(touching) > 1:
+        # Touching two walls is fine only when they meet at a reflex corner.
+        if len(touching) > 1 and not set(touching) <= set(self._wall_group(touched)):
             print("[CoordRobotController] Cannot retract: roller touches multiple walls.")
             return False
         if math.dist(position, retreat) < 0.001:
             return True
-        allowed = touching[0] if touching else None
+        allowed = tuple(touching) if touching else None
         return self.move_to(retreat, allowed_contact_body=allowed, retract=True)
 
     def _travel_to(self, target_position):
@@ -489,7 +511,7 @@ class CoordRobotController(RobotController):
                     return False
         self._painting = True
         try:
-            if not self.move_to(target.position, target.orientation, wall.body_id):
+            if not self.move_to(target.position, target.orientation, self._wall_group(wall)):
                 return False
             # Hold briefly to establish wall contact and settle the 1 mm contact offset.
             for _ in range(40):

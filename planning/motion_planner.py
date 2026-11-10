@@ -383,11 +383,19 @@ class MotionPlanner:
         clearance = 0.003 if executing else self.FLOOR_CLEARANCE
         if bottom < self.floor_z + clearance - 1e-6:
             return True
+        # One body id, or several (the active wall plus the wall across a reflex corner, whose face
+        # is coplanar with it there - pressing the roller into one presses it into both).
+        if allowed_contact_body is None:
+            allowed = ()
+        elif isinstance(allowed_contact_body, (tuple, list, set, frozenset)):
+            allowed = allowed_contact_body
+        else:
+            allowed = (allowed_contact_body,)
         for body in self.collision_bodies:
             for point in self._collision_points(body):
                 link, distance = point[3], point[8]
                 if link == self.robot.roller_link_index:
-                    tolerance = self.WALL_PENETRATION if body == allowed_contact_body else 0.0005
+                    tolerance = self.WALL_PENETRATION if body in allowed else 0.0005
                 else:
                     tolerance = 0.002  # numerical tolerance for the chassis on the floor
                 if distance < -tolerance:
