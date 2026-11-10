@@ -29,6 +29,9 @@ MAX_PAINT_ATTEMPTS = 3
 MAX_REPLANS = 3
 # Active strategies: sweep, optimized_prm, bcd_astar, rl
 COVERAGE_STRATEGY = "rl"
+# Weight used by the RL candidate selector: lower values favor staying near the current sweep
+# progress; higher values favor matching the RL action target more closely.
+RL_WEIGHT = 0.25
 # Set to False to disable repaint/replanning after the first pass.
 REPLANNING_ENABLED = True
 # Room layout: ROOM_SEED=None uses the fixed default room.
@@ -163,7 +166,7 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
                 print(f"[main] WARNING: RL model not found at {rl_model_default}; planner will error if required.")
             route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
                                                    RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY,
-                                                   rl_model_path=model_path)
+                                                   rl_model_path=model_path, rl_weight=RL_WEIGHT)
         else:
             route = coverage_planner.plan_full_route(robot.get_roller_position(), paint_can,
                                                    RobotController.REDIP_DISTANCE, strategy=COVERAGE_STRATEGY)
@@ -367,6 +370,8 @@ if __name__ == "__main__":
                         help="Disable repaint/replanning after the first pass")
     parser.add_argument("--strategy", type=str, help="Coverage strategy to use (e.g. rl, sweep)")
     parser.add_argument("--rl-model", type=str, help="Path to RL model to use when strategy=rl")
+    parser.add_argument("--weight", type=float, default=0.25,
+                        help="RL continuity weight used when selecting the next target (default: 0.25)")
     parser.add_argument("--motion-rl", type=str, metavar="MODEL",
                         help="Trained base-motion policy (.zip) for the trips to the paint can and back")
     parser.add_argument("--motion-rl-fallback", action="store_true",
@@ -382,6 +387,8 @@ if __name__ == "__main__":
         REPLANNING_ENABLED = False
     if args.strategy:
         COVERAGE_STRATEGY = args.strategy
+    if args.weight is not None:
+        RL_WEIGHT = args.weight
     # If provided, let the rl model path override the default used by the planner.
     if args.rl_model:
         RL_MODEL_PATH = args.rl_model

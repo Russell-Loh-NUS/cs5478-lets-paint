@@ -71,6 +71,9 @@ KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy bcd_astar --headless
 conda activate base
 KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --headless
 
+# RL strategy with a stronger preference for the model's target (default is 0.25)
+conda activate base
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --weight 0.75 --headless
 
 ```
 
@@ -106,6 +109,9 @@ KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --disable-replanning
 # Use the RL planner but allow replanning (multiple attempts)
 KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --headless
 
+# Use the RL planner with a stronger model-target weighting (default 0.25)
+KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy rl --weight 0.75 --headless
+
 # Run BCD A* strategy
 KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy bcd_astar --headless
 
@@ -118,6 +124,7 @@ KMP_DUPLICATE_LIB_OK=TRUE python main.py --strategy sweep --headless
 
 Notes:
 - By default `main` looks for the RL model at `models/ppo_coverage_final.zip`. If you prefer, place your model file there before running.
+- `--weight` controls how strongly the RL selector prefers the model's target relative to staying near the current wall progress; default is `0.25`, and `--weight 0.75` makes the model influence stronger.
 - You can disable replanning entirely with `--disable-replanning` (single planned pass only).
 - The RL action contract is continuous `[x, y, dip_score]` where `dip_score > 0.5` triggers a dip; the planner maps `(x,y)` to the nearest wall grid cell when building the route.
 

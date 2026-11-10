@@ -36,7 +36,9 @@ class CoveragePlanner:
         self.wall = wall
         self.approach_offset = approach_offset
 
-    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="sweep", rl_model_path: Optional[str] = None, rl_max_steps: int = 2000):
+    def plan_full_route(self, start_position, paint_can, redip_distance, strategy="sweep",
+                       rl_model_path: Optional[str] = None, rl_max_steps: int = 2000,
+                       rl_weight: float = 0.25):
         """Read the whole unpainted set and return a dip-aware route, using the given strategy."""
         if strategy not in self.STRATEGIES:
             raise ValueError(f"Unknown coverage strategy '{strategy}', expected one of {self.STRATEGIES}")
@@ -48,7 +50,10 @@ class CoveragePlanner:
         if strategy == "bcd_astar":
             return self._build_route_bcd_astar(start_position, paint_can, redip_distance)
         if strategy == "rl":
-            return self._build_route_rl(start_position, paint_can, redip_distance, rl_model_path=rl_model_path, rl_max_steps=rl_max_steps)
+            return self._build_route_rl(start_position, paint_can, redip_distance,
+                                       rl_model_path=rl_model_path,
+                                       rl_max_steps=rl_max_steps,
+                                       rl_weight=rl_weight)
         raise ValueError(f"Unhandled coverage strategy '{strategy}'")
 
     def print_route(self, route):
@@ -264,7 +269,9 @@ class CoveragePlanner:
 
         return route
 
-    def _build_route_rl(self, start_position, paint_can, redip_distance, rl_model_path: Optional[str] = None, rl_max_steps: int = 200):
+    def _build_route_rl(self, start_position, paint_can, redip_distance,
+                       rl_model_path: Optional[str] = None, rl_max_steps: int = 200,
+                       rl_weight: float = 0.25):
         """Placeholder for RL-driven coverage planning.
 
         The RL planner is intentionally a runtime-driven strategy: an external RL loop
@@ -357,7 +364,7 @@ class CoveragePlanner:
                 action_distance = math.dist((x, y), (pos[0], pos[1]))
                 continuity_distance = math.dist(last_position, pos)
                 # A low continuity distance is preferred, but the model still influences the choice.
-                key = (continuity_distance + 0.25 * action_distance, action_distance)
+                key = (continuity_distance + rl_weight * action_distance, action_distance)
                 if best_key is None or key < best_key:
                     best_key = key
                     best = (r, c)
