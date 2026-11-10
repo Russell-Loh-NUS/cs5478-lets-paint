@@ -114,7 +114,7 @@ class RoomSampler:
     # Draws random RoomConfigs. Same seed always gives the same room.
     width: tuple = (3.0, 6.0)
     depth: tuple = (3.0, 5.0)
-    height: tuple = (2.4, 3.0)
+    height: tuple = (2.4, 2.6) # the arm cannot reach into the top-row corners of taller walls
     l_shape_probability: float = 0.0 # chance a room is L shaped (0 = always a rectangle, 1 = always L)
     l_width: tuple = (4.0, 6.0) # bounding box of an L room
     l_depth: tuple = (4.0, 5.5)
