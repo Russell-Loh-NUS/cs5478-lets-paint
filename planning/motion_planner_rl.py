@@ -145,6 +145,10 @@ class MotionRLConfig:
     # Return starts are around the can, where a dip leaves the base, with any heading.
     return_start_range: tuple = (0.8, 1.5)
     target_z_range: tuple = (0.15, 2.4)  # heights of the wall targets used for returns
+    # Share of return episodes that start on the far side of the can from the wall target, so the can
+    # sits between the base and the goal and the policy must learn to drive around it.
+    can_between_prob: float = 0.0
+    can_between_spread: float = 0.6    # rad - how far off the straight line through the can the start may be
     # --- scripted detour around the can (opt-in, see BaseNavigator.detour_waypoint) --------------
     waypoint_clearance: float = 0.6    # straight line closer than this to the can centre needs a detour
     waypoint_offset: float = 1.2       # preferred sideways distance of the detour points from the can centre
@@ -395,6 +399,20 @@ class RLMotionEnv(_MotionCore, gym.Env):
                 return cx + r * math.cos(a), cy + r * math.sin(a), yaw
         return None
 
+    def _behind_can_pose(self, goal_xy):
+        # On the far side of the can from the goal (within +-can_between_spread of the line through it).
+        cx, cy = self.can.position[0], self.can.position[1]
+        base_angle = math.atan2(cy - goal_xy[1], cx - goal_xy[0])
+        lo, hi = self.cfg.return_start_range
+        for _ in range(60):
+            a = base_angle + float(self.rng.uniform(-self.cfg.can_between_spread, self.cfg.can_between_spread))
+            r = float(self.rng.uniform(lo, hi))
+            yaw = float(self.rng.uniform(-YAW_LIMIT, YAW_LIMIT))
+            x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+            if self._pose_is_free(x, y, yaw, self.cfg.spawn_margin):
+                return x, y, yaw
+        return None
+
     def _sample_episode(self) -> bool:
         if not self._place_can():
             return False
@@ -411,10 +429,13 @@ class RLMotionEnv(_MotionCore, gym.Env):
             start = start or self._random_free_pose()
             self.goal_xy, self.band = tuple(can_xy), self.cfg.dip_band
         else:
-            start = self._ring_pose()
             point, _ = self._random_wall_point()
             z = float(self.rng.uniform(*self.cfg.target_z_range))
             self.goal_xy = (float(point[0]), float(point[1]))
+            start = None
+            if self.cfg.can_between_prob > 0 and self.rng.random() < self.cfg.can_between_prob:
+                start = self._behind_can_pose(self.goal_xy)
+            start = start or self._ring_pose()
             self.band = paint_band(z, self.cfg.band_margin)
         if start is None:
             return False

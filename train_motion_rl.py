@@ -75,9 +75,11 @@ def main():
     ap.add_argument("--resume", metavar="MODEL", help="continue training from this model's weights")
     ap.add_argument("--first-stage", type=int, default=1, choices=(1, 2, 3),
                     help="skip the curriculum stages before this one (use with --resume)")
+    ap.add_argument("--can-between", type=float, default=0.0,
+                    help="share of return episodes that start with the can between the base and the wall")
     args = ap.parse_args()
 
-    base =MotionRLConfig(phase=args.phase)
+    base = MotionRLConfig(phase=args.phase, can_between_prob=args.can_between)
     if args.eval_only:
         cfg = replace(base, keep_openings=True,
                       l_shape_probability=args.l_prob if args.l_prob is not None else 0.0)
