@@ -72,12 +72,28 @@ class Tee:
             stream.flush()
 
 
-def configure_file_logging(strategy_name: str = None):
+def configure_file_logging(strategy_name: str = None, seed_value: int | None = None,
+                          is_l_shape: bool = False, replanning_enabled: bool | None = None,
+                          headless: bool = False):
     log_dir = Path(__file__).resolve().parent / "logs"
     log_dir.mkdir(exist_ok=True)
     strategy = (strategy_name or COVERAGE_STRATEGY or "unknown").strip().lower()
+
+    if replanning_enabled is None:
+        replanning_enabled = REPLANNING_ENABLED
+    mode = "replanning" if replanning_enabled else "noreplanning"
+    seed_label = "none" if seed_value is None else str(seed_value)
+    layout = "L" if is_l_shape else "NL"
+    render_mode = "headless" if headless else "gui"
+
+    if strategy == "rl":
+        weight_suffix = f"_weight_{RL_WEIGHT:g}"
+    else:
+        weight_suffix = ""
+
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    log_path = log_dir / f"{strategy}-{timestamp}.log"
+    filename = f"{strategy}{weight_suffix}_seed_{seed_label}_{layout}_{mode}_{render_mode}_{timestamp}.log"
+    log_path = log_dir / filename
     log_file = log_path.open("w", encoding="utf-8")
     print(f"[main] Logging to {log_path}")
     return log_file
@@ -153,6 +169,12 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
     attempt = 0
     planner_time_total = 0.0
     redips_total = 0
+    baseline_coverage = None
+    baseline_planner_time = 0.0
+    baseline_redips = 0
+    baseline_path_length = 0.0
+    baseline_runtime = 0.0
+    wall_t0 = time.perf_counter()
     # default RL model path (used when COVERAGE_STRATEGY == 'rl')
     rl_model_default = Path(__file__).resolve().parent / "models" / "ppo_coverage_final.zip"
     # allow CLI override
@@ -177,6 +199,41 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         coverage_planner.print_route(route)
         return route
 
+    first_pass_route = None
+    if REPLANNING_ENABLED:
+        print(f"[{name}] Running the initial single-pass baseline before replanning...")
+        path_before_first_pass = path_tracker.get_total_length()
+        wall_run_start = time.perf_counter()
+        first_pass_route = plan_route()
+        if not _execute_route(first_pass_route, controller, paint_can, wall_map, path_tracker, total_cells):
+            baseline_path_length = path_tracker.get_total_length() - path_before_first_pass
+            baseline_runtime = time.perf_counter() - wall_run_start
+            return {
+                "name": name,
+                "coverage": coverage_percentage(wall_map),
+                "planner_time": planner_time_total,
+                "redips": redips_total,
+                "baseline": {
+                    "coverage": coverage_percentage(wall_map),
+                    "planner_time": planner_time_total,
+                    "redips": redips_total,
+                    "path_length": baseline_path_length,
+                    "runtime": baseline_runtime,
+                },
+                "final": {
+                    "coverage": coverage_percentage(wall_map),
+                    "planner_time": planner_time_total,
+                    "redips": redips_total,
+                    "path_length": path_tracker.get_total_length(),
+                    "runtime": time.perf_counter() - wall_run_start,
+                },
+            }
+        baseline_coverage = coverage_percentage(wall_map)
+        baseline_planner_time = planner_time_total
+        baseline_redips = redips_total
+        baseline_path_length = path_tracker.get_total_length() - path_before_first_pass
+        baseline_runtime = time.perf_counter() - wall_run_start
+
     if REPLANNING_ENABLED:
         while not coverage_map.is_complete(threshold=0.8) and attempt < MAX_REPLANS:
             attempt += 1
@@ -197,8 +254,37 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         print(f"[{name}] Replanning disabled; running a single paint pass only.")
         route = plan_route()
         _execute_route(route, controller, paint_can, wall_map, path_tracker, total_cells)
+        baseline_coverage = coverage_percentage(wall_map)
+        baseline_planner_time = planner_time_total
+        baseline_redips = redips_total
+        baseline_path_length = path_tracker.get_total_length()
+        baseline_runtime = time.perf_counter() - wall_t0
 
     coverage = coverage_percentage(wall_map)
+    wall_runtime = time.perf_counter() - wall_t0
+    final_stats = {
+        "coverage": coverage,
+        "planner_time": planner_time_total,
+        "redips": redips_total,
+        "path_length": path_tracker.get_total_length(),
+        "runtime": wall_runtime,
+    }
+    baseline_stats = {
+        "coverage": baseline_coverage if baseline_coverage is not None else coverage,
+        "planner_time": baseline_planner_time if baseline_planner_time else planner_time_total,
+        "redips": baseline_redips if baseline_redips else redips_total,
+        "path_length": baseline_path_length,
+        "runtime": baseline_runtime,
+    }
+
+    print(f"[{name}] Final conclusion (before replanning): coverage={baseline_stats['coverage']:.1f}% "
+          f"planner_time={baseline_stats['planner_time']:.2f}s redips={baseline_stats['redips']} "
+          f"path_length={baseline_stats['path_length']:.2f}m runtime={baseline_stats['runtime']:.2f}s")
+    print(f"[{name}] Final conclusion (with replanning): coverage={final_stats['coverage']:.1f}% "
+          f"planner_time={final_stats['planner_time']:.2f}s redips={final_stats['redips']} "
+          f"path_length={final_stats['path_length']:.2f}m "
+          f"runtime={final_stats['runtime']:.2f}s "
+          f"coverage_gain={final_stats['coverage'] - baseline_stats['coverage']:.1f} pts")
     print(f"[{name}] Coverage: {coverage:.1f}%  Error: {coverage_error(wall_map):.1f}%")
     if coverage < 100.0:
         uncovered, total = wall_map.uncovered_cells(limit=50)
@@ -211,6 +297,8 @@ def _paint_wall(name, wall_map, env, robot, paint_can, motion_planner, path_trac
         "coverage": coverage,
         "planner_time": planner_time_total,
         "redips": redips_total,
+        "baseline": baseline_stats,
+        "final": final_stats,
     }
 
 
@@ -224,7 +312,11 @@ def _room_bounds(env):
 
 
 def main(gui=True, seed=None, l_shape_probability=0.0):
-    log_file = configure_file_logging(COVERAGE_STRATEGY)
+    log_file = configure_file_logging(COVERAGE_STRATEGY,
+                                     seed_value=seed,
+                                     is_l_shape=(l_shape_probability > 0.0),
+                                     replanning_enabled=REPLANNING_ENABLED,
+                                     headless=not gui)
     if gui:
         pybullet_retry.install()  # the GUI connection fails sporadically - see simulation/pybullet_retry.py
     original_stdout = sys.stdout
@@ -312,6 +404,18 @@ def _run(env, run_started_at):
     overall_coverage = 100.0 * total_painted / total_cells if total_cells else 0.0
     all_complete = all(wm.all_painted() for wm in wall_maps.values()) and len(wall_maps) == len(wall_order)
 
+    baseline_total_painted = 0
+    baseline_total_path_length = 0.0
+    baseline_total_runtime = 0.0
+    for name, wm in wall_maps.items():
+        baseline = wall_metrics.get(name, {}).get("baseline", {})
+        if baseline:
+            coverage_fraction = baseline.get("coverage", 0.0) / 100.0
+            baseline_total_painted += coverage_fraction * wm.total_cells()
+            baseline_total_path_length += float(baseline.get("path_length", 0.0))
+            baseline_total_runtime += float(baseline.get("runtime", 0.0))
+    baseline_overall_coverage = 100.0 * baseline_total_painted / total_cells if total_cells else 0.0
+
     print("\n=== Room painting summary ===")
     print("All walls complete!" if all_complete else "Room painting stopped before full coverage.")
     print(f"Overall coverage: {overall_coverage:.1f}% ({total_painted}/{total_cells} cells)")
@@ -334,10 +438,22 @@ def _run(env, run_started_at):
         f"{name}={wall_metrics.get(name, {}).get('coverage', 0.0):.1f}%"
         for name in wall_order if name in wall_metrics
     )
-    print("\n=== Final conclusion ===")
-    print(f"Conclusion: wall coverage: {wall_coverage_statement}; total coverage: {overall_coverage:.1f}% over {len(wall_order)} walls; "
+    print("\n=== Final conclusion (before replanning) ===")
+    baseline_statement = ", ".join(
+        f"{name}={wall_metrics.get(name, {}).get('baseline', {}).get('coverage', 0.0):.1f}%"
+        for name in wall_order if name in wall_metrics and 'baseline' in wall_metrics.get(name, {})
+    )
+    baseline_planner_time = sum(stats.get("baseline", {}).get("planner_time", 0.0) for stats in wall_metrics.values())
+    baseline_redips = sum(stats.get("baseline", {}).get("redips", 0) for stats in wall_metrics.values())
+    print(f"Conclusion (before replanning): wall coverage: {baseline_statement or 'n/a'}; total coverage: {baseline_overall_coverage:.1f}% over {len(wall_order)} walls; "
+          f"total path length: {baseline_total_path_length:.2f} m; total run time: {baseline_total_runtime:.2f} s; "
+          f"planner planning time: {baseline_planner_time:.2f} s; total redips required: {baseline_redips}.")
+
+    print("\n=== Final conclusion (with replanning) ===")
+    print(f"Conclusion (with replanning): wall coverage: {wall_coverage_statement}; total coverage: {overall_coverage:.1f}% over {len(wall_order)} walls; "
           f"total path length: {path_tracker.get_total_length():.2f} m; total run time: {elapsed:.2f} s; "
-          f"planner planning time: {planner_time_total:.2f} s; total redips required: {redips_total}.")
+          f"planner planning time: {planner_time_total:.2f} s; total redips required: {redips_total}; "
+          f"coverage increase over baseline: {overall_coverage - baseline_overall_coverage:.1f} pts.")
     if not p.isConnected():
         return
 
