@@ -364,7 +364,7 @@ class CoveragePlanner:
                 action_distance = math.dist((x, y), (pos[0], pos[1]))
                 continuity_distance = math.dist(last_position, pos)
                 # A low continuity distance is preferred, but the model still influences the choice.
-                key = (rl_weight * action_distance, action_distance)
+                key = (continuity_distance + rl_weight * action_distance, action_distance)
                 if best_key is None or key < best_key:
                     best_key = key
                     best = (r, c)
