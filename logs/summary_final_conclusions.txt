@@ -1,0 +1,20 @@
+Final conclusion summary for active logs
+Format: strategy | seed | layout | before_replanning | with_replanning
+before_replanning = coverage, path_len, run_time, planner_time, redips
+with_replanning = coverage, path_len, run_time, planner_time, redips, coverage_gain
+---
+bcd_astar | seed=1 | layout=NL | before=coverage=95.9%, path_len=409.55m, run_time=74.73s, planner_time=0.16s, redips=34 | after=coverage=95.9%, path_len=770.16m, run_time=101.79s, planner_time=0.53s, redips=50, coverage_gain=0.4 pts
+bcd_astar | seed=3 | layout=L | before=coverage=95.5%, path_len=400.38m, run_time=83.36s, planner_time=0.14s, redips=36 | after=coverage=95.5%, path_len=662.04m, run_time=112.73s, planner_time=0.51s, redips=44, coverage_gain=0.1 pts
+bcd_astar | seed=none | layout=NL | before=coverage=97.0%, path_len=289.41m, run_time=60.67s, planner_time=0.12s, redips=25 | after=coverage=97.0%, path_len=605.63m, run_time=85.56s, planner_time=0.36s, redips=40, coverage_gain=0.0 pts
+optimized_prm | seed=1 | layout=NL | before=coverage=67.8%, path_len=239.64m, run_time=50.73s, planner_time=2.16s, redips=28 | after=coverage=67.8%, path_len=682.25m, run_time=108.31s, planner_time=10.43s, redips=44, coverage_gain=20.2 pts
+optimized_prm | seed=3 | layout=L | before=coverage=69.1%, path_len=290.26m, run_time=58.60s, planner_time=1.35s, redips=33 | after=coverage=69.1%, path_len=727.17m, run_time=114.92s, planner_time=9.11s, redips=51, coverage_gain=26.3 pts
+optimized_prm | seed=none | layout=NL | before=coverage=68.2%, path_len=151.32m, run_time=38.01s, planner_time=0.98s, redips=21 | after=coverage=68.2%, path_len=388.61m, run_time=69.86s, planner_time=6.14s, redips=31, coverage_gain=22.3 pts
+rl_weight_0.25 | seed=1 | layout=NL | before=coverage=96.0%, path_len=348.02m, run_time=139.76s, planner_time=70.49s, redips=32 | after=coverage=96.0%, path_len=442.60m, run_time=150.75s, planner_time=72.34s, redips=32, coverage_gain=0.1 pts
+rl_weight_0.25 | seed=3 | layout=L | before=coverage=95.5%, path_len=339.58m, run_time=142.96s, planner_time=64.51s, redips=35 | after=coverage=95.5%, path_len=434.28m, run_time=167.02s, planner_time=69.72s, redips=35, coverage_gain=0.0 pts
+rl_weight_0.25 | seed=none | layout=NL | before=coverage=97.0%, path_len=268.26m, run_time=103.81s, planner_time=45.93s, redips=24 | after=coverage=97.0%, path_len=337.93m, run_time=118.36s, planner_time=49.60s, redips=24, coverage_gain=0.0 pts
+rl_weight_0.75 | seed=1 | layout=NL | before=coverage=96.0%, path_len=394.36m, run_time=149.22s, planner_time=77.26s, redips=41 | after=coverage=96.0%, path_len=481.65m, run_time=160.47s, planner_time=79.21s, redips=41, coverage_gain=0.1 pts
+rl_weight_0.75 | seed=3 | layout=L | before=coverage=95.0%, path_len=408.95m, run_time=153.42s, planner_time=68.20s, redips=44 | after=coverage=95.0%, path_len=469.33m, run_time=174.59s, planner_time=74.14s, redips=44, coverage_gain=0.0 pts
+rl_weight_0.75 | seed=none | layout=NL | before=coverage=95.1%, path_len=280.77m, run_time=105.44s, planner_time=48.49s, redips=30 | after=coverage=95.1%, path_len=354.99m, run_time=121.13s, planner_time=52.58s, redips=30, coverage_gain=1.7 pts
+sweep | seed=1 | layout=NL | before=coverage=83.9%, path_len=384.73m, run_time=64.37s, planner_time=0.28s, redips=33 | after=coverage=83.9%, path_len=682.14m, run_time=86.75s, planner_time=0.71s, redips=46, coverage_gain=0.2 pts
+sweep | seed=3 | layout=L | before=coverage=95.1%, path_len=384.76m, run_time=79.08s, planner_time=0.29s, redips=35 | after=coverage=95.1%, path_len=622.22m, run_time=96.43s, planner_time=0.67s, redips=43, coverage_gain=0.0 pts
+sweep | seed=none | layout=NL | before=coverage=87.5%, path_len=261.31m, run_time=50.85s, planner_time=0.18s, redips=24 | after=coverage=87.5%, path_len=343.49m, run_time=57.00s, planner_time=0.46s, redips=24, coverage_gain=0.0 pts

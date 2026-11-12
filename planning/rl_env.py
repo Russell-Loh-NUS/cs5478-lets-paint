@@ -18,9 +18,6 @@ class RLCoverageEnv(gym.Env):
     """Gym environment wrapper around the paint environment for RL-driven coverage.
 
     Notes:
-    - Actions are intentionally left as a placeholder (`Discrete(1)`) until you define
-      the RL action set. The environment implements reward computation and paint/dip
-      semantics so you can plug any action shape later.
     - Each dip replenishes `paint_remaining` to `dip_paint_meters` (default 10.0 m).
     - If the agent attempts to paint beyond the available paint, the environment
       returns an immediate large penalty (-100) and `terminated=True`.
@@ -167,8 +164,39 @@ class RLCoverageEnv(gym.Env):
             return self._observation(), 0.0, True, False, {}
         self._step_count += 1
 
-        # Placeholder: action currently unused. Advance the physics one step and compute reward.
-        # The user will later replace action processing with real motion commands.
+        # Planner-only RL policy: action is a target command [x, y, dip_signal]. The environment
+        # interprets the action as "paint at this next wall point" rather than trying to drive a
+        # full robot controller. This keeps the RL focused on coverage planning rather than the arm
+        # motion stack.
+        action = np.asarray(action, dtype=np.float32).reshape(-1)
+        if action.size < 3:
+            raise ValueError(f"Expected action with at least 3 values [x, y, dip], got shape {action.shape}")
+
+        x, y, dip_signal = float(action[0]), float(action[1]), float(action[2])
+        (x0, x1), (y0, y1) = self._room_xy_ranges()
+        x = float(np.clip(x, x0 - 0.5, x1 + 0.5))
+        y = float(np.clip(y, y0 - 0.5, y1 + 0.5))
+
+        # Pretend the planner is choosing the next wall point to paint. Instead of integrating the
+        # full arm controller, we directly select a target on the active wall and paint a small
+        # patch there. This keeps the RL training aligned with the coverage-planning objective.
+        wall = self.env.walls_by_name.get(self.wall_name)
+        if wall is not None:
+            target_u, target_v = wall.world_to_uv((x, y, 0.0))
+            # Keep the painted stroke inside the wall's valid paintable region.
+            if 0.0 <= target_u <= wall.length and 0.0 <= target_v <= wall.height:
+                wall.canvas.stroke((target_u, target_v), (target_u, target_v), width=0.02)
+
+        # Treat the chosen target as planned travel for the path-length heuristic, without running
+        # the low-level robot motion stack.
+        projected_start = self.robot.get_roller_position()
+        projected_end = np.asarray([x, y, 0.0], dtype=float)
+        self.path_tracker.update(projected_start, projected_end)
+
+        if dip_signal > 0.5:
+            self.register_dip()
+
+        # One env step after the planned target selection.
         self.env.step()
 
         # recompute painted area
@@ -201,9 +229,6 @@ class RLCoverageEnv(gym.Env):
         if collisions > 0:
             self._collision_count += 1
 
-        # dips: no automatic dip handling here; external controller should call `register_dip()`
-        unnecessary_dips = 0
-
         # check paint usage: use path_tracker.distance_since_dip as paint-consumed since last dip
         painted_since_dip = self.path_tracker.distance_since_dip()
         # if the roller has consumed more paint than remaining, mark paint-out
@@ -214,7 +239,7 @@ class RLCoverageEnv(gym.Env):
         reward += w["w_c"] * deltaC
         reward -= w["w_d"] * (L / self.distance_ref)
         reward -= w["w_o"] * collisions
-        reward -= w["w_p"] * unnecessary_dips
+        reward -= w["w_p"] * 0.0
 
         # paint out penalty
         terminated = False

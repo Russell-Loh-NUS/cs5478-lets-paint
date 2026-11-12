@@ -1,0 +1,48 @@
+2026-11-12 21:50:33,238 INFO Training logs will be written to models/training_1794491433.log
+2026-11-12 21:50:33,238 INFO === Stage 1: creating env ===
+2026-11-12 21:50:33,316 INFO Creating new PPO model
+Using cpu device
+2026-11-12 21:50:33,786 INFO Training stage 1 for 2000 timesteps
+-----------------------------
+| time/              |      |
+|    fps             | 553  |
+|    iterations      | 1    |
+|    time_elapsed    | 3    |
+|    total_timesteps | 2048 |
+-----------------------------
+2026-11-12 21:50:37,749 INFO Saving stage 1 model -> models/ppo_stage1.zip
+2026-11-12 21:50:37,799 INFO === Stage 2: creating env ===
+2026-11-12 21:50:37,859 INFO Loading previous model for continued training: models/ppo_stage1.zip
+2026-11-12 21:50:37,866 INFO Training stage 2 for 2000 timesteps
+-----------------------------
+| time/              |      |
+|    fps             | 500  |
+|    iterations      | 1    |
+|    time_elapsed    | 4    |
+|    total_timesteps | 2048 |
+-----------------------------
+2026-11-12 21:50:42,186 INFO Saving stage 2 model -> models/ppo_stage2.zip
+2026-11-12 21:50:42,190 INFO === Stage 3: creating env ===
+2026-11-12 21:50:42,254 INFO Loading previous model for continued training: models/ppo_stage2.zip
+2026-11-12 21:50:42,258 INFO Training stage 3 for 2000 timesteps
+-----------------------------
+| time/              |      |
+|    fps             | 405  |
+|    iterations      | 1    |
+|    time_elapsed    | 5    |
+|    total_timesteps | 2048 |
+-----------------------------
+2026-11-12 21:50:47,527 INFO Saving stage 3 model -> models/ppo_stage3.zip
+2026-11-12 21:50:47,530 INFO === Stage 4: creating env ===
+2026-11-12 21:50:47,594 INFO Loading previous model for continued training: models/ppo_stage3.zip
+2026-11-12 21:50:47,597 INFO Training stage 4 for 2000 timesteps
+-----------------------------
+| time/              |      |
+|    fps             | 301  |
+|    iterations      | 1    |
+|    time_elapsed    | 6    |
+|    total_timesteps | 2048 |
+-----------------------------
+2026-11-12 21:50:54,615 INFO Saving stage 4 model -> models/ppo_stage4.zip
+2026-11-12 21:50:54,619 INFO Saving final model -> models/ppo_coverage_final.zip
+2026-11-12 21:50:54,621 INFO Training finished. Final model: models/ppo_coverage_final.zip
