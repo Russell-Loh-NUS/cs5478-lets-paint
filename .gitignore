@@ -3,3 +3,4 @@ __pycache__/
 output/
 *.egg-info/
 .DS_Store
+backups/old_sac_runs.tar.gz
