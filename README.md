@@ -335,17 +335,6 @@ KMP_DUPLICATE_LIB_OK=TRUE python sac_project/dagger_main.py \
   --room-seed 42
 ```
 
-By default, the runner visits all four walls, targets 98% of reachable
-paintable area per wall, and writes results to
-`sac_project/runs/dagger_continuous/`. Add `--gui --hold-gui` to view the
-simulation and leave the window open when the run finishes. Use
-`--walls south east` to paint only selected walls; see
-`python sac_project/dagger_main.py --help` for the other limits and options.
-
-**Current checkout note:** `dagger_main.py` imports `train_td3_wall.py`,
-`train_stage3_goal_dagger_v4.py`, and `stage3_bottom_expert.py`. These helper
-modules are currently missing from this checkout, so restore them before
-running the command.
 
 ## Physics and Painting Verification
 
