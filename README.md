@@ -309,6 +309,44 @@ KMP_DUPLICATE_LIB_OK=TRUE python train_motion_rl.py --eval-only models/motion_rl
 KMP_DUPLICATE_LIB_OK=TRUE python train_motion_rl.py --resume models/motion_rl/my_run/motion_rl_final.zip --first-stage 2 --stages 3 --timesteps 100000
 ```
 
+## DAgger Training and Room Runner
+
+DAgger (Dataset Aggregation) improves a policy using an expert controller:
+the current policy visits states, the expert labels those states with the
+actions it would take, and the resulting state/action examples are added to
+the training data. The policy is then behavior-cloned on the growing dataset,
+and the process repeats. This helps train on states the policy actually
+encounters, not only states from expert demonstrations. The stage trainers
+train the actor by imitation; they do not train SAC critics.
+
+The stage-specific trainers and instructions are in
+[sac_project/dagger/](sac_project/dagger/). In contrast,
+[sac_project/dagger_main.py](sac_project/dagger_main.py) is a room-painting
+runner, not a DAgger trainer. It loads an already-trained Stage 3 actor
+(56-state observation, 4-action policy), paints the selected walls in one
+persistent PyBullet room, and handles paint-can refills. It writes
+`summary.json` and `diagnostics.jsonl` under the output directory.
+
+From the repository root, run the actor headlessly on a reproducible room:
+
+```bash
+KMP_DUPLICATE_LIB_OK=TRUE python sac_project/dagger_main.py \
+  --paint-actor sac_project/runs/stage3_dagger_v4/best_actor.zip \
+  --room-seed 42
+```
+
+By default, the runner visits all four walls, targets 98% of reachable
+paintable area per wall, and writes results to
+`sac_project/runs/dagger_continuous/`. Add `--gui --hold-gui` to view the
+simulation and leave the window open when the run finishes. Use
+`--walls south east` to paint only selected walls; see
+`python sac_project/dagger_main.py --help` for the other limits and options.
+
+**Current checkout note:** `dagger_main.py` imports `train_td3_wall.py`,
+`train_stage3_goal_dagger_v4.py`, and `stage3_bottom_expert.py`. These helper
+modules are currently missing from this checkout, so restore them before
+running the command.
+
 ## Physics and Painting Verification
 
 The verification script uses real PyBullet DIRECT physics and no GUI. It checks targets, can solidity, collisions, IK, and painting behavior.
@@ -318,4 +356,3 @@ KMP_DUPLICATE_LIB_OK=TRUE python verify_painting.py
 ```
 
 It may take several minutes. A passing run should print `PASS` checks and finish without missed-target or collision assertions.
-
